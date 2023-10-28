@@ -15,7 +15,6 @@ public interface ITile {
   void flipTo(Player p);
 
   //OBSERVATIONS
-
   /**
    * Displays the player that is currently occupying this cell.
    * *********
