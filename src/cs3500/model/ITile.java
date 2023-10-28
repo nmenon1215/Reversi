@@ -6,4 +6,28 @@ package cs3500.model;
  * if there is no Player occupying the field, so be careful with null pointer errors.
  */
 public interface ITile {
+  //OPERATIONS
+  /**
+   * Flips the Player field of this tile to the given Player.
+   * @param p the player who now owns this tile
+   * @throws IllegalArgumentException if the player is null.
+   */
+  void flipTo(Player p);
+
+  //OBSERVATIONS
+
+  /**
+   * Displays the player that is currently occupying this cell.
+   * *********
+   * *WARNING*  Will return null if the Tile is not occupied by a player.
+   * *********
+   * @return The player that is currently occupying the tile.
+   */
+  Player getPlayer();
+
+  /**
+   * Returns a Posn representing the position of this tile relative to the game board.
+   * @return the position of this tile relative to the game board.
+   */
+  Posn getPosition();
 }
