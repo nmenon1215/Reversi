@@ -22,4 +22,10 @@ public class ReversiExamples {
 
   @Test
   public void confirmPlacePieceWithMultipleTilesFlippedInMultipleDirections() {}
+
+  @Test(expected = IllegalStateException.class)
+  public void confirmPlacePieceWithPlacementNextToNoPiecesFails() {}
+
+  @Test(expected = IllegalStateException.class)
+  public void confirmPlacePieceWithPlacementWhereNoTilesAreFlippedFails() {}
 }

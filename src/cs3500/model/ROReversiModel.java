@@ -19,7 +19,7 @@ public interface ROReversiModel {
    * @throws IllegalArgumentException if the posn does not correspond to a place on the board or is
    *         null
    */
-  ITile getTileAt(Posn p);
+  ITile getTileAt(Posn posn);
 
   /**
    * Determines if the game is over. The game is over if all tiles are of only a single color, or
