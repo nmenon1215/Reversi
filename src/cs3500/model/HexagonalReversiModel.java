@@ -13,6 +13,17 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   @Override
   public void placePiece(Player p, Posn posn) {
+    if(p == null) {
+      throw new IllegalArgumentException("The given player can't be null.");
+    }
+    if(posn == null) {
+      throw new IllegalArgumentException("The given position can't be null.");
+    }
+    // find the tile where we will place this piece
+    // find all lines surrounding this tile (NEW METHOD)
+    // for each line check for a sandwich (NEW METHOD)
+      // if there is a sandwich make the move (NEW METHOD)
+    // if no moves were ever made throw error
     throw new RuntimeException(errormsg);
   }
 
@@ -34,6 +45,11 @@ public class HexagonalReversiModel implements MutableReversiModel{
   @Override
   public List<ITile> possibleMoves(Player p) {
     throw new RuntimeException(errormsg);
+    // for every tile in the board
+    // find all lines surrounding this tile (NEW METHOD)
+    // for each line check for a sandwich (NEW METHOD)
+    // if there is a sandwich add to the list of moves
+    // if no moves were ever made throw error
   }
 
   @Override

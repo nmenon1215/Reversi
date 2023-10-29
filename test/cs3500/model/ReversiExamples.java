@@ -15,7 +15,7 @@ public class ReversiExamples {
   public void confirmPiecesStartAtCorrectPlacesOnBoardSizeThree() {}
 
   @Test
-  public void confirmPlacePieceWithOnly1TileFlipped() {}
+  public void confirmPlacePieceWithOnlyOneTileFlipped() {}
 
   @Test
   public void confirmPlacePieceWithMultipleTilesFlippedInOneDirection() {}
