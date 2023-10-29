@@ -2,8 +2,15 @@ package cs3500.model;
 
 public class HexagonalTile implements ITile{
 
+  private Posn posn;
+
   HexagonalTile() {
   }
+
+  HexagonalTile(ITile other) {
+    this.posn = other.getPosition();
+  }
+
 
   String errormsg = "If you got this to run, the code compiles!";
 
