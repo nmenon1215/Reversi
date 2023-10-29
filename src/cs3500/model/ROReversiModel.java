@@ -42,7 +42,7 @@ public interface ROReversiModel {
    * the player is currently occupying.
    * @param p is the player whose score we are determining.
    * @return the score of the given player.
-   * @throws IllegalArgumentException if the player passed in is null. 
+   * @throws IllegalArgumentException if the player passed in is null.
    */
   int getScore(Player p);
 }
