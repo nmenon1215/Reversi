@@ -9,5 +9,17 @@ public class ReversiExamples {
   public void init() {}
 
   @Test
-  public void testSomething() {}
+  public void confirmPiecesStartAtCorrectPlacesOnBoardSizeSix() {}
+
+  @Test
+  public void confirmPiecesStartAtCorrectPlacesOnBoardSizeThree() {}
+
+  @Test
+  public void confirmPlacePieceWithOnly1TileFlipped() {}
+
+  @Test
+  public void confirmPlacePieceWithMultipleTilesFlippedInOneDirection() {}
+
+  @Test
+  public void confirmPlacePieceWithMultipleTilesFlippedInMultipleDirections() {}
 }
