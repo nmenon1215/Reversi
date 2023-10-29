@@ -56,7 +56,7 @@ public class TestModelImplementation {
   // TESTING getScore(Player p)
   @Test(expected = IllegalArgumentException.class)
   public void getScoreOfNullPlayerThrowsIllegalArg() {}
-  
+
   @Test
   public void getScoreOfNewPlayerReturns0() {}
 
