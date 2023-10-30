@@ -1,2 +1,1 @@
 # Reversi
-# Nmenon1215
