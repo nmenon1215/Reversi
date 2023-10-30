@@ -1,5 +1,6 @@
 package cs3500.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HexagonalReversiModel implements MutableReversiModel{
@@ -19,12 +20,27 @@ public class HexagonalReversiModel implements MutableReversiModel{
     if(posn == null) {
       throw new IllegalArgumentException("The given position can't be null.");
     }
-    // find the tile where we will place this piece
-    // find all lines surrounding this tile (NEW METHOD)
-    // for each line check for a sandwich (NEW METHOD)
-      // if there is a sandwich make the move (NEW METHOD)
-    // if no moves were ever made throw error
-    throw new RuntimeException(errormsg);
+
+    ITile placingTile = findTile(posn);
+    if(placingTile.getPlayer() != null) {
+      throw new IllegalStateException("This tile is already occupied.");
+    }
+
+    List<List<ITile>> surroundingLines =  getSurroundingLines(placingTile);
+
+    boolean pieceFlipped = false;
+    for(List<ITile> line : surroundingLines) {
+      if(isSandwich(line)) {
+        flipTiles(line);
+        pieceFlipped = true;
+      }
+    }
+
+    if(!pieceFlipped) {
+      throw new IllegalStateException("No tiles were flipped by this move.");
+    }
+
+    placingTile.flipTo(p);
   }
 
   @Override
@@ -44,12 +60,18 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   @Override
   public List<ITile> possibleMoves(Player p) {
-    throw new RuntimeException(errormsg);
+    List<ITile> possibleMoves = new ArrayList<>();
     // for every tile in the board
-    // find all lines surrounding this tile (NEW METHOD)
-    // for each line check for a sandwich (NEW METHOD)
-    // if there is a sandwich add to the list of moves
-    // if no moves were ever made throw error
+    for (ITile tile : board) {
+      List<List<ITile>> surroundingLines = getSurroundingLines(tile);
+      for(List<ITile> line : surroundingLines) {
+        if(isSandwich(line)) {
+          possibleMoves.add(tile);
+          break;
+        }
+      }
+    }
+    return possibleMoves;
   }
 
   @Override
@@ -77,5 +99,16 @@ public class HexagonalReversiModel implements MutableReversiModel{
       }
     }
     throw new IllegalArgumentException("The given position is out of bounds for the board.");
+  }
+
+  private List<List<ITile>> getSurroundingLines(ITile placingTile) {
+    throw new RuntimeException(errormsg);
+  }
+
+  private boolean flipTiles(List<ITile> line) {
+    throw new RuntimeException(errormsg);
+  }
+
+  private boolean isSandwich(List<ITile> line) {
   }
 }

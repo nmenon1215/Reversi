@@ -28,4 +28,7 @@ public class ReversiExamples {
 
   @Test(expected = IllegalStateException.class)
   public void confirmPlacePieceWithPlacementWhereNoTilesAreFlippedFails() {}
+
+  @Test(expected = IllegalStateException.class)
+  public void placePieceOnAlreadyOccupiedPlaceFails() {}
 }
