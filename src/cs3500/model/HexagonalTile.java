@@ -3,6 +3,7 @@ package cs3500.model;
 public class HexagonalTile implements ITile{
 
   private Posn posn;
+  private Player player;
 
   HexagonalTile() {
   }
@@ -14,21 +15,18 @@ public class HexagonalTile implements ITile{
     this.posn = other.getPosition();
   }
 
-
-  String errormsg = "If you got this to run, the code compiles!";
-
   @Override
   public void flipTo(Player p) {
-    throw new RuntimeException(errormsg);
+    this.player = p;
   }
 
   @Override
   public Player getPlayer() {
-    throw new RuntimeException(errormsg);
+    return this.player;
   }
 
   @Override
   public Posn getPosition() {
-    throw new RuntimeException(errormsg);
+    return this.posn;
   }
 }
