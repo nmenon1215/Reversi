@@ -1,7 +1,9 @@
 package cs3500.model;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class HexagonalReversiModel implements MutableReversiModel{
 
@@ -102,7 +104,28 @@ public class HexagonalReversiModel implements MutableReversiModel{
   }
 
   private List<List<ITile>> getSurroundingLines(ITile placingTile) {
-    throw new RuntimeException(errormsg);
+    List<List<ITile>> surroundingLines = new ArrayList<>();
+
+    // for every different combination of orders for q, r, s
+    for(List<Integer> listOfIndex : permute(3)) {
+      // add the line that comes from fixing one point, adding vals to the other, and subtracting from the last
+      surroundingLines.add(findLine(listOfIndex, placingTile.getPosition().getCoords()));
+    }
+    surroundingLines.removeAll(new ArrayList<ITile>());
+    return surroundingLines;
+
+  }
+
+  private List<ITile> findLine(List<Integer> newTilePosn, int fixedIndex, int addIndex, int subIndex) {
+    List<ITile> line = new ArrayList<>();
+    while(newTilePosn.get(addIndex) <= boardSize && newTilePosn.get(subIndex) >= -boardSize) {
+      // add 1 to value at add index, sub 1 from value at sub index
+      newTilePosn.set(addIndex, newTilePosn.get(addIndex) + 1);
+      newTilePosn.set(subIndex, newTilePosn.get(subIndex) - 1);
+
+      line.add(findTile(new HexagonalPosn(newTilePosn)));
+    }
+    return line;
   }
 
   private boolean flipTiles(List<ITile> line) {
