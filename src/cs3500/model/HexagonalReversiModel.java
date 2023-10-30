@@ -110,5 +110,6 @@ public class HexagonalReversiModel implements MutableReversiModel{
   }
 
   private boolean isSandwich(List<ITile> line) {
+    throw new RuntimeException(errormsg);
   }
 }
