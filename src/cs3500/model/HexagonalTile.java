@@ -8,6 +8,9 @@ public class HexagonalTile implements ITile{
   }
 
   HexagonalTile(ITile other) {
+    if(other == null) {
+      throw new IllegalArgumentException("Cannot copy a null tile.");
+    }
     this.posn = other.getPosition();
   }
 
