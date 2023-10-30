@@ -106,24 +106,54 @@ public class HexagonalReversiModel implements MutableReversiModel{
   private List<List<ITile>> getSurroundingLines(ITile placingTile) {
     List<List<ITile>> surroundingLines = new ArrayList<>();
 
-    // for every different combination of orders for q, r, s
-    for(List<Integer> listOfIndex : permute(3)) {
-      // add the line that comes from fixing one point, adding vals to the other, and subtracting from the last
-      surroundingLines.add(findLine(listOfIndex, placingTile.getPosition().getCoords()));
-    }
+    // PLEASE READ JAVADOC FOR findLine
+    surroundingLines.add(findLine(List.of(0,1,2), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(0,2,1), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(1,2,0), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(1,0,2), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(2,0,1), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(2,1,0), placingTile.getPosition().getCoords()));
+
     surroundingLines.removeAll(new ArrayList<ITile>());
     return surroundingLines;
 
   }
 
-  private List<ITile> findLine(List<Integer> newTilePosn, int fixedIndex, int addIndex, int subIndex) {
+  /**
+   * Finds the line adjacent to a coordinate in some direction.
+   * Example 1:
+   * [0,1,2], [2,4,3]
+   * 2,4,3 is the coordinate of the original tile
+   * fixed = 2, add = 4, sub = 3
+   * then line will consist of (2,5,2), (2,6,1), etc.
+   * Example 2:
+   * [1,0,2], [2,4,3]
+   * fixed = 4, add = 2, sub = 3
+   * then line will consist of (3,4,2), (4,4,1), (5,4,0), etc.
+   * Why we did this:
+   * Ideally, we would just pass in 3 ints to the function and rotate them as fixed, add, sub
+   * Unfortunately, this leads to errors in findTile at the bottom of the while loop. Because
+   * we don't know if fixed is q, r, or s, so we can't generate a new Posn properly. To fix this,
+   * we passed in 2 lists. The first represents which values in the second list will be fixed, add,
+   * and sub. This allows us to easily create a new Posn since the q r and s values stay in the same
+   * place in the second list.
+   *
+   * @param indexList Represents which direction we are going in. The first value is the index of
+   *                  which point is fixed, the next is which point will be added, and the last is
+   *                  which point will be subtracted.
+   * @param coords Represents the starting coordinate which we are finding lines from.
+   * @return The line(List of ITile) adjacent to a tile in a certain direction specified by
+   *         indexList
+   */
+  private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
+    List<Integer> newTile = new ArrayList<>(coords);
     List<ITile> line = new ArrayList<>();
-    while(newTilePosn.get(addIndex) <= boardSize && newTilePosn.get(subIndex) >= -boardSize) {
+    while(newTile.get(indexList.get(1)) <= boardSize && newTile.get(indexList.get(2)) >= -boardSize) {
       // add 1 to value at add index, sub 1 from value at sub index
-      newTilePosn.set(addIndex, newTilePosn.get(addIndex) + 1);
-      newTilePosn.set(subIndex, newTilePosn.get(subIndex) - 1);
+      newTile.set(indexList.get(1), newTile.get(indexList.get(1)) + 1);
+      newTile.set(indexList.get(2), newTile.get(indexList.get(2)) - 1);
 
-      line.add(findTile(new HexagonalPosn(newTilePosn)));
+      line.add(findTile(new HexagonalPosn(newTile)));
     }
     return line;
   }
