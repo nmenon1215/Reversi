@@ -15,6 +15,22 @@ public class HexagonalPosn implements Posn {
   private final int q, r, s;
 
   HexagonalPosn(int q, int r, int s) {
+    if (q + r + s != 0) {
+      throw new IllegalArgumentException("Coordinates must all add to zero to be valid.");
+    }
+    this.q = q;
+    this.r = r;
+    this.s = s;
+  }
+
+  HexagonalPosn(List<Integer> qrs) {
+    int q = qrs.get(0);
+    int r = qrs.get(1);
+    int s = qrs.get(2);
+
+    if (q + r + s != 0) {
+      throw new IllegalArgumentException("Coordinates must all add to zero to be valid.");
+    }
     this.q = q;
     this.r = r;
     this.s = s;
@@ -32,4 +48,15 @@ public class HexagonalPosn implements Posn {
     coord.add(s);
     return coord;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    return
+  }
+
+  @Override
+  public final int hashCode() {
+
+  }
+
 }
