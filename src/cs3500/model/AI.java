@@ -22,5 +22,4 @@ public class AI implements Player {
   public List<ITile> getPossibleMoves() {
     throw new RuntimeException(errormsg);
   }
-  //some jank shit
 }
