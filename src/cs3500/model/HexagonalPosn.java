@@ -38,6 +38,7 @@ public class HexagonalPosn implements Posn {
 
   /**
    * We are returning the coordinates as (q, r, s).
+   *
    * @return (q, r, s)
    */
   @Override
@@ -51,7 +52,7 @@ public class HexagonalPosn implements Posn {
 
   @Override
   public boolean equals(Object obj) {
-    if(!(obj instanceof HexagonalPosn)) {
+    if (!(obj instanceof HexagonalPosn)) {
       return false;
     }
     HexagonalPosn other = (HexagonalPosn) obj;

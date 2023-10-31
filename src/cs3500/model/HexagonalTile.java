@@ -1,6 +1,6 @@
 package cs3500.model;
 
-public class HexagonalTile implements ITile{
+public class HexagonalTile implements ITile {
 
   private Posn posn;
   private Player player;
@@ -10,7 +10,7 @@ public class HexagonalTile implements ITile{
   }
 
   public HexagonalTile(ITile other) {
-    if(other == null) {
+    if (other == null) {
       throw new IllegalArgumentException("Cannot copy a null tile.");
     }
     this.posn = other.getPosition();
@@ -19,7 +19,7 @@ public class HexagonalTile implements ITile{
 
   @Override
   public void flipTo(Player p) {
-    if(p == null) {
+    if (p == null) {
       throw new IllegalArgumentException("Player can't be null.");
     }
     this.player = p;
@@ -37,15 +37,14 @@ public class HexagonalTile implements ITile{
 
   @Override
   public String toString() {
-    if(this.player == null) {
+    if (this.player == null) {
       return "_";
-    }
-    else return this.player.toString();
+    } else return this.player.toString();
   }
 
   @Override
   public boolean equals(Object obj) {
-    if(!(obj instanceof HexagonalTile)) {
+    if (!(obj instanceof HexagonalTile)) {
       return false;
     }
     HexagonalTile other = (HexagonalTile) obj;

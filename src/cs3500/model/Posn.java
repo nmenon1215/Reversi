@@ -8,8 +8,10 @@ import java.util.List;
  */
 public interface Posn {
   //OBSERVATIONS
+
   /**
    * Returns a list of coordinates for the posn. Order of coordinates is specified in the class
+   *
    * @return the list of coordinates that correspond to this posn.
    */
   List<Integer> getCoords();

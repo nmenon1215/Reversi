@@ -30,12 +30,12 @@ public class AI implements Player {
 
   @Override
   public String toString() {
-    return this.player + ""; 
+    return this.player + "";
   }
 
   @Override
   public boolean equals(Object obj) {
-    if(!(obj instanceof AI)) {
+    if (!(obj instanceof AI)) {
       return false;
     }
     AI other = (AI) obj;

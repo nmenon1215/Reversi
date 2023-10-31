@@ -7,7 +7,7 @@ public class User implements Player {
 
   private final char player;
 
-  public User(char player){
+  public User(char player) {
     this.player = player;
   }
 
@@ -36,7 +36,7 @@ public class User implements Player {
 
   @Override
   public boolean equals(Object obj) {
-    if(!(obj instanceof User)) {
+    if (!(obj instanceof User)) {
       return false;
     }
     User other = (User) obj;

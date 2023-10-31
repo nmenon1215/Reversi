@@ -5,61 +5,79 @@ import org.junit.Test;
 
 public class TestModelImplementation {
   @Before
-  public void init() {}
+  public void init() {
+  }
 
   // TESTING placePiece(Player p, Posn posn)
   @Test(expected = IllegalArgumentException.class)
-  public void placePieceThrowsIllegalArgWithNullPlayer() {}
+  public void placePieceThrowsIllegalArgWithNullPlayer() {
+  }
 
   @Test(expected = IllegalArgumentException.class)
-  public void placePieceThrowsIllegalArgWithNullPosition() {}
+  public void placePieceThrowsIllegalArgWithNullPosition() {
+  }
 
   @Test(expected = IllegalArgumentException.class)
-  public void placePieceThrowsIllegalArgWithInvalidPosn() {}
+  public void placePieceThrowsIllegalArgWithInvalidPosn() {
+  }
 
   @Test(expected = IllegalStateException.class)
-  public void placePieceThrowsIllegalStateWithNewPlayer() {}
+  public void placePieceThrowsIllegalStateWithNewPlayer() {
+  }
 
   // TESTING getTileAt(Posn posn)
   @Test(expected = IllegalArgumentException.class)
-  public void getTileAtPosnOutsideOfGridBoundsFails() {}
+  public void getTileAtPosnOutsideOfGridBoundsFails() {
+  }
 
   @Test
-  public void getTileAtRandomTileWorks() {}
+  public void getTileAtRandomTileWorks() {
+  }
 
   @Test
-  public void getTileAtDoesNotCompromiseTheTileToModification() {}
+  public void getTileAtDoesNotCompromiseTheTileToModification() {
+  }
 
   // TESTING isGameOver()
   @Test
-  public void isGameOverReturnsTrueWhenGameIsOver() {}
+  public void isGameOverReturnsTrueWhenGameIsOver() {
+  }
 
   @Test
-  public void isGameOverReturnsFalseWhenGameIsNotOver() {}
+  public void isGameOverReturnsFalseWhenGameIsNotOver() {
+  }
 
   // TESTING possibleMoves(Player p)
   @Test(expected = IllegalArgumentException.class)
-  public void possibleMovesWithNullPlayerThrowsIllegalArg() {}
+  public void possibleMovesWithNullPlayerThrowsIllegalArg() {
+  }
 
   @Test
-  public void possibleMovesWithNewPlayerReturnsEmptyList() {}
+  public void possibleMovesWithNewPlayerReturnsEmptyList() {
+  }
 
   @Test
-  public void possibleMovesWithNoPossibleMovesReturnsEmptyList() {}
+  public void possibleMovesWithNoPossibleMovesReturnsEmptyList() {
+  }
 
   @Test
-  public void possibleMovesWithMultiplePossibleMovesWorks() {}
+  public void possibleMovesWithMultiplePossibleMovesWorks() {
+  }
 
   @Test
-  public void possibleMovesDoesNotCompromiseTheTilesToModification() {}
+  public void possibleMovesDoesNotCompromiseTheTilesToModification() {
+  }
 
   // TESTING getScore(Player p)
   @Test(expected = IllegalArgumentException.class)
-  public void getScoreOfNullPlayerThrowsIllegalArg() {}
+  public void getScoreOfNullPlayerThrowsIllegalArg() {
+  }
 
   @Test
-  public void getScoreOfNewPlayerReturns0() {}
+  public void getScoreOfNewPlayerReturns0() {
+  }
 
   @Test
-  public void getScoreOfPlayerReturnsCorrectValueMidGame() {}
+  public void getScoreOfPlayerReturnsCorrectValueMidGame() {
+  }
 }

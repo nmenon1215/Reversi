@@ -12,18 +12,21 @@ import java.util.List;
  */
 public interface ROReversiModel {
   //OBSERVATIONS
+
   /**
    * Retrieves a copy of the tile at the given position.
+   *
    * @param posn the position of the tile we want to get.
    * @return a copy of the tile at the given position.
    * @throws IllegalArgumentException if the posn does not correspond to a place on the board or is
-   *         null
+   *                                  null
    */
   ITile getTileAt(Posn posn);
 
   /**
    * Determines if the game is over. The game is over if all tiles are of only a single color, or
    * all tiles are filled by a player.
+   *
    * @return if the game is over.
    */
   boolean isGameOver();
@@ -31,6 +34,7 @@ public interface ROReversiModel {
   /**
    * Returns a list of all the possible moves that a player can make. Returns an empty list
    * if there are no possible moves for the player to make.
+   *
    * @param p the player who is attempting to make a move.
    * @return A list of all possible moves that the player p can make.
    * @throws IllegalArgumentException if the player passed in is null.
@@ -40,6 +44,7 @@ public interface ROReversiModel {
   /**
    * Determines the score of the current player. The score of a player is the number of tiles that
    * the player is currently occupying.
+   *
    * @param p is the player whose score we are determining.
    * @return the score of the given player.
    * @throws IllegalArgumentException if the player passed in is null.
@@ -49,6 +54,7 @@ public interface ROReversiModel {
   /**
    * Returns the size of the board. The size of the board is the distance from the center to any
    * edge.
+   *
    * @return the size of the board.
    */
   int getBoardSize();

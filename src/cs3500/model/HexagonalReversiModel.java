@@ -1,11 +1,9 @@
 package cs3500.model;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
 
-public class HexagonalReversiModel implements MutableReversiModel{
+public class HexagonalReversiModel implements MutableReversiModel {
 
   private List<ITile> board;
   private final int boardSize;
@@ -17,7 +15,7 @@ public class HexagonalReversiModel implements MutableReversiModel{
   }
 
   public HexagonalReversiModel(Player p1, Player p2, int boardSize) {
-    if(boardSize < 2) {
+    if (boardSize < 2) {
       throw new IllegalArgumentException("Board size must be at least 2.");
     }
     this.boardSize = boardSize;
@@ -29,29 +27,29 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   @Override
   public void placePiece(Player p, Posn posn) {
-    if(p == null) {
+    if (p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }
-    if(posn == null) {
+    if (posn == null) {
       throw new IllegalArgumentException("The given position can't be null.");
     }
 
     ITile placingTile = findTile(posn);
-    if(placingTile.getPlayer() != null) {
+    if (placingTile.getPlayer() != null) {
       throw new IllegalStateException("This tile is already occupied.");
     }
 
-    List<List<ITile>> surroundingLines =  getSurroundingLines(placingTile);
+    List<List<ITile>> surroundingLines = getSurroundingLines(placingTile);
 
     boolean pieceFlipped = false;
-    for(List<ITile> line : surroundingLines) {
-      if(isSandwich(line, p)) {
+    for (List<ITile> line : surroundingLines) {
+      if (isSandwich(line, p)) {
         flipTiles(line, p);
         pieceFlipped = true;
       }
     }
 
-    if(!pieceFlipped) {
+    if (!pieceFlipped) {
       throw new IllegalStateException("No tiles were flipped by this move.");
     }
 
@@ -79,8 +77,8 @@ public class HexagonalReversiModel implements MutableReversiModel{
     // for every tile in the board
     for (ITile tile : board) {
       List<List<ITile>> surroundingLines = getSurroundingLines(tile);
-      for(List<ITile> line : surroundingLines) {
-        if(isSandwich(line, p)) {
+      for (List<ITile> line : surroundingLines) {
+        if (isSandwich(line, p)) {
           possibleMoves.add(tile);
           break;
         }
@@ -95,7 +93,7 @@ public class HexagonalReversiModel implements MutableReversiModel{
       throw new IllegalArgumentException("The given Player can't be null.");
     }
     int score = 0;
-    for(ITile tile : board) {
+    for (ITile tile : board) {
       if (tile.getPlayer().equals(p)) {
         score++;
       }
@@ -110,10 +108,10 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   // Retrieves the tile at the given position.
   private ITile findTile(Posn p) {
-    if(p == null) {
+    if (p == null) {
       throw new IllegalArgumentException("The given position can't be null.");
     }
-    for(ITile tile : this.board) {
+    for (ITile tile : this.board) {
       if (tile.getPosition().equals(p)) {
         return tile;
       }
@@ -125,12 +123,12 @@ public class HexagonalReversiModel implements MutableReversiModel{
     List<List<ITile>> surroundingLines = new ArrayList<>();
 
     // PLEASE READ JAVADOC FOR findLine
-    surroundingLines.add(findLine(List.of(0,1,2), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(0,2,1), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(1,2,0), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(1,0,2), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(2,0,1), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(2,1,0), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(0, 1, 2), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(0, 2, 1), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(1, 2, 0), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(1, 0, 2), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(2, 0, 1), placingTile.getPosition().getCoords()));
+    surroundingLines.add(findLine(List.of(2, 1, 0), placingTile.getPosition().getCoords()));
 
     surroundingLines.removeAll(new ArrayList<ITile>());
     return surroundingLines;
@@ -159,21 +157,21 @@ public class HexagonalReversiModel implements MutableReversiModel{
    * @param indexList Represents which direction we are going in. The first value is the index of
    *                  which point is fixed, the next is which point will be added, and the last is
    *                  which point will be subtracted.
-   * @param coords Represents the starting coordinate which we are finding lines from.
+   * @param coords    Represents the starting coordinate which we are finding lines from.
    * @return The line(List of ITile) adjacent to a tile in a certain direction specified by
-   *         indexList
+   * indexList
    */
   private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
     // check inputs are valid
-    if(indexList == null || coords == null) {
+    if (indexList == null || coords == null) {
       throw new IllegalArgumentException("No null inputs");
     }
-    if(indexList.size() != 3 || coords.size() != 3) {
+    if (indexList.size() != 3 || coords.size() != 3) {
       throw new IllegalArgumentException("All coordinates must be defined by exactly 3 ints.");
     }
     int count = 0;
-    for(int i : indexList) {
-      if(i > 2 || i < 0) {
+    for (int i : indexList) {
+      if (i > 2 || i < 0) {
         throw new IllegalArgumentException
                 ("Index list must only contain indexs from 0-2 inclusive");
       }
@@ -183,7 +181,7 @@ public class HexagonalReversiModel implements MutableReversiModel{
     // create the line
     List<Integer> newTile = new ArrayList<>(coords);
     List<ITile> line = new ArrayList<>();
-    while(newTile.get(indexList.get(1)) <= boardSize && newTile.get(indexList.get(2)) >= -boardSize) {
+    while (newTile.get(indexList.get(1)) <= boardSize && newTile.get(indexList.get(2)) >= -boardSize) {
       // add 1 to value at add index, sub 1 from value at sub index
       newTile.set(indexList.get(1), newTile.get(indexList.get(1)) + 1);
       newTile.set(indexList.get(2), newTile.get(indexList.get(2)) - 1);
@@ -195,8 +193,8 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   // ONLY call if there is a sandwich. Flips all tiles in the sandwich.
   private void flipTiles(List<ITile> line, Player p) {
-    for(ITile tile : line) {
-      if(tile.getPlayer().equals(p)) {
+    for (ITile tile : line) {
+      if (tile.getPlayer().equals(p)) {
         break;
       }
       tile.flipTo(p);
@@ -205,16 +203,16 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   // Determines if a line without its starting piece is a sandwich.
   private boolean isSandwich(List<ITile> line, Player p) {
-    if(line.get(0).getPlayer().equals(p)) {
+    if (line.get(0).getPlayer().equals(p)) {
       // nothing was sandwiched :(
       return false;
     }
-    for(ITile tile : line) {
-      if(tile.getPlayer() == null) {
+    for (ITile tile : line) {
+      if (tile.getPlayer() == null) {
         // there is a gap in the sandwich :(
         return false;
       }
-      if(tile.getPlayer().equals(p)) {
+      if (tile.getPlayer().equals(p)) {
         // we reached the end of a sandwich :)
         return true;
       }
@@ -225,18 +223,17 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
   // Starts the game by initializing the board.
   private void startGame(Player p1, Player p2) {
-    for(int r = -boardSize; r <= boardSize; r++) {
+    for (int r = -boardSize; r <= boardSize; r++) {
       int qStart;
       int qEnd;
-      if(r < 0) {
+      if (r < 0) {
         qStart = -boardSize - r;
         qEnd = boardSize;
-      }
-      else {
+      } else {
         qStart = -boardSize;
         qEnd = boardSize - r;
       }
-      for(int q = qStart; q <= qEnd; q++) {
+      for (int q = qStart; q <= qEnd; q++) {
         int s = -q - r;
         this.board.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
       }

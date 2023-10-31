@@ -12,6 +12,7 @@ public class ReversiExamples {
   Player p1;
   Player p2;
   ReversiTextualView tv;
+
   @Before
   public void init() {
     p1 = new User('X');
@@ -24,16 +25,16 @@ public class ReversiExamples {
   public void piecesStartAtCorrectPlacesOnBoardSizeFive() {
     String initialBoard =
             "     _ _ _ _ _ _ \n" +
-            "    _ _ _ _ _ _ _ \n" +
-            "   _ _ _ _ _ _ _ _ \n" +
-            "  _ _ _ _ _ _ _ _ _ \n" +
-            " _ _ _ _ X O _ _ _ _ \n" +
-            "_ _ _ _ O _ X _ _ _ _ \n" +
-            " _ _ _ _ X O _ _ _ _ \n" +
-            "  _ _ _ _ _ _ _ _ _ \n" +
-            "   _ _ _ _ _ _ _ _ \n" +
-            "    _ _ _ _ _ _ _ \n" +
-            "     _ _ _ _ _ _ \n";
+                    "    _ _ _ _ _ _ _ \n" +
+                    "   _ _ _ _ _ _ _ _ \n" +
+                    "  _ _ _ _ _ _ _ _ _ \n" +
+                    " _ _ _ _ X O _ _ _ _ \n" +
+                    "_ _ _ _ O _ X _ _ _ _ \n" +
+                    " _ _ _ _ X O _ _ _ _ \n" +
+                    "  _ _ _ _ _ _ _ _ _ \n" +
+                    "   _ _ _ _ _ _ _ _ \n" +
+                    "    _ _ _ _ _ _ _ \n" +
+                    "     _ _ _ _ _ _ \n";
     Assert.assertEquals(initialBoard, tv.toString());
   }
 
@@ -41,31 +42,37 @@ public class ReversiExamples {
   public void piecesStartAtCorrectPlacesOnBoardSizeThree() {
     String initialBoard =
             "   _ _ _ _ \n" +
-            "  _ _ _ _ _ \n" +
-            " _ _ X O _ _ \n" +
-            "_ _ O _ X _ _ \n" +
-            " _ _ X O _ _ \n" +
-            "  _ _ _ _ _ \n" +
-            "   _ _ _ _ \n";
+                    "  _ _ _ _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n";
     tv = new ReversiTextualView(new HexagonalReversiModel(p1, p2, 3), System.out);
     Assert.assertEquals(initialBoard, tv.toString());
   }
 
   @Test
-  public void placePieceWithOnlyOneTileFlipped() {}
+  public void placePieceWithOnlyOneTileFlipped() {
+  }
 
   @Test
-  public void placePieceWithMultipleTilesFlippedInOneDirection() {}
+  public void placePieceWithMultipleTilesFlippedInOneDirection() {
+  }
 
   @Test
-  public void placePieceWithMultipleTilesFlippedInMultipleDirections() {}
+  public void placePieceWithMultipleTilesFlippedInMultipleDirections() {
+  }
 
   @Test(expected = IllegalStateException.class)
-  public void confirmPlacePieceWithPlacementNextToNoPiecesFails() {}
+  public void confirmPlacePieceWithPlacementNextToNoPiecesFails() {
+  }
 
   @Test(expected = IllegalStateException.class)
-  public void placePieceWithPlacementWhereNoTilesAreFlippedFails() {}
+  public void placePieceWithPlacementWhereNoTilesAreFlippedFails() {
+  }
 
   @Test(expected = IllegalStateException.class)
-  public void placePieceOnAlreadyOccupiedTileFails() {}
+  public void placePieceOnAlreadyOccupiedTileFails() {
+  }
 }
