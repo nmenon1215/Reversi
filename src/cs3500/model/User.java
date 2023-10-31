@@ -36,10 +36,10 @@ public class User implements Player {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof User)) {
+    if (!(obj instanceof Player)) {
       return false;
     }
-    User other = (User) obj;
+    Player other = (Player) obj;
     return this.hashCode() == other.hashCode();
   }
 

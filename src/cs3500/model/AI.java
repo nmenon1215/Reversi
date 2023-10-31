@@ -35,10 +35,10 @@ public class AI implements Player {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof AI)) {
+    if (!(obj instanceof Player)) {
       return false;
     }
-    AI other = (AI) obj;
+    Player other = (Player) obj;
     return this.hashCode() == other.hashCode();
   }
 
