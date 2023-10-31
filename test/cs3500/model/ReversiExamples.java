@@ -73,6 +73,24 @@ public class ReversiExamples {
 
   @Test
   public void placePieceWithMultipleTilesFlippedInOneDirection() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    System.out.println(1);
+    smallModel.placePiece(p2, new HexagonalPosn(3, -1, -2));
+    System.out.println(2);
+    smallModel.placePiece(p1, new HexagonalPosn(0, 0, 0));
+    System.out.println(3);
+    smallModel.placePiece(p2, new HexagonalPosn(-1, -1, 2));
+    System.out.println(4);
+    String board =
+            "   _ _ _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    " _ O O O O O \n" +
+                    "_ _ O X X _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n";
+
+    Assert.assertEquals(board, smallTv.toString());
   }
 
   @Test
