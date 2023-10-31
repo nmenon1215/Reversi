@@ -64,6 +64,9 @@ public class TestModelImplementation {
 
   @Test
   public void getTileAtDoesNotCompromiseTheTileToModification() {
+    ITile t = smallModel.getTileAt(new HexagonalPosn(0, 0, 0));
+    t.flipTo(p1);
+    Assert.assertNotEquals(t, smallModel.getTileAt(new HexagonalPosn(0, 0, 0)));
   }
 
   // TESTING isGameOver()
