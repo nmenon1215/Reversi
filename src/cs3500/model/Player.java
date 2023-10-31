@@ -32,4 +32,10 @@ public interface Player {
    * @return a list of all possible tiles that are valid moves for this player.
    */
   List<ITile> getPossibleMoves();
+
+  /**
+   * Represents the player as a string. Each unique player has a unique toSting.
+   * @return textual representation of a player
+   */
+  String toString();
 }

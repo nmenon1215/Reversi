@@ -14,7 +14,7 @@ public interface ROReversiModel {
   //OBSERVATIONS
   /**
    * Retrieves a copy of the tile at the given position.
-   * @param p the position of the tile we want to get.
+   * @param posn the position of the tile we want to get.
    * @return a copy of the tile at the given position.
    * @throws IllegalArgumentException if the posn does not correspond to a place on the board or is
    *         null
@@ -45,4 +45,11 @@ public interface ROReversiModel {
    * @throws IllegalArgumentException if the player passed in is null.
    */
   int getScore(Player p);
+
+  /**
+   * Returns the size of the board. The size of the board is the distance from the center to any
+   * edge.
+   * @return the size of the board.
+   */
+  int getBoardSize();
 }

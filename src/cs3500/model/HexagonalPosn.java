@@ -14,7 +14,7 @@ public class HexagonalPosn implements Posn {
 
   private final int q, r, s;
 
-  HexagonalPosn(int q, int r, int s) {
+  public HexagonalPosn(int q, int r, int s) {
     if (q + r + s != 0) {
       throw new IllegalArgumentException("Coordinates must all add to zero to be valid.");
     }
@@ -23,7 +23,7 @@ public class HexagonalPosn implements Posn {
     this.s = s;
   }
 
-  HexagonalPosn(List<Integer> qrs) {
+  public HexagonalPosn(List<Integer> qrs) {
     int q = qrs.get(0);
     int r = qrs.get(1);
     int s = qrs.get(2);
@@ -51,12 +51,16 @@ public class HexagonalPosn implements Posn {
 
   @Override
   public boolean equals(Object obj) {
-    return
+    if(!(obj instanceof HexagonalPosn)) {
+      return false;
+    }
+    HexagonalPosn other = (HexagonalPosn) obj;
+    return this.hashCode() == other.hashCode();
   }
 
   @Override
-  public final int hashCode() {
-
+  public int hashCode() {
+    return Objects.hashCode(q*100 + r*10 + s);
   }
 
 }

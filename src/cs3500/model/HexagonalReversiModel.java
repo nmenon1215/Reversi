@@ -8,8 +8,21 @@ import java.util.Collections;
 public class HexagonalReversiModel implements MutableReversiModel{
 
   private List<ITile> board;
+  private final int boardSize;
 
-  HexagonalReversiModel() {
+  public HexagonalReversiModel(Player p1, Player p2) {
+    this.boardSize = 6;
+    this.board = new ArrayList<>();
+    startGame(p1, p2);
+  }
+
+  public HexagonalReversiModel(Player p1, Player p2, int boardSize) {
+    if(boardSize < 2) {
+      throw new IllegalArgumentException("Board size must be at least 2.");
+    }
+    this.boardSize = boardSize;
+    this.board = new ArrayList<>();
+    startGame(p1, p2);
   }
 
   String errormsg = "If you got this to run, the code compiles!";
@@ -32,8 +45,8 @@ public class HexagonalReversiModel implements MutableReversiModel{
 
     boolean pieceFlipped = false;
     for(List<ITile> line : surroundingLines) {
-      if(isSandwich(line)) {
-        flipTiles(line);
+      if(isSandwich(line, p)) {
+        flipTiles(line, p);
         pieceFlipped = true;
       }
     }
@@ -67,7 +80,7 @@ public class HexagonalReversiModel implements MutableReversiModel{
     for (ITile tile : board) {
       List<List<ITile>> surroundingLines = getSurroundingLines(tile);
       for(List<ITile> line : surroundingLines) {
-        if(isSandwich(line)) {
+        if(isSandwich(line, p)) {
           possibleMoves.add(tile);
           break;
         }
@@ -88,6 +101,11 @@ public class HexagonalReversiModel implements MutableReversiModel{
       }
     }
     return score;
+  }
+
+  @Override
+  public int getBoardSize() {
+    return this.boardSize;
   }
 
   // Retrieves the tile at the given position.
@@ -146,6 +164,23 @@ public class HexagonalReversiModel implements MutableReversiModel{
    *         indexList
    */
   private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
+    // check inputs are valid
+    if(indexList == null || coords == null) {
+      throw new IllegalArgumentException("No null inputs");
+    }
+    if(indexList.size() != 3 || coords.size() != 3) {
+      throw new IllegalArgumentException("All coordinates must be defined by exactly 3 ints.");
+    }
+    int count = 0;
+    for(int i : indexList) {
+      if(i > 2 || i < 0) {
+        throw new IllegalArgumentException
+                ("Index list must only contain indexs from 0-2 inclusive");
+      }
+    }
+    findTile(new HexagonalPosn(coords)); // this throws exception if the coords are not valid
+
+    // create the line
     List<Integer> newTile = new ArrayList<>(coords);
     List<ITile> line = new ArrayList<>();
     while(newTile.get(indexList.get(1)) <= boardSize && newTile.get(indexList.get(2)) >= -boardSize) {
@@ -158,11 +193,68 @@ public class HexagonalReversiModel implements MutableReversiModel{
     return line;
   }
 
-  private boolean flipTiles(List<ITile> line) {
-    throw new RuntimeException(errormsg);
+  // ONLY call if there is a sandwich. Flips all tiles in the sandwich.
+  private void flipTiles(List<ITile> line, Player p) {
+    for(ITile tile : line) {
+      if(tile.getPlayer().equals(p)) {
+        break;
+      }
+      tile.flipTo(p);
+    }
   }
 
-  private boolean isSandwich(List<ITile> line) {
-    throw new RuntimeException(errormsg);
+  // Determines if a line without its starting piece is a sandwich.
+  private boolean isSandwich(List<ITile> line, Player p) {
+    if(line.get(0).getPlayer().equals(p)) {
+      // nothing was sandwiched :(
+      return false;
+    }
+    for(ITile tile : line) {
+      if(tile.getPlayer() == null) {
+        // there is a gap in the sandwich :(
+        return false;
+      }
+      if(tile.getPlayer().equals(p)) {
+        // we reached the end of a sandwich :)
+        return true;
+      }
+    }
+    // we reached the end, but no end piece :(
+    return false;
   }
+
+  // Starts the game by initializing the board.
+  private void startGame(Player p1, Player p2) {
+    for(int r = -boardSize; r <= boardSize; r++) {
+      int qStart;
+      int qEnd;
+      if(r < 0) {
+        qStart = -boardSize - r;
+        qEnd = boardSize;
+      }
+      else {
+        qStart = -boardSize;
+        qEnd = boardSize - r;
+      }
+      for(int q = qStart; q <= qEnd; q++) {
+        int s = -q - r;
+        board.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
+      }
+    }
+
+    // Starting sequence
+    /*
+     X O
+    O - X
+     X O
+     */
+    findTile(new HexagonalPosn(0, -1, 1)).flipTo(p1);
+    findTile(new HexagonalPosn(1, 0, -1)).flipTo(p1);
+    findTile(new HexagonalPosn(-1, 1, 0)).flipTo(p1);
+
+    findTile(new HexagonalPosn(0, 1, -1)).flipTo(p2);
+    findTile(new HexagonalPosn(-1, 0, 1)).flipTo(p2);
+    findTile(new HexagonalPosn(1, -1, 0)).flipTo(p2);
+  }
+
 }

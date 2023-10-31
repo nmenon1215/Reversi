@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AI implements Player {
 
-  AI() {}
+  public AI() {}
 
   String errormsg = "If you got this to run, the code compiles!";
 
@@ -22,4 +22,10 @@ public class AI implements Player {
   public List<ITile> getPossibleMoves() {
     throw new RuntimeException(errormsg);
   }
+
+  @Override
+  public String toString() {
+    throw new RuntimeException(errormsg);
+  }
+
 }

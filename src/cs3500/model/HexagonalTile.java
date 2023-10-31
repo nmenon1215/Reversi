@@ -5,10 +5,10 @@ public class HexagonalTile implements ITile{
   private Posn posn;
   private Player player;
 
-  HexagonalTile() {
+  public HexagonalTile(Posn p) {
   }
 
-  HexagonalTile(ITile other) {
+  public HexagonalTile(ITile other) {
     if(other == null) {
       throw new IllegalArgumentException("Cannot copy a null tile.");
     }
@@ -28,5 +28,20 @@ public class HexagonalTile implements ITile{
   @Override
   public Posn getPosition() {
     return this.posn;
+  }
+
+  @Override
+  public String toString() {
+    return "UNFINISHED";
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return 0;
   }
 }
