@@ -11,7 +11,7 @@ public class HexagonalReversiModel implements MutableReversiModel{
   private final int boardSize;
 
   public HexagonalReversiModel(Player p1, Player p2) {
-    this.boardSize = 6;
+    this.boardSize = 5;
     this.board = new ArrayList<>();
     startGame(p1, p2);
   }

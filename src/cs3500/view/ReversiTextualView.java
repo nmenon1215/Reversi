@@ -11,8 +11,9 @@ import cs3500.model.ROReversiModel;
 public class ReversiTextualView implements TextualView {
 
   ROReversiModel model;
+  Appendable out;
 
-  ReversiTextualView(ROReversiModel model, Readable in, Appendable out){
+  public ReversiTextualView(ROReversiModel model, Appendable out){
     if(model == null) {
       throw new IllegalArgumentException("Model can't be null.");
     }
@@ -21,15 +22,21 @@ public class ReversiTextualView implements TextualView {
 
   @Override
   public void render() throws IOException {
+    out.append(this.toString());
   }
 
   public String toString() {
     String display = "";
     int boardSize = model.getBoardSize();
     for(int r = -boardSize; r <= boardSize; r++) {
-      int qStart;
       int qEnd;
-      for(int q = -boardSize; q <= boardSize; q++) {
+      if(r < 0) {
+        qEnd = boardSize;
+      }
+      else {
+        qEnd = boardSize - r;
+      }
+      for(int q = -boardSize; q <= qEnd; q++) {
         int s = -q - r;
         try {
           ITile tileToDisplay = model.getTileAt(new HexagonalPosn(q, r, s));
