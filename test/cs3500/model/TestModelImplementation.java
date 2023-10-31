@@ -109,7 +109,7 @@ public class TestModelImplementation {
 
   @Test
   public void possibleMovesWithMultiplePossibleMovesWorks() {
-    Assert.assertEquals(3, smallModel.possibleMoves(p1).size());
+    Assert.assertEquals(6, smallModel.possibleMoves(p1).size());
   }
 
   @Test

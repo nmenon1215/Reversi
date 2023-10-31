@@ -100,7 +100,10 @@ public class HexagonalReversiModel implements MutableReversiModel {
     List<ITile> possibleMoves = new ArrayList<>();
     // for every tile in the board
     for (ITile tile : board) {
-      List<List<ITile>> surroundingLines = getSurroundingLines(tile);
+      List<List<ITile>> surroundingLines = new ArrayList<>();
+      if(tile.getPlayer() == null) {
+        surroundingLines = getSurroundingLines(tile);
+      }
       for (List<ITile> line : surroundingLines) {
         if (isSandwich(line, p)) {
           possibleMoves.add(new HexagonalTile(tile));
