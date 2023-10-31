@@ -7,10 +7,14 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   private List<ITile> board;
   private final int boardSize;
+  private final int numPlayers;
+  private int skipsInRow;
 
   public HexagonalReversiModel(Player p1, Player p2) {
     this.boardSize = 5;
     this.board = new ArrayList<>();
+    this.numPlayers = 2;
+    this.skipsInRow = 0;
     startGame(p1, p2);
   }
 
@@ -20,6 +24,8 @@ public class HexagonalReversiModel implements MutableReversiModel {
     }
     this.boardSize = boardSize;
     this.board = new ArrayList<>();
+    this.numPlayers = 2;
+    this.skipsInRow = 0;
     startGame(p1, p2);
   }
 
@@ -54,6 +60,18 @@ public class HexagonalReversiModel implements MutableReversiModel {
     }
 
     placingTile.flipTo(p);
+    this.skipsInRow = 0;
+  }
+
+  @Override
+  public void skip(Player p) {
+    if(p == null) {
+      throw new IllegalArgumentException("The given player can't be null.");
+    }
+    if(this.possibleMoves(p).size() != 0) {
+      throw new IllegalStateException("Player can only skip if they have no possible moves.");
+    }
+    this.skipsInRow++;
   }
 
   @Override
@@ -63,6 +81,9 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public boolean isGameOver() {
+    if(this.skipsInRow >= this.numPlayers) {
+      return true;
+    }
     for (ITile tile : this.board) {
       if (tile.getPlayer() == null) {
         return false;
