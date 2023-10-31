@@ -30,7 +30,7 @@ public class AI implements Player {
 
   @Override
   public String toString() {
-    return this.player + ""; // force cast bitch
+    return this.player + ""; 
   }
 
   @Override
