@@ -37,11 +37,15 @@ public class HexagonalTile implements ITile{
 
   @Override
   public boolean equals(Object obj) {
-    return false;
+    if(!(obj instanceof HexagonalTile)) {
+      return false;
+    }
+    HexagonalTile other = (HexagonalTile) obj;
+    return this.hashCode() == other.hashCode();
   }
 
   @Override
   public int hashCode() {
-    return 0;
+    return this.posn.hashCode() + this.player.hashCode();
   }
 }

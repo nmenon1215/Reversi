@@ -60,7 +60,7 @@ public class HexagonalPosn implements Posn {
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(q*100 + r*10 + s);
+    return Objects.hash(q, r, s);
   }
 
 }

@@ -1,10 +1,15 @@
 package cs3500.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AI implements Player {
 
-  public AI() {}
+  private final char player;
+
+  public AI(char player) {
+    this.player = player;
+  }
 
   String errormsg = "If you got this to run, the code compiles!";
 
@@ -28,4 +33,17 @@ public class AI implements Player {
     throw new RuntimeException(errormsg);
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if(!(obj instanceof AI)) {
+      return false;
+    }
+    AI other = (AI) obj;
+    return this.hashCode() == other.hashCode();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.player);
+  }
 }
