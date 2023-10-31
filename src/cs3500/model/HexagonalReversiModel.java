@@ -115,7 +115,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     }
     int score = 0;
     for (ITile tile : board) {
-      if (tile.getPlayer().equals(p)) {
+      if (p.equals(tile.getPlayer())) {
         score++;
       }
     }
