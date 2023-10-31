@@ -8,17 +8,22 @@ import cs3500.view.ReversiTextualView;
 
 public class ReversiExamples {
 
-  MutableReversiModel model;
   Player p1;
   Player p2;
-  ReversiTextualView tv;
+  MutableReversiModel bigModel;
+  ReversiTextualView bigTv;
+  MutableReversiModel smallModel;
+  ReversiTextualView smallTv;
 
   @Before
   public void init() {
     p1 = new User('X');
     p2 = new User('O');
-    model = new HexagonalReversiModel(p1, p2);
-    tv = new ReversiTextualView(model, System.out);
+    bigModel = new HexagonalReversiModel(p1, p2);
+    bigTv = new ReversiTextualView(bigModel, System.out);
+    smallModel = new HexagonalReversiModel(p1, p2, 3);
+    smallTv = new ReversiTextualView(smallModel, System.out);
+
   }
 
   @Test
@@ -35,7 +40,7 @@ public class ReversiExamples {
                     "   _ _ _ _ _ _ _ _ \n" +
                     "    _ _ _ _ _ _ _ \n" +
                     "     _ _ _ _ _ _ \n";
-    Assert.assertEquals(initialBoard, tv.toString());
+    Assert.assertEquals(initialBoard, bigTv.toString());
   }
 
   @Test
@@ -48,12 +53,22 @@ public class ReversiExamples {
                     " _ _ X O _ _ \n" +
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n";
-    tv = new ReversiTextualView(new HexagonalReversiModel(p1, p2, 3), System.out);
-    Assert.assertEquals(initialBoard, tv.toString());
+    Assert.assertEquals(initialBoard, smallTv.toString());
   }
 
   @Test
   public void placePieceWithOnlyOneTileFlipped() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    String board =
+            "   _ _ _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    " _ _ X O X _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n";
+
+    Assert.assertEquals(board, smallTv.toString());
   }
 
   @Test
