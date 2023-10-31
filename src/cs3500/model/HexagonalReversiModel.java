@@ -132,7 +132,6 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
     surroundingLines.removeAll(new ArrayList<ITile>());
     return surroundingLines;
-
   }
 
   /**
@@ -181,7 +180,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     // create the line
     List<Integer> newTile = new ArrayList<>(coords);
     List<ITile> line = new ArrayList<>();
-    while (newTile.get(indexList.get(1)) <= boardSize && newTile.get(indexList.get(2)) >= -boardSize) {
+    while (newTile.get(indexList.get(1)) < boardSize && newTile.get(indexList.get(2)) > -boardSize) {
       // add 1 to value at add index, sub 1 from value at sub index
       newTile.set(indexList.get(1), newTile.get(indexList.get(1)) + 1);
       newTile.set(indexList.get(2), newTile.get(indexList.get(2)) - 1);
@@ -203,7 +202,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   // Determines if a line without its starting piece is a sandwich.
   private boolean isSandwich(List<ITile> line, Player p) {
-    if (line.get(0).getPlayer().equals(p)) {
+    if (p.equals(line.get(0).getPlayer())) {
       // nothing was sandwiched :(
       return false;
     }
@@ -212,7 +211,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
         // there is a gap in the sandwich :(
         return false;
       }
-      if (tile.getPlayer().equals(p)) {
+      if (p.equals(tile.getPlayer())) {
         // we reached the end of a sandwich :)
         return true;
       }

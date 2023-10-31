@@ -60,9 +60,9 @@ public class ReversiExamples {
   public void placePieceWithOnlyOneTileFlipped() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
     String board =
-            "   _ _ _ _ \n" +
+                    "   _ _ _ _ \n" +
                     "  _ _ _ _ _ \n" +
-                    " _ _ X O X _ \n" +
+                    " _ _ X X X _ \n" +
                     "_ _ O _ X _ _ \n" +
                     " _ _ X O _ _ \n" +
                     "  _ _ _ _ _ \n" +
