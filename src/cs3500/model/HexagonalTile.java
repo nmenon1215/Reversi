@@ -32,7 +32,10 @@ public class HexagonalTile implements ITile{
 
   @Override
   public String toString() {
-    return "UNFINISHED";
+    if(this.player == null) {
+      return "_";
+    }
+    else return this.player.toString();
   }
 
   @Override

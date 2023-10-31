@@ -30,7 +30,7 @@ public class AI implements Player {
 
   @Override
   public String toString() {
-    throw new RuntimeException(errormsg);
+    return this.player + ""; // force cast bitch
   }
 
   @Override

@@ -31,7 +31,7 @@ public class User implements Player {
 
   @Override
   public String toString() {
-    throw new RuntimeException(errormsg);
+    return this.player + "";
   }
 
   @Override
