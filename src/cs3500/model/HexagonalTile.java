@@ -6,6 +6,7 @@ public class HexagonalTile implements ITile{
   private Player player;
 
   public HexagonalTile(Posn p) {
+    this.posn = p;
   }
 
   public HexagonalTile(ITile other) {
@@ -13,10 +14,14 @@ public class HexagonalTile implements ITile{
       throw new IllegalArgumentException("Cannot copy a null tile.");
     }
     this.posn = other.getPosition();
+    this.player = other.getPlayer();
   }
 
   @Override
   public void flipTo(Player p) {
+    if(p == null) {
+      throw new IllegalArgumentException("Player can't be null.");
+    }
     this.player = p;
   }
 

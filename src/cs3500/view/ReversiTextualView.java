@@ -29,14 +29,17 @@ public class ReversiTextualView implements TextualView {
     String display = "";
     int boardSize = model.getBoardSize();
     for(int r = -boardSize; r <= boardSize; r++) {
+      int qStart;
       int qEnd;
       if(r < 0) {
+        qStart = -boardSize;
         qEnd = boardSize;
       }
       else {
+        qStart = -boardSize - r;
         qEnd = boardSize - r;
       }
-      for(int q = -boardSize; q <= qEnd; q++) {
+      for(int q = qStart; q <= qEnd; q++) {
         int s = -q - r;
         try {
           ITile tileToDisplay = model.getTileAt(new HexagonalPosn(q, r, s));

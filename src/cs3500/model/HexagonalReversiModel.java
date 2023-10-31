@@ -238,7 +238,7 @@ public class HexagonalReversiModel implements MutableReversiModel{
       }
       for(int q = qStart; q <= qEnd; q++) {
         int s = -q - r;
-        board.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
+        this.board.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
       }
     }
 

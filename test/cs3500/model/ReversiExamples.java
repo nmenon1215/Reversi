@@ -15,46 +15,57 @@ public class ReversiExamples {
   @Before
   public void init() {
     p1 = new User('X');
-    p1 = new User('O');
+    p2 = new User('O');
     model = new HexagonalReversiModel(p1, p2);
     tv = new ReversiTextualView(model, System.out);
   }
 
   @Test
-  public void confirmPiecesStartAtCorrectPlacesOnBoardSizeFive() {
+  public void piecesStartAtCorrectPlacesOnBoardSizeFive() {
     String initialBoard =
-            "     _ _ _ _ _ _\n" +
-            "    _ _ _ _ _ _ _\n" +
-            "   _ _ _ _ _ _ _ _\n" +
-            "  _ _ _ _ _ _ _ _ _\n" +
-            " _ _ _ _ X O _ _ _ _\n" +
-            "_ _ _ _ O _ X _ _ _ _\n" +
-            " _ _ _ _ X O _ _ _ _\n" +
-            "  _ _ _ _ _ _ _ _ _\n" +
-            "   _ _ _ _ _ _ _ _\n" +
-            "    _ _ _ _ _ _ _\n" +
-            "     _ _ _ _ _ _\n";
+            "     _ _ _ _ _ _ \n" +
+            "    _ _ _ _ _ _ _ \n" +
+            "   _ _ _ _ _ _ _ _ \n" +
+            "  _ _ _ _ _ _ _ _ _ \n" +
+            " _ _ _ _ X O _ _ _ _ \n" +
+            "_ _ _ _ O _ X _ _ _ _ \n" +
+            " _ _ _ _ X O _ _ _ _ \n" +
+            "  _ _ _ _ _ _ _ _ _ \n" +
+            "   _ _ _ _ _ _ _ _ \n" +
+            "    _ _ _ _ _ _ _ \n" +
+            "     _ _ _ _ _ _ \n";
     Assert.assertEquals(initialBoard, tv.toString());
   }
 
   @Test
-  public void confirmPiecesStartAtCorrectPlacesOnBoardSizeThree() {}
+  public void piecesStartAtCorrectPlacesOnBoardSizeThree() {
+    String initialBoard =
+            "   _ _ _ _ \n" +
+            "  _ _ _ _ _ \n" +
+            " _ _ X O _ _ \n" +
+            "_ _ O _ X _ _ \n" +
+            " _ _ X O _ _ \n" +
+            "  _ _ _ _ _ \n" +
+            "   _ _ _ _ \n";
+    tv = new ReversiTextualView(new HexagonalReversiModel(p1, p2, 3), System.out);
+    Assert.assertEquals(initialBoard, tv.toString());
+  }
 
   @Test
-  public void confirmPlacePieceWithOnlyOneTileFlipped() {}
+  public void placePieceWithOnlyOneTileFlipped() {}
 
   @Test
-  public void confirmPlacePieceWithMultipleTilesFlippedInOneDirection() {}
+  public void placePieceWithMultipleTilesFlippedInOneDirection() {}
 
   @Test
-  public void confirmPlacePieceWithMultipleTilesFlippedInMultipleDirections() {}
+  public void placePieceWithMultipleTilesFlippedInMultipleDirections() {}
 
   @Test(expected = IllegalStateException.class)
   public void confirmPlacePieceWithPlacementNextToNoPiecesFails() {}
 
   @Test(expected = IllegalStateException.class)
-  public void confirmPlacePieceWithPlacementWhereNoTilesAreFlippedFails() {}
+  public void placePieceWithPlacementWhereNoTilesAreFlippedFails() {}
 
   @Test(expected = IllegalStateException.class)
-  public void placePieceOnAlreadyOccupiedPlaceFails() {}
+  public void placePieceOnAlreadyOccupiedTileFails() {}
 }
