@@ -1,5 +1,7 @@
 package cs3500.model;
 
+import java.util.Objects;
+
 public class HexagonalTile implements ITile {
 
   private Posn posn;
@@ -44,15 +46,18 @@ public class HexagonalTile implements ITile {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof HexagonalTile)) {
+    if (!(obj instanceof ITile)) {
       return false;
     }
-    HexagonalTile other = (HexagonalTile) obj;
+    ITile other = (ITile) obj;
     return this.hashCode() == other.hashCode();
   }
 
   @Override
   public int hashCode() {
-    return this.posn.hashCode() + this.player.hashCode();
+    if(this.player == null) {
+      return Objects.hash(posn);
+    }
+    return Objects.hash(posn, player);
   }
 }
