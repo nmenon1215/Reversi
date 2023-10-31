@@ -10,6 +10,7 @@ public class ReversiExamples {
 
   Player p1;
   Player p2;
+  Player pRigged;
   MutableReversiModel bigModel;
   ReversiTextualView bigTv;
   MutableReversiModel smallModel;
@@ -19,11 +20,11 @@ public class ReversiExamples {
   public void init() {
     p1 = new User('X');
     p2 = new User('O');
+    pRigged = new User('X');
     bigModel = new HexagonalReversiModel(p1, p2);
     bigTv = new ReversiTextualView(bigModel, System.out);
     smallModel = new HexagonalReversiModel(p1, p2, 3);
     smallTv = new ReversiTextualView(smallModel, System.out);
-
   }
 
   @Test
@@ -133,17 +134,30 @@ public class ReversiExamples {
 
   @Test(expected = IllegalStateException.class)
   public void canOnlySkipWithNoPossibleMoves() {
-
+    smallModel.skip(p1);
   }
 
   @Test
   public void gameOverIfNumberOfPlayersEqualsNumberOfSkips() {
-
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(pRigged, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
+    smallModel.skip(pRigged);
+    smallModel.skip(p1);
+    Assert.assertTrue(smallModel.isGameOver());
   }
 
   @Test
   public void nonconsecutiveSkipsDoesNotEndTheGame() {
-
+    String initialBoard =
+                    "   _ _ _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "_ _ O _ X _ _ \n" +
+                    " _ _ X O _ _ \n" +
+                    "  _ _ _ _ _ \n" +
+                    "   _ _ _ _ \n";
+    Assert.assertFalse(smallModel.isGameOver());
   }
 
 }
