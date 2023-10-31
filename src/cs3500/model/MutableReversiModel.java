@@ -17,8 +17,19 @@ public interface MutableReversiModel extends ROReversiModel {
    * @param p
    * @param posn
    * @throws IllegalArgumentException if the player or posn is null, or if the posn is not in bounds
-   * @throws IllegalStateException    if the move is not possible with the current board. For example,
-   *                                  the player posn combination does not result in any sandwiches.
+   * @throws IllegalStateException    if the move is not possible with the current board.
+   *                                  For example, the player posn combination does not result in
+   *                                  any sandwiches.
    */
   void placePiece(Player p, Posn posn);
+
+  /**
+   * Skips this player's turn. Players are only allowed
+   * to skip if they have no other possible moves.
+   *
+   * @param p represents the player who's turn is being skipped.
+   * @throws IllegalArgumentException if the player given is null.
+   * @throws IllegalStateException    if the player has other possible moves to be made.
+   */
+  void skip(Player p);
 }
