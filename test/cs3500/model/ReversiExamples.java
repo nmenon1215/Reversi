@@ -140,9 +140,9 @@ public class ReversiExamples {
   @Test
   public void gameOverIfNumberOfPlayersEqualsNumberOfSkips() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    smallModel.placePiece(pRigged, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
     smallModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
-    smallModel.skip(pRigged);
+    smallModel.skip(p1);
     smallModel.skip(p1);
     Assert.assertTrue(smallModel.isGameOver());
   }

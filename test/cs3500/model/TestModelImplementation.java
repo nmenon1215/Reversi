@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import cs3500.view.ReversiTextualView;
 
 public class TestModelImplementation {
@@ -94,18 +96,28 @@ public class TestModelImplementation {
 
   @Test
   public void possibleMovesWithNewPlayerReturnsEmptyList() {
+    Assert.assertTrue(smallModel.possibleMoves(new User('v')).isEmpty());
   }
 
   @Test
   public void possibleMovesWithNoPossibleMovesReturnsEmptyList() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
+    Assert.assertTrue(smallModel.possibleMoves(p1).isEmpty());
   }
 
   @Test
   public void possibleMovesWithMultiplePossibleMovesWorks() {
+    Assert.assertEquals(3, smallModel.possibleMoves(p1).size());
   }
 
   @Test
   public void possibleMovesDoesNotCompromiseTheTilesToModification() {
+    List<ITile> tiles = smallModel.possibleMoves(p1);
+    ITile evil = tiles.get(0);
+    evil.flipTo(new User('s'));
+    Assert.assertNotEquals(evil, smallModel.getTileAt(new HexagonalPosn(1, -2, 1)));
   }
 
   // TESTING getScore(Player p)
@@ -131,7 +143,7 @@ public class TestModelImplementation {
   // TESTING equals(Object obj)
   @Test
   public void compareAIAndUserWithSamePlayerValue() {
-    Assert.assertTrue(p1.equals(ai));
+    Assert.assertEquals(p1, ai);
   }
 
   // TESTING skip(Player p)

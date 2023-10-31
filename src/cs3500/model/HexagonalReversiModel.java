@@ -103,7 +103,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
       List<List<ITile>> surroundingLines = getSurroundingLines(tile);
       for (List<ITile> line : surroundingLines) {
         if (isSandwich(line, p)) {
-          possibleMoves.add(tile);
+          possibleMoves.add(new HexagonalTile(tile));
           break;
         }
       }
