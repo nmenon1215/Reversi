@@ -130,7 +130,13 @@ public class HexagonalReversiModel implements MutableReversiModel {
     surroundingLines.add(findLine(List.of(2, 0, 1), placingTile.getPosition().getCoords()));
     surroundingLines.add(findLine(List.of(2, 1, 0), placingTile.getPosition().getCoords()));
 
-    surroundingLines.removeAll(new ArrayList<ITile>());
+    // remove all empty lists
+    for(int i = 0; i < surroundingLines.size(); i++) {
+      if(surroundingLines.get(i).size() == 0) {
+        surroundingLines.remove(i);
+        i--;
+      }
+    }
     return surroundingLines;
   }
 
