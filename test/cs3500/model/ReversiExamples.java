@@ -74,20 +74,16 @@ public class ReversiExamples {
   @Test
   public void placePieceWithMultipleTilesFlippedInOneDirection() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    System.out.println(1);
-    smallModel.placePiece(p2, new HexagonalPosn(3, -1, -2));
-    System.out.println(2);
-    smallModel.placePiece(p1, new HexagonalPosn(0, 0, 0));
-    System.out.println(3);
-    smallModel.placePiece(p2, new HexagonalPosn(-1, -1, 2));
-    System.out.println(4);
+    smallModel.placePiece(p2, new HexagonalPosn(1, -2, 1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p2, new HexagonalPosn(1, 2, -3));
     String board =
             "   _ _ _ _ \n" +
-                    "  _ _ _ _ _ \n" +
-                    " _ O O O O O \n" +
-                    "_ _ O X X _ _ \n" +
-                    " _ _ X O _ _ \n" +
-                    "  _ _ _ _ _ \n" +
+                    "  _ _ O _ _ \n" +
+                    " _ _ O O X _ \n" +
+                    "_ _ O _ O _ _ \n" +
+                    " _ _ X X O _ \n" +
+                    "  _ _ _ _ O \n" +
                     "   _ _ _ _ \n";
 
     Assert.assertEquals(board, smallTv.toString());
@@ -95,17 +91,43 @@ public class ReversiExamples {
 
   @Test
   public void placePieceWithMultipleTilesFlippedInMultipleDirections() {
+    bigModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    bigModel.placePiece(p2, new HexagonalPosn(-2, 1, 1));
+    bigModel.placePiece(p1, new HexagonalPosn(-1, 2, -1));
+    bigModel.placePiece(p2, new HexagonalPosn(1, -2, 1));
+    bigModel.placePiece(p1, new HexagonalPosn(-3, 1, 2));
+    bigModel.placePiece(p2, new HexagonalPosn(3, -1, -2));
+    bigModel.placePiece(p1, new HexagonalPosn(1, -3, 2));
+    bigModel.placePiece(p2, new HexagonalPosn(2, -3, 1));
+    bigModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
+
+    String board =
+            "     _ _ _ _ _ _ \n" +
+                    "    _ _ _ _ _ _ _ \n" +
+                    "   _ _ _ X O _ _ _ \n" +
+                    "  _ _ _ _ O _ _ _ _ \n" +
+                    " _ _ _ X X X O O _ _ \n" +
+                    "_ _ _ _ X _ X _ _ _ _ \n" +
+                    " _ _ X X X X _ _ _ _ \n" +
+                    "  _ _ _ _ X _ _ _ _ \n" +
+                    "   _ _ _ _ _ _ _ _ \n" +
+                    "    _ _ _ _ _ _ _ \n" +
+                    "     _ _ _ _ _ _ \n";
+    Assert.assertEquals(board, bigTv.toString());
   }
 
   @Test(expected = IllegalStateException.class)
-  public void confirmPlacePieceWithPlacementNextToNoPiecesFails() {
+  public void placePieceWithPlacementNextToNoPiecesFails() {
+    smallModel.placePiece(p1, new HexagonalPosn(0, -3, 3));
   }
 
   @Test(expected = IllegalStateException.class)
   public void placePieceWithPlacementWhereNoTilesAreFlippedFails() {
+    smallModel.placePiece(p1, new HexagonalPosn(0, 0, 0));
   }
 
   @Test(expected = IllegalStateException.class)
   public void placePieceOnAlreadyOccupiedTileFails() {
+    smallModel.placePiece(p1, new HexagonalPosn(0, -1, 1));
   }
 }
