@@ -47,7 +47,7 @@ public class TestModelImplementation {
 
   @Test(expected = IllegalStateException.class)
   public void placePieceThrowsIllegalStateWithNewPlayer() {
-    smallModel.placePiece(ai, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(new User('c'), new HexagonalPosn(2, -1, -1));
   }
 
   // TESTING getTileAt(Posn posn)
@@ -86,6 +86,7 @@ public class TestModelImplementation {
   // TESTING possibleMoves(Player p)
   @Test(expected = IllegalArgumentException.class)
   public void possibleMovesWithNullPlayerThrowsIllegalArg() {
+    smallModel.possibleMoves(null);
   }
 
   @Test
@@ -112,7 +113,7 @@ public class TestModelImplementation {
 
   @Test
   public void getScoreOfNewPlayerReturns0() {
-    Assert.assertEquals(0, smallModel.getScore(p1));
+    Assert.assertEquals(0, smallModel.getScore(new User('n')));
   }
 
   @Test
@@ -121,7 +122,7 @@ public class TestModelImplementation {
     smallModel.placePiece(p2, new HexagonalPosn(1, -2, 1));
     smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
     smallModel.placePiece(p2, new HexagonalPosn(1, 2, -3));
-    Assert.assertEquals(0, smallModel.getScore(p1));
+    Assert.assertEquals(7, smallModel.getScore(p2));
   }
 
   // TESTING equals(Object obj)

@@ -94,6 +94,9 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public List<ITile> possibleMoves(Player p) {
+    if(p == null) {
+      throw new IllegalArgumentException("The given player can't be null.");
+    }
     List<ITile> possibleMoves = new ArrayList<>();
     // for every tile in the board
     for (ITile tile : board) {
