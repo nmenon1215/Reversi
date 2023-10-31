@@ -80,4 +80,8 @@ public class TestModelImplementation {
   @Test
   public void getScoreOfPlayerReturnsCorrectValueMidGame() {
   }
+
+  @Test
+  public void compareAIAndUserWithSamePlayerValue() {
+  }
 }
