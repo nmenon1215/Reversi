@@ -130,4 +130,20 @@ public class ReversiExamples {
   public void placePieceOnAlreadyOccupiedTileFails() {
     smallModel.placePiece(p1, new HexagonalPosn(0, -1, 1));
   }
+
+  @Test(expected = IllegalStateException.class)
+  public void canOnlySkipWithNoPossibleMoves() {
+
+  }
+
+  @Test
+  public void gameOverIfNumberOfPlayersEqualsNumberOfSkips() {
+
+  }
+
+  @Test
+  public void nonconsecutiveSkipsDoesNotEndTheGame() {
+
+  }
+
 }

@@ -68,7 +68,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     if(p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }
-    if(this.possibleMoves(p).size() != 0) {
+    if(!this.possibleMoves(p).isEmpty()) {
       throw new IllegalStateException("Player can only skip if they have no possible moves.");
     }
     this.skipsInRow++;
@@ -153,7 +153,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
     // remove all empty lists
     for(int i = 0; i < surroundingLines.size(); i++) {
-      if(surroundingLines.get(i).size() == 0) {
+      if(surroundingLines.get(i).isEmpty()) {
         surroundingLines.remove(i);
         i--;
       }

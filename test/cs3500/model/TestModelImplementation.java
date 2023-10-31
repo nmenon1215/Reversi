@@ -81,7 +81,14 @@ public class TestModelImplementation {
   public void getScoreOfPlayerReturnsCorrectValueMidGame() {
   }
 
+  // TESTING equals(Object obj)
   @Test
   public void compareAIAndUserWithSamePlayerValue() {
+  }
+
+  // TESTING skip(Player p)
+  @Test(expected = IllegalArgumentException.class)
+  public void exceptionIfNullPlayerTriesToSkip() {
+
   }
 }
