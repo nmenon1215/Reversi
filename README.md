@@ -17,9 +17,14 @@ model.placePiece(p2, new HexagonalPosn(1, -2, 1));
 ## Key Subcomponents
 
 ## Source Organization
-#### CS3500 package
-   ##### Model Package
-   ##### View Package
+#### CS3500 package  
+   ##### Model Package  
+   Interfaces: ROReversiModel, MutableReversiModel, ITile, Posn, Player  
+   Classes: HexagonalReversiModel, HexagonalTile, HexagonalPosn, User, AI  
+   ##### View Package  
+   Interface: TextualView  
+   Class: ReversiTextualView  
 #### Tests
+Classes: ReversiExamples, TestModelImplementation, TestTileImplementation  
 
 ## Invariant
