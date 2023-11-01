@@ -1,6 +1,6 @@
 # Reversi
 ## Overview
-Designed a model to represent the game board for Reversi. This consists of interfaces and concrete classes.
+This code creates a hexagonal version of the game Reversi/Othello. The main problem being addressed is creating a model that allows players to make moves, flip opponent pieces, and determine the game's outcome. The code assumes the users are already familiar with the rules of Reversi and a hexagonal grid system. Looking ahead, this code is designed to accommodate the potential for square tiles and multiple players with some changes to the existing code. 
 
 ## Quick Start
 // sets up the players and the game  
