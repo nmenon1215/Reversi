@@ -12,7 +12,7 @@ public class User implements Player {
   private final char player;
 
   /**
-   * This creates a basic User with a given display character
+   * This creates a basic User with a given display character.
    * @param player is the character that represents this player
    */
   public User(char player) {

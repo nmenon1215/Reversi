@@ -19,8 +19,9 @@ public interface Player {
    * @param p a position on the board where the piece should be placed.
    * @throws IllegalArgumentException if the given posn is null or does not correspond to a valid
    *                                  board coordinate.
-   * @throws IllegalStateException    if the given posn corresponds to a tile that is already occupied
-   *                                  or the move is invalid (does not flip over any other pieces).
+   * @throws IllegalStateException    if the given posn corresponds to a tile that is already
+   *                                  occupied or the move is invalid (does not flip over any other
+   *                                  pieces).
    */
   void placePiece(Posn p);
 

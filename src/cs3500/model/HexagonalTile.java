@@ -14,12 +14,12 @@ public class HexagonalTile implements ITile {
   private Player player;
 
   /**
-   * Initialize a HexagonalTile with the given position coordinate
+   * Initialize a HexagonalTile with the given position coordinate.
    * @param p a position representing where the tile is.
    * @throws IllegalArgumentException if the given posn is null.
    */
   public HexagonalTile(Posn p) {
-    if(p == null) {
+    if (p == null) {
       throw new IllegalArgumentException("The given position can't be null.");
     }
     this.posn = p;
@@ -60,7 +60,10 @@ public class HexagonalTile implements ITile {
   public String toString() {
     if (this.player == null) {
       return "_";
-    } else return this.player.toString();
+    }
+    else {
+      return this.player.toString();
+    }
   }
 
   @Override

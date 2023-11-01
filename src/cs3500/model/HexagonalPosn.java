@@ -13,8 +13,10 @@ import java.util.Objects;
  */
 public class HexagonalPosn implements Posn {
 
-  private final int q, r, s;
-
+  private final int q;
+  private final int r;
+  private final int s;
+  
   /**
    * Creates a position coordinate with the given coordinates. q + r + s must equal 0.
    * @param q the q coordinate

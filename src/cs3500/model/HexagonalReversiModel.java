@@ -225,7 +225,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
    *                  which point will be subtracted.
    * @param coords    Represents the starting coordinate which we are finding lines from.
    * @return The line(List of ITile) adjacent to a tile in a certain direction specified by
-   * indexList
+   *         indexList
    */
   private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
     // check inputs are valid
@@ -238,8 +238,8 @@ public class HexagonalReversiModel implements MutableReversiModel {
     int count = 0;
     for (int i : indexList) {
       if (i > 2 || i < 0) {
-        throw new IllegalArgumentException
-                ("Index list must only contain indexs from 0-2 inclusive");
+        throw new IllegalArgumentException("Index list must only contain " +
+                "indexs from 0-2 inclusive");
       }
     }
     findTile(new HexagonalPosn(coords)); // this throws exception if the coords are not valid
@@ -247,7 +247,8 @@ public class HexagonalReversiModel implements MutableReversiModel {
     // create the line
     List<Integer> newTile = new ArrayList<>(coords);
     List<ITile> line = new ArrayList<>();
-    while (newTile.get(indexList.get(1)) < boardSize && newTile.get(indexList.get(2)) > -boardSize) {
+    while (newTile.get(indexList.get(1)) < boardSize
+            && newTile.get(indexList.get(2)) > -boardSize) {
       // add 1 to value at add index, sub 1 from value at sub index
       newTile.set(indexList.get(1), newTile.get(indexList.get(1)) + 1);
       newTile.set(indexList.get(2), newTile.get(indexList.get(2)) - 1);
