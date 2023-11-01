@@ -13,8 +13,18 @@ model.placePiece(p1, new HexagonalPosn(2, -1, -1));
 model.placePiece(p2, new HexagonalPosn(1, -2, 1));   
 
 ## Key Components
+The key components of our code are as follows:
+The Model is based on the Tile, and Player interfaces. It is also somewhat tightly coupled with the Posn interface. The Model uses the Posn to find tiles and make new ones when returning copies. It uses Tiles to generate a board that represents the state of the game. It uses Players to determine who is making a move on the board.  
+- The model determines game rules and ways to interact with the game. 
+- The Tile and Posn together represent each piece of the gameboard and its state  
+- The Player represents a user making a move on the game board.  
+
 
 ## Key Subcomponents
+- The board(in the model) is a list of tiles which each contain where they are located and who currently owns them.
+- Each tile contains a player who is occupying the tile, and a posn representing where the tile is located on the board.  
+- Each Player contains a char representing its playing piece.  
+
 
 ## Source Organization
 #### CS3500 package  
