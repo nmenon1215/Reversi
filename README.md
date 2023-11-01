@@ -17,3 +17,9 @@ model.placePiece(p2, new HexagonalPosn(1, -2, 1));
 ## Key Subcomponents
 
 ## Source Organization
+#### CS3500 package
+###### Model Package
+###### View Package
+#### Tests
+
+## Invariant
