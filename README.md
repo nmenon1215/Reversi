@@ -28,3 +28,17 @@ model.placePiece(p2, new HexagonalPosn(1, -2, 1));
 Classes: ReversiExamples, TestModelImplementation, TestTileImplementation  
 
 ## Invariant
+
+1. **Board Consistency/Size**:
+   - The `board` field is a list of `ITile` objects, and this list represents the game board. The class enforces that the `board` field is always consistent with the specified `boardSize`. It ensures that the board contains the correct number of tiles based on the hexagonal grid structure and `boardSize`. This is ensured by stating that boardSize is final, and the board has no methods other than startGame which add or remove from the board. 
+   - In the constructor that accepts a custom board size, the code enforces that the board size must be at least 2. This prevents the creation of invalid game boards with sizes less than 2.
+
+2. **Number of Players**:
+   - The `numPlayers` doesn't allow changing the number of players during the game.
+
+3. **Player Skips**:
+   - The `skipsInRow` field keeps track of consecutive player skips. The code enforces that if a player skips a turn, `skipsInRow` is incremented, and if both players consecutively skip their turns, the game is considered over (`isGameOver` returns `true`).
+
+4. **Tile Flipping Rules**:
+   - The code enforces rules related to tile flipping, ensuring that a tile can only be flipped if it is sandwiched between the player's tiles.
+
