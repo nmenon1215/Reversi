@@ -24,8 +24,9 @@ public interface ROReversiModel {
   ITile getTileAt(Posn posn);
 
   /**
-   * Determines if the game is over. The game is over if all tiles are of only a single color, or
-   * all tiles are filled by a player.
+   * Determines if the game is over. The game is over if
+   * skip is called for all players consecutively,
+   * or all tiles are filled by a player.
    *
    * @return if the game is over.
    */

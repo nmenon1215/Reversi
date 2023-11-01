@@ -4,7 +4,11 @@ import java.util.List;
 
 /**
  * This is a representation of a Player. A Player is anyone who can interact with the model
- * through placing pieces or skipping their turn.
+ * through placing pieces or skipping their turn. Each player has a display which is how the textual
+ * view knows how to display a player.
+ * The general idea is to have each view be paired with a player. The player will interact with its
+ * specific view to play the game. The view will pass its player through the controller to the model
+ * which will use the player to update who owns which tile.
  */
 public interface Player {
   //OPERATIONS

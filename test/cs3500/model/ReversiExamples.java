@@ -4,10 +4,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import cs3500.view.ReversiTextualView;
 
+/**
+ * Simple Examples of how the model is supposed to operate. Please look at TestModelImplementation
+ * for more specific implementation detail tests. Only includes tests that are related to mutation.
+ */
 public class ReversiExamples {
 
   Player p1;
@@ -63,7 +65,7 @@ public class ReversiExamples {
   public void placePieceWithOnlyOneTileFlipped() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
     String board =
-                    "   _ _ _ _ \n" +
+            "   _ _ _ _ \n" +
                     "  _ _ _ _ _ \n" +
                     " _ _ X X X _ \n" +
                     "_ _ O _ X _ _ \n" +

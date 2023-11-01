@@ -3,7 +3,7 @@ package cs3500.view;
 import java.io.IOException;
 
 /**
- * Text-based view that renders the klondike model as a String.
+ * Text-based view that renders the reversi model as a String.
  */
 public interface TextualView {
   /**

@@ -9,11 +9,19 @@ import java.util.Objects;
  * q is in the direction of northwest to southeast.
  * r is in the direction of west to east.
  * s is in the direction of southwest to northeast.
+ * q + r + s = 0
  */
 public class HexagonalPosn implements Posn {
 
   private final int q, r, s;
 
+  /**
+   * Creates a position coordinate with the given coordinates. q + r + s must equal 0.
+   * @param q the q coordinate
+   * @param r the r coordinate
+   * @param s the s coordinate
+   * @throws IllegalArgumentException if the given coordinates don't add to 0.
+   */
   public HexagonalPosn(int q, int r, int s) {
     if (q + r + s != 0) {
       throw new IllegalArgumentException("Coordinates must all add to zero to be valid.");
@@ -23,7 +31,17 @@ public class HexagonalPosn implements Posn {
     this.s = s;
   }
 
+  /**
+   * Given a list of integers, create a position with first value assigned to q, second to r, and
+   * last to s.
+   * @param qrs a list of length 3 which represents the coordinates [q, r, s]
+   * @throws IllegalArgumentException if the list is not length 3, or the vals don't add up to 0.
+   */
   public HexagonalPosn(List<Integer> qrs) {
+    if(qrs.size() != 3) {
+      throw new IllegalArgumentException("Must be given exactly 3 coordinates.");
+    }
+
     int q = qrs.get(0);
     int r = qrs.get(1);
     int s = qrs.get(2);
@@ -37,7 +55,7 @@ public class HexagonalPosn implements Posn {
   }
 
   /**
-   * We are returning the coordinates as (q, r, s).
+   * We are returning the coordinates in order as (q, r, s).
    *
    * @return (q, r, s)
    */

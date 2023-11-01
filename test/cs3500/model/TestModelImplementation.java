@@ -8,6 +8,9 @@ import java.util.List;
 
 import cs3500.view.ReversiTextualView;
 
+/**
+ * Implementation specific tests regarding how the model interacts with each public method.
+ */
 public class TestModelImplementation {
   Player p1;
   Player p2;

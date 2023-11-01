@@ -3,6 +3,12 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A HexagonalReversiModel is a representation of a Reversi board with the ability to place
+ * pieces of any type, and skip a turn. The model does not keep track of which player is placing
+ * the pieces in which order. This is the job of the controller. This allows for multiple players
+ * if we change the constructor.
+ */
 public class HexagonalReversiModel implements MutableReversiModel {
 
   private List<ITile> board;
@@ -10,7 +16,20 @@ public class HexagonalReversiModel implements MutableReversiModel {
   private final int numPlayers;
   private int skipsInRow;
 
+  /**
+   * Constructs the board of size 5 and initializes with the starting piece setup which is:
+   *      X O
+   *     O - X
+   *      X O
+   * placed in the center of the board with X representing player 1, and O representing player 2.
+   * @param p1 The first player in the game. (used for board initialization)
+   * @param p2 The second player in the game. (used for board initialization)
+   * @throws IllegalArgumentException if players are null.
+   */
   public HexagonalReversiModel(Player p1, Player p2) {
+    if (p1 == null || p2 == null) {
+      throw new IllegalArgumentException("Players can't be null.");
+    }
     this.boardSize = 5;
     this.board = new ArrayList<>();
     this.numPlayers = 2;
@@ -18,7 +37,22 @@ public class HexagonalReversiModel implements MutableReversiModel {
     startGame(p1, p2);
   }
 
+  /**
+   * Constructs the board of given size and initializes with the starting piece setup which is:
+   *       X O
+   *      O - X
+   *       X O
+   *  placed in the center of the board with X representing player 1, and O representing player 2.
+   * @param boardSize is the size of board defined by how many tiles away from the center the edge
+   *                  of the board is. Ex: board above is size 1. boardSize must be >= 2.
+   * @param p1 The first player in the game. (used for board initialization)
+   * @param p2 The second player in the game. (used for board initialization)
+   * @throws IllegalArgumentException if the board size is less than 2 or players are null.
+   */
   public HexagonalReversiModel(Player p1, Player p2, int boardSize) {
+    if (p1 == null || p2 == null) {
+      throw new IllegalArgumentException("Players can't be null.");
+    }
     if (boardSize < 2) {
       throw new IllegalArgumentException("Board size must be at least 2.");
     }
@@ -28,8 +62,6 @@ public class HexagonalReversiModel implements MutableReversiModel {
     this.skipsInRow = 0;
     startGame(p1, p2);
   }
-
-  String errormsg = "If you got this to run, the code compiles!";
 
   @Override
   public void placePiece(Player p, Posn posn) {
@@ -65,10 +97,10 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public void skip(Player p) {
-    if(p == null) {
+    if (p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }
-    if(!this.possibleMoves(p).isEmpty()) {
+    if (!this.possibleMoves(p).isEmpty()) {
       throw new IllegalStateException("Player can only skip if they have no possible moves.");
     }
     this.skipsInRow++;
@@ -81,7 +113,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public boolean isGameOver() {
-    if(this.skipsInRow >= this.numPlayers) {
+    if (this.skipsInRow >= this.numPlayers) {
       return true;
     }
     for (ITile tile : this.board) {
@@ -94,14 +126,14 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public List<ITile> possibleMoves(Player p) {
-    if(p == null) {
+    if (p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }
     List<ITile> possibleMoves = new ArrayList<>();
     // for every tile in the board
     for (ITile tile : board) {
       List<List<ITile>> surroundingLines = new ArrayList<>();
-      if(tile.getPlayer() == null) {
+      if (tile.getPlayer() == null) {
         surroundingLines = getSurroundingLines(tile);
       }
       for (List<ITile> line : surroundingLines) {
@@ -133,7 +165,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     return this.boardSize;
   }
 
-  // Retrieves the tile at the given position.
+  // Retrieves the tile at the given position. Does not make copy, so we can edit tile.
   private ITile findTile(Posn p) {
     if (p == null) {
       throw new IllegalArgumentException("The given position can't be null.");
@@ -146,6 +178,8 @@ public class HexagonalReversiModel implements MutableReversiModel {
     throw new IllegalArgumentException("The given position is out of bounds for the board.");
   }
 
+  // returns list of 6 lines surrounding the given tile not including the tile
+  // if the line is empty, it is removed.
   private List<List<ITile>> getSurroundingLines(ITile placingTile) {
     List<List<ITile>> surroundingLines = new ArrayList<>();
 
@@ -158,8 +192,8 @@ public class HexagonalReversiModel implements MutableReversiModel {
     surroundingLines.add(findLine(List.of(2, 1, 0), placingTile.getPosition().getCoords()));
 
     // remove all empty lists
-    for(int i = 0; i < surroundingLines.size(); i++) {
-      if(surroundingLines.get(i).isEmpty()) {
+    for (int i = 0; i < surroundingLines.size(); i++) {
+      if (surroundingLines.get(i).isEmpty()) {
         surroundingLines.remove(i);
         i--;
       }

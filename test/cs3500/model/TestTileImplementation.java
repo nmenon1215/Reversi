@@ -6,11 +6,15 @@ import org.junit.Test;
 
 import java.util.List;
 
+/**
+ * Tests regarding the public methods of both the Tile and the Posn.
+ */
 public class TestTileImplementation {
   ITile tile;
+
   @Before
   public void init() {
-    tile = new HexagonalTile(new HexagonalPosn(0,0,0));
+    tile = new HexagonalTile(new HexagonalPosn(0, 0, 0));
   }
 
   // TESTING flipTo(Player p)
