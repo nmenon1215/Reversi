@@ -40,7 +40,7 @@ public class HexagonalPosn implements Posn {
    * @throws IllegalArgumentException if the list is not length 3, or the vals don't add up to 0.
    */
   public HexagonalPosn(List<Integer> qrs) {
-    if(qrs.size() != 3) {
+    if (qrs.size() != 3) {
       throw new IllegalArgumentException("Must be given exactly 3 coordinates.");
     }
 
