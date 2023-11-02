@@ -22,19 +22,19 @@ public class HexagonalReversiModel implements MutableReversiModel {
    *     O - X
    *      X O
    * placed in the center of the board with X representing player 1, and O representing player 2.
-   * @param p1 The first player in the game. (used for board initialization)
-   * @param p2 The second player in the game. (used for board initialization)
-   * @throws IllegalArgumentException if players are null.
+   * @param players A list that consists of the first and second players in the game. (Used for the
+   *                initialization of the game.)
+   * @throws IllegalArgumentException if there is a null value in players.
    */
-  public HexagonalReversiModel(Player p1, Player p2) {
-    if (p1 == null || p2 == null) {
+  public HexagonalReversiModel(List<Player> players) {
+    if (players == null || players.get(0) == null || players.get(1) == null) {
       throw new IllegalArgumentException("Players can't be null.");
     }
     this.boardSize = 5;
     this.board = new ArrayList<>();
     this.numPlayers = 2;
     this.skipsInRow = 0;
-    startGame(p1, p2);
+    startGame(players);
   }
 
   /**
@@ -45,12 +45,12 @@ public class HexagonalReversiModel implements MutableReversiModel {
    *  placed in the center of the board with X representing player 1, and O representing player 2.
    * @param boardSize is the size of board defined by how many tiles away from the center the edge
    *                  of the board is. Ex: board above is size 1. boardSize must be >= 2.
-   * @param p1 The first player in the game. (used for board initialization)
-   * @param p2 The second player in the game. (used for board initialization)
+   * @param players A list that consists of the first and second players in the game. (Used for the
+   *                initialization of the game.)
    * @throws IllegalArgumentException if the board size is less than 2 or players are null.
    */
-  public HexagonalReversiModel(Player p1, Player p2, int boardSize) {
-    if (p1 == null || p2 == null) {
+  public HexagonalReversiModel(List<Player> players, int boardSize) {
+    if (players == null || players.get(0) == null || players.get(1) == null) {
       throw new IllegalArgumentException("Players can't be null.");
     }
     if (boardSize < 2) {
@@ -60,7 +60,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     this.board = new ArrayList<>();
     this.numPlayers = 2;
     this.skipsInRow = 0;
-    startGame(p1, p2);
+    startGame(players);
   }
 
   @Override
@@ -112,6 +112,40 @@ public class HexagonalReversiModel implements MutableReversiModel {
   }
 
   @Override
+  public List<ITile> getSurroundingTiles(Posn posn) {
+    // Starts with the tile that is directly to the left of the center tile
+    List<ITile> surroundingTiles = new ArrayList<>();
+    List<Integer> centralTile = posn.getCoords();
+
+    // tiles around the central tile
+    ITile leftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) - 1,
+            centralTile.get(1), centralTile.get(2) + 1));
+    ITile topLeftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0),
+            centralTile.get(1) - 1, centralTile.get(2) + 1));
+    ITile topRightTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) + 1,
+            centralTile.get(1) - 1, centralTile.get(2)));
+    ITile rightTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) + 1,
+            centralTile.get(1), centralTile.get(2) - 1));
+    ITile bottomRightTile = this.getTileAt(new HexagonalPosn(centralTile.get(0),
+            centralTile.get(1) + 1, centralTile.get(2) - 1));
+    ITile bottomLeftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) - 1,
+            centralTile.get(1) + 1, centralTile.get(2)));
+
+    // isCorner() not done yet
+    // isEdge() not done yet
+
+    // add surrounding tiles
+    surroundingTiles.add(leftTile);
+    surroundingTiles.add(topLeftTile);
+    surroundingTiles.add(topRightTile);
+    surroundingTiles.add(rightTile);
+    surroundingTiles.add(bottomRightTile);
+    surroundingTiles.add(bottomLeftTile);
+
+    return surroundingTiles;
+  }
+
+  @Override
   public boolean isGameOver() {
     if (this.skipsInRow >= this.numPlayers) {
       return true;
@@ -144,6 +178,21 @@ public class HexagonalReversiModel implements MutableReversiModel {
       }
     }
     return possibleMoves;
+  }
+
+  @Override
+  public boolean isLegalMove(Player p, Posn posn) {
+    for (ITile tile : possibleMoves(p)) {
+      if (this.getTileAt(posn).equals(tile)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public boolean hasLegalMoves(Player p) {
+    return possibleMoves(p).isEmpty();
   }
 
   @Override
@@ -239,7 +288,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     for (int i : indexList) {
       if (i > 2 || i < 0) {
         throw new IllegalArgumentException("Index list must only contain " +
-                "indexs from 0-2 inclusive");
+                "indexes from 0-2 inclusive");
       }
     }
     findTile(new HexagonalPosn(coords)); // this throws exception if the coords are not valid
@@ -289,7 +338,9 @@ public class HexagonalReversiModel implements MutableReversiModel {
   }
 
   // Starts the game by initializing the board.
-  private void startGame(Player p1, Player p2) {
+  private void startGame(List<Player> players) {
+    Player p1 = players.get(0);
+    Player p2 = players.get(1);
     for (int r = -boardSize; r <= boardSize; r++) {
       int qStart;
       int qEnd;

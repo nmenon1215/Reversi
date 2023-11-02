@@ -24,6 +24,14 @@ public interface ROReversiModel {
   ITile getTileAt(Posn posn);
 
   /**
+   * Retrieves a list of tiles surrounding the tile at the given position. Starts with the tile
+   * that is directly to the left of the center tile.
+   * @param posn the position of the center tile.
+   * @return a list of tiles surrounding the tile at the given position.
+   */
+  List<ITile> getSurroundingTiles(Posn posn);
+
+  /**
    * Determines if the game is over. The game is over if
    * skip is called for all players consecutively,
    * or all tiles are filled by a player.
@@ -41,6 +49,21 @@ public interface ROReversiModel {
    * @throws IllegalArgumentException if the player passed in is null.
    */
   List<ITile> possibleMoves(Player p);
+
+  /**
+   * Returns a boolean correlating to whether or not a player can make a move at a certain posn.
+   * @param p the player whose move is in question.
+   * @param posn the position that is being checked if it is legal.
+   * @return A boolean whether the move is legal.
+   */
+  boolean isLegalMove(Player p, Posn posn);
+
+  /**
+   * Returns a boolean correlating to whether or not a player has any possible moves to make.
+   * @param p the player who may or may not have legal moves.
+   * @return A boolean whether a player has any legal moves.
+   */
+  boolean hasLegalMoves(Player p);
 
   /**
    * Determines the score of the current player. The score of a player is the number of tiles that
