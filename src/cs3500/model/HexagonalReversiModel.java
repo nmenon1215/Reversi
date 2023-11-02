@@ -131,18 +131,29 @@ public class HexagonalReversiModel implements MutableReversiModel {
     ITile bottomLeftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) - 1,
             centralTile.get(1) + 1, centralTile.get(2)));
 
-    // isCorner() not done yet
-    // isEdge() not done yet
+    ITile[] tiles = {leftTile, topLeftTile, topRightTile,
+            rightTile, bottomRightTile, bottomLeftTile};
 
-    // add surrounding tiles
-    surroundingTiles.add(leftTile);
-    surroundingTiles.add(topLeftTile);
-    surroundingTiles.add(topRightTile);
-    surroundingTiles.add(rightTile);
-    surroundingTiles.add(bottomRightTile);
-    surroundingTiles.add(bottomLeftTile);
+    // add surrounding tiles if they are on the board
+    for (ITile tile : tiles) {
+      if (isTileOnBoard(tile.getPosition())) {
+        surroundingTiles.add(tile);
+      }
+    }
 
     return surroundingTiles;
+  }
+
+  private boolean isTileOnBoard(Posn posn) {
+    if (posn == null) {
+      return false;
+    }
+    for (ITile tile : this.board) {
+      if (tile.getPosition().equals(posn)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override
