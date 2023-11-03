@@ -113,41 +113,9 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public List<ITile> getSurroundingTiles(Posn posn) {
-    // Starts with the tile that is directly to the left of the center tile
+    List<List<ITile>> surroundingLines = this.getSurroundingLines(this.findTile(posn));
     List<ITile> surroundingTiles = new ArrayList<>();
-    List<Integer> centralTile = posn.getCoords();
 
-    // tiles around the central tile
-    ITile leftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) - 1,
-            centralTile.get(1), centralTile.get(2) + 1));
-    ITile topLeftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0),
-            centralTile.get(1) - 1, centralTile.get(2) + 1));
-    ITile topRightTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) + 1,
-            centralTile.get(1) - 1, centralTile.get(2)));
-    ITile rightTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) + 1,
-            centralTile.get(1), centralTile.get(2) - 1));
-    ITile bottomRightTile = this.getTileAt(new HexagonalPosn(centralTile.get(0),
-            centralTile.get(1) + 1, centralTile.get(2) - 1));
-    ITile bottomLeftTile = this.getTileAt(new HexagonalPosn(centralTile.get(0) - 1,
-            centralTile.get(1) + 1, centralTile.get(2)));
-
-    ITile[] tiles = {leftTile, topLeftTile, topRightTile,
-            rightTile, bottomRightTile, bottomLeftTile};
-
-    // add surrounding tiles if they are on the board
-    for (ITile tile : tiles) {
-      if (isTileOnBoard(tile.getPosition())) {
-        surroundingTiles.add(tile);
-      }
-    }
-
-    return surroundingTiles;
-  }
-
-  private List<ITile> surroundingTiles(Posn posn) {
-    List<List<ITile>> surroundingLines = this.getSurroundingLines(this.getTileAt(posn));
-    List<ITile> surroundingTiles = new ArrayList<>();
-    
     for (List<ITile> line : surroundingLines) {
       surroundingTiles.add(line.get(0));
     }
