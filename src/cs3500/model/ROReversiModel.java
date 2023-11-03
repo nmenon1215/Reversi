@@ -28,6 +28,7 @@ public interface ROReversiModel {
    * that is directly to the left of the center tile.
    * @param posn the position of the center tile.
    * @return a list of tiles surrounding the tile at the given position.
+   * @throws IllegalArgumentException if the given posn is out of bounds or null.
    */
   List<ITile> getSurroundingTiles(Posn posn);
 
@@ -51,17 +52,20 @@ public interface ROReversiModel {
   List<ITile> possibleMoves(Player p);
 
   /**
-   * Returns a boolean correlating to whether or not a player can make a move at a certain posn.
+   * Returns a boolean correlating to whether a player can make a move at a certain posn.
    * @param p the player whose move is in question.
    * @param posn the position that is being checked if it is legal.
    * @return A boolean whether the move is legal.
+   * @throws IllegalArgumentException if the given player or posn is null, or the position is out
+   *                                  of bounds.
    */
   boolean isLegalMove(Player p, Posn posn);
 
   /**
-   * Returns a boolean correlating to whether or not a player has any possible moves to make.
+   * Returns a boolean correlating to whether a player has any possible moves to make.
    * @param p the player who may or may not have legal moves.
    * @return A boolean whether a player has any legal moves.
+   * @throws IllegalArgumentException if the given player is null
    */
   boolean hasLegalMoves(Player p);
 

@@ -144,18 +144,6 @@ public class HexagonalReversiModel implements MutableReversiModel {
     return surroundingTiles;
   }
 
-  private boolean isTileOnBoard(Posn posn) {
-    if (posn == null) {
-      return false;
-    }
-    for (ITile tile : this.board) {
-      if (tile.getPosition().equals(posn)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   @Override
   public boolean isGameOver() {
     if (this.skipsInRow >= this.numPlayers) {
@@ -194,7 +182,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
   @Override
   public boolean isLegalMove(Player p, Posn posn) {
     for (ITile tile : possibleMoves(p)) {
-      if (this.getTileAt(posn).equals(tile)) {
+      if (this.findTile(posn).equals(tile)) {
         return true;
       }
     }
@@ -223,6 +211,18 @@ public class HexagonalReversiModel implements MutableReversiModel {
   @Override
   public int getBoardSize() {
     return this.boardSize;
+  }
+
+  private boolean isTileOnBoard(Posn posn) {
+    if (posn == null) {
+      return false;
+    }
+    for (ITile tile : this.board) {
+      if (tile.getPosition().equals(posn)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Retrieves the tile at the given position. Does not make copy, so we can edit tile.

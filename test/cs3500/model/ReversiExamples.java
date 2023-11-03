@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cs3500.view.ReversiTextualView;
 
 /**
@@ -25,9 +28,9 @@ public class ReversiExamples {
     p1 = new User('X');
     p2 = new User('O');
     pRigged = new User('X');
-    bigModel = new HexagonalReversiModel(p1, p2);
+    bigModel = new HexagonalReversiModel(new ArrayList(List.of(p1, p2)));
     bigTv = new ReversiTextualView(bigModel, System.out);
-    smallModel = new HexagonalReversiModel(p1, p2, 3);
+    smallModel = new HexagonalReversiModel(new ArrayList(List.of(p1, p2)), 3);
     smallTv = new ReversiTextualView(smallModel, System.out);
   }
 
@@ -144,29 +147,29 @@ public class ReversiExamples {
   @Test
   public void gameOverIfNumberOfPlayersEqualsNumberOfSkips() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(pRigged, new HexagonalPosn(1, 1, -2));
     smallModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
-    smallModel.skip(p1);
+    smallModel.skip(pRigged);
     smallModel.skip(p1);
     Assert.assertTrue(smallModel.isGameOver());
   }
 
   @Test
   public void nonconsecutiveSkipsDoesNotEndTheGame() {
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    smallModel.placePiece(p2, new HexagonalPosn(2, -3, 1));
     smallModel.placePiece(p1, new HexagonalPosn(-1, 2, -1));
     smallModel.placePiece(p2, new HexagonalPosn(-1, 3, -2));
-    smallModel.placePiece(p1, new HexagonalPosn(-2, 1, 1));
-    smallModel.placePiece(p2, new HexagonalPosn(-1, -1, 2));
     smallModel.placePiece(p1, new HexagonalPosn(-2, 3, -1));
     smallModel.placePiece(p2, new HexagonalPosn(1, 1, -2));
-    smallModel.placePiece(p1, new HexagonalPosn(2, 1, -3));
-    smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
-    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
-    smallModel.placePiece(p2, new HexagonalPosn(-3, 3, 0));
-    smallModel.skip(p1); // FIRST SKIP!!!
-    smallModel.placePiece(p2, new HexagonalPosn(2, -1, -1));
-    smallModel.placePiece(p1, new HexagonalPosn(3, -1, -2));
-    smallModel.skip(p1); // SECOND SKIP!!!
+    smallModel.placePiece(p1, new HexagonalPosn(0, 3, -3));
+    smallModel.skip(p2); // FIRST SKIP!!!
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(p2, new HexagonalPosn(3, -1, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 2, -3));
+    smallModel.placePiece(p2, new HexagonalPosn(2, 1, -3));
+    smallModel.placePiece(p1, new HexagonalPosn(3, 0, -3));
+    smallModel.skip(p2); // SECOND SKIP!!!
     // game is not over since skips were not in a row.
     Assert.assertFalse(smallModel.isGameOver());
   }
