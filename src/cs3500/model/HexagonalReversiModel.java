@@ -144,6 +144,16 @@ public class HexagonalReversiModel implements MutableReversiModel {
     return surroundingTiles;
   }
 
+  private List<ITile> surroundingTiles(Posn posn) {
+    List<List<ITile>> surroundingLines = this.getSurroundingLines(this.getTileAt(posn));
+    List<ITile> surroundingTiles = new ArrayList<>();
+    
+    for (List<ITile> line : surroundingLines) {
+      surroundingTiles.add(line.get(0));
+    }
+    return surroundingTiles;
+  }
+
   @Override
   public boolean isGameOver() {
     if (this.skipsInRow >= this.numPlayers) {
