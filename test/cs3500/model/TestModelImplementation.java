@@ -32,7 +32,6 @@ public class TestModelImplementation {
     bigTv = new ReversiTextualView(bigModel, System.out);
     smallModel = new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2)), 3);
     smallTv = new ReversiTextualView(smallModel, System.out);
-
   }
 
   // TESTING placePiece(Player p, Posn posn)
@@ -257,7 +256,11 @@ public class TestModelImplementation {
 
   @Test(expected = IllegalArgumentException.class)
   public void createReversiWithNullPlayersThrowsIllegalArg() {
-    new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2, null)));
+    List<Player> players = new ArrayList<>();
+    players.add(p1);
+    players.add(p2);
+    players.add(null);
+    new HexagonalReversiModel(players);
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -15,6 +15,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
   private final int boardSize;
   private final int numPlayers;
   private int skipsInRow;
+  private List<Player> players;
 
   /**
    * Constructs the board of size 5 and initializes with the starting piece setup which is:
@@ -24,16 +25,23 @@ public class HexagonalReversiModel implements MutableReversiModel {
    * placed in the center of the board with X representing player 1, and O representing player 2.
    * @param players A list that consists of the first and second players in the game. (Used for the
    *                initialization of the game.)
-   * @throws IllegalArgumentException if there is a null value in players.
+   * @throws IllegalArgumentException if there is a null value in players, the players list is null,
+   *                                  or the list has less than 2 distinct players.
    */
   public HexagonalReversiModel(List<Player> players) {
-    if (players == null || players.get(0) == null || players.get(1) == null) {
-      throw new IllegalArgumentException("Players can't be null.");
+    if (players == null || players.stream().distinct().count() < 2) {
+      throw new IllegalArgumentException("Players list can't be null.");
+    }
+    for (Player p : players) {
+      if (p == null) {
+        throw new IllegalArgumentException("Individual players can't be null.");
+      }
     }
     this.boardSize = 5;
     this.board = new ArrayList<>();
-    this.numPlayers = 2;
+    this.numPlayers = players.size();
     this.skipsInRow = 0;
+    this.players = players;
     startGame(players);
   }
 
@@ -50,16 +58,22 @@ public class HexagonalReversiModel implements MutableReversiModel {
    * @throws IllegalArgumentException if the board size is less than 2 or players are null.
    */
   public HexagonalReversiModel(List<Player> players, int boardSize) {
-    if (players == null || players.get(0) == null || players.get(1) == null) {
-      throw new IllegalArgumentException("Players can't be null.");
+    if (players == null || players.stream().distinct().count() < 2) {
+      throw new IllegalArgumentException("Players list can't be null.");
+    }
+    for (Player p : players) {
+      if (p == null) {
+        throw new IllegalArgumentException("Individual players can't be null.");
+      }
     }
     if (boardSize < 2) {
       throw new IllegalArgumentException("Board size must be at least 2.");
     }
     this.boardSize = boardSize;
     this.board = new ArrayList<>();
-    this.numPlayers = 2;
+    this.numPlayers = players.size();
     this.skipsInRow = 0;
+    this.players = players;
     startGame(players);
   }
 
@@ -117,7 +131,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     List<ITile> surroundingTiles = new ArrayList<>();
 
     for (List<ITile> line : surroundingLines) {
-      surroundingTiles.add(line.get(0));
+      surroundingTiles.add(new HexagonalTile(line.get(0)));
     }
     return surroundingTiles;
   }
@@ -169,7 +183,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   @Override
   public boolean hasLegalMoves(Player p) {
-    return possibleMoves(p).isEmpty();
+    return !possibleMoves(p).isEmpty();
   }
 
   @Override
