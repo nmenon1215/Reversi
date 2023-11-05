@@ -86,4 +86,10 @@ public interface ROReversiModel {
    * @return the size of the board.
    */
   int getBoardSize();
+
+  /**
+   * Returns the player whose turn it currently is.
+   * @return the player whose turn it is.
+   */
+  Player getTurn();
 }

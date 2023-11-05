@@ -104,10 +104,14 @@ public class TestModelImplementation {
 
   @Test
   public void possibleMovesWithNoPossibleMovesReturnsEmptyList() {
-    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
-    smallModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
-    Assert.assertTrue(smallModel.possibleMoves(p1).isEmpty());
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    smallModel.placePiece(p2, new HexagonalPosn(2, -3, 1));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, 2, -1));
+    smallModel.placePiece(p2, new HexagonalPosn(-1, 3, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(-2, 3, -1));
+    smallModel.placePiece(p2, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(0, 3, -3));
+    Assert.assertTrue(smallModel.possibleMoves(p2).isEmpty());
   }
 
   @Test

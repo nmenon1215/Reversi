@@ -16,6 +16,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
   private final int numPlayers;
   private int skipsInRow;
   private List<Player> players;
+  private int turnIndex;
 
   /**
    * Constructs the board of size 5 and initializes with the starting piece setup which is:
@@ -42,6 +43,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     this.numPlayers = players.size();
     this.skipsInRow = 0;
     this.players = players;
+    this.turnIndex = 0;
     startGame(players);
   }
 
@@ -74,6 +76,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     this.numPlayers = players.size();
     this.skipsInRow = 0;
     this.players = players;
+    this.turnIndex = 0;
     startGame(players);
   }
 
@@ -84,6 +87,10 @@ public class HexagonalReversiModel implements MutableReversiModel {
     }
     if (posn == null) {
       throw new IllegalArgumentException("The given position can't be null.");
+    }
+
+    if (!this.getTurn().equals(p)) {
+      throw new IllegalStateException("It is not this players turn.");
     }
 
     ITile placingTile = findTile(posn);
@@ -107,6 +114,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
     placingTile.flipTo(p);
     this.skipsInRow = 0;
+    nextTurn();
   }
 
   @Override
@@ -114,9 +122,14 @@ public class HexagonalReversiModel implements MutableReversiModel {
     if (p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }
-    if (!this.possibleMoves(p).isEmpty()) {
+    if (this.hasLegalMoves(p)) {
       throw new IllegalStateException("Player can only skip if they have no possible moves.");
     }
+    if (!this.getTurn().equals(p)) {
+      throw new IllegalStateException("It is not this players turn.");
+    }
+
+    this.nextTurn();
     this.skipsInRow++;
   }
 
@@ -203,6 +216,11 @@ public class HexagonalReversiModel implements MutableReversiModel {
   @Override
   public int getBoardSize() {
     return this.boardSize;
+  }
+
+  @Override
+  public Player getTurn() {
+    return this.players.get(this.turnIndex);
   }
 
   private boolean isTileOnBoard(Posn posn) {
@@ -375,4 +393,9 @@ public class HexagonalReversiModel implements MutableReversiModel {
     findTile(new HexagonalPosn(1, -1, 0)).flipTo(p2);
   }
 
+  // Moves the turn index to the next players turn
+  private void nextTurn() {
+    this.turnIndex++;
+    this.turnIndex = this.turnIndex % this.players.size();
+  }
 }
