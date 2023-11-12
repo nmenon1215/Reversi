@@ -9,10 +9,10 @@ import javax.swing.*;
 
 import cs3500.model.ROReversiModel;
 
-public class JFrameReversiView extends JFrame implements ActionListener {
+public class JFrameReversiView extends JFrame implements IFrame {
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void display(boolean show) {
 
   }
 }
