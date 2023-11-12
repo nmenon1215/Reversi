@@ -20,11 +20,11 @@ public class JReversiPanel extends JPanel {
   /**
    * Our view will need to display a model, so it needs to get the current sequence from the model.
    */
-  private final ROReversiModel reversiModel;
+  private final ROReversiModel model;
 
   private boolean mouseIsDown;
   public JReversiPanel(ROReversiModel reversiModel) {
-    this.reversiModel = Objects.requireNonNull(reversiModel);
+    this.model = Objects.requireNonNull(reversiModel);
 
   }
 
@@ -32,7 +32,9 @@ public class JReversiPanel extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
+    Rectangle bounds = this.getBounds();
   }
+
   /**
    * Computes the transformation that converts board coordinates
    * (with (0,0) in center, width and height our logical size)
