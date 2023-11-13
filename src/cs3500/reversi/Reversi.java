@@ -7,8 +7,8 @@ import cs3500.model.HexagonalReversiModel;
 import cs3500.model.Player;
 import cs3500.model.ROReversiModel;
 import cs3500.model.User;
-import cs3500.view.IFrame;
 import cs3500.view.JFrameReversiView;
+import cs3500.view.ReversiView;
 
 public final class Reversi {
 
@@ -19,7 +19,7 @@ public final class Reversi {
   public static void main(String[] args) {
     // INPUTS NOT DONE
     ROReversiModel model = new HexagonalReversiModel( new ArrayList<>(Arrays.asList(p1, p2)),  5);
-    IFrame view = new JFrameReversiView(model);
+    ReversiView view = new JFrameReversiView(model);
     view.setVisible(true);
   }
 }

@@ -1,14 +1,10 @@
 package cs3500.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Objects;
-
 import javax.swing.JFrame;
 
 import cs3500.model.ROReversiModel;
 
-public class JFrameReversiView extends JFrame implements IFrame {
+public class JFrameReversiView extends JFrame implements ReversiView {
 
   private final JReversiPanel panel;
 

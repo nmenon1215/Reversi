@@ -1,6 +1,10 @@
 package cs3500.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -15,7 +19,7 @@ import cs3500.model.ROReversiModel;
  * A JReversiPanel will draw all the tiles on the board, allow users to click on them,
  * and play the game.
  */
-public class JReversiPanel extends JPanel {
+public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
 
   /**
    * Our view will need to display a model, so it needs to get the current sequence from the model.
@@ -59,6 +63,26 @@ public class JReversiPanel extends JPanel {
    */
   private AffineTransform transformPhysicalToLogical() {
     return null;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+
   }
 
   private class MouseEventsListener extends MouseInputAdapter {

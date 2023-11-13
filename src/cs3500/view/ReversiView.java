@@ -1,6 +1,6 @@
 package cs3500.view;
 
-public interface IFrame {
+public interface ReversiView {
 
   void setVisible(boolean b);
 
