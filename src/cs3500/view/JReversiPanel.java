@@ -13,6 +13,7 @@ import java.util.Objects;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
+import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
@@ -21,15 +22,29 @@ import cs3500.model.ROReversiModel;
  */
 public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
 
-  /**
-   * Our view will need to display a model, so it needs to get the current sequence from the model.
-   */
   private final ROReversiModel model;
 
+  private final int boardSize;
+
+  private final int windowSize;
+
+
+
   private boolean mouseIsDown;
-  public JReversiPanel(ROReversiModel reversiModel) {
+
+  public JReversiPanel(ReversiView reversiView, ROReversiModel reversiModel) {
     this.model = Objects.requireNonNull(reversiModel);
 
+  }
+
+  /**
+   * This method tells Swing what the "natural" size should be
+   * for this panel.  Here, we set it to 400x400 pixels.
+   * @return  Our preferred *physical* size.
+   */
+  @Override
+  public Dimension getPreferredSize() {
+    return new Dimension(450, 450);
   }
 
   @Override
@@ -38,6 +53,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     Graphics2D g2d = (Graphics2D) g.create();
     Rectangle bounds = this.getBounds();
   }
+
 
   /**
    * Computes the transformation that converts board coordinates
