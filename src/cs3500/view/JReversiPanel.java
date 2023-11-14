@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
@@ -26,15 +27,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   private final int boardSize;
 
-  private final int windowSize;
-
-
+  private HexagonalButton hex;
 
   private boolean mouseIsDown;
 
-  public JReversiPanel(ReversiView reversiView, ROReversiModel reversiModel) {
+  public JReversiPanel(ReversiView reversiView, ROReversiModel reversiModel, int boardSize) {
     this.model = Objects.requireNonNull(reversiModel);
+    this.boardSize = boardSize;
 
+    hex = new HexagonalButton();
+    add(hex);
   }
 
   /**
@@ -51,9 +53,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    Rectangle bounds = this.getBounds();
-  }
+    // Set the location for the HexagonalButton within the panel
+    int hexButtonX = 200;  // Adjust as needed
+    int hexButtonY = 200;  // Adjust as needed
 
+    // Draw the HexagonalButton at the specified location
+    hex.setBounds(hexButtonX, hexButtonY, hex.getWidth(), hex.getHeight());
+    hex.paintComponent(g2d);
+
+    g2d.dispose();
+  }
 
   /**
    * Computes the transformation that converts board coordinates
