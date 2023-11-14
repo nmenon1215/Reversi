@@ -14,21 +14,41 @@ import cs3500.model.ROReversiModel;
 public class AI implements Player {
 
   private final char player;
-  private Strategy strat;
+  private List<Strategy> strats;
 
   /**
    * Creates an AI with the given char as its display token.
    * @param player a character representing the display of this player.
    */
-  public AI(char player) {
+  public AI(char player, List<Strategy> strats) {
+    if(strats.equals(null)) {
+      throw new IllegalArgumentException("The given strategies can't be null.");
+    }
+    if(strats.contains(null)) {
+      throw new IllegalArgumentException("None of the strategies can be null.");
+    }
     this.player = player;
+    this.strats = strats;
   }
 
   String errormsg = "If you got this to run, the code compiles!";
 
   @Override
   public Posn placePiece(ROReversiModel model) {
-    return this.strat.choosePosn(model, this);
+    if(model.hasLegalMoves(this)) {
+      List<ITile> possibleMoves = model.possibleMoves(this);
+      for (int i = 0; i < strats.size(); i++) {
+        if(possibleMoves.size() == 1) {
+          return possibleMoves.get(0).getPosition();
+        }
+        //filter the possible moves with the strategy
+        possibleMoves = strats.get(i).filterMoves(model, this, possibleMoves);
+      }
+      return possibleMoves.get(0).getPosition();
+    }
+    //The model has no possible moves, so we return null which means skip turn.
+    return null;
+
   }
 
   @Override

@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import cs3500.model.ITile;
 import cs3500.model.Posn;
+import cs3500.model.ROReversiModel;
 import cs3500.player.Player;
 
 /**
@@ -28,7 +29,7 @@ public class User implements Player {
 
   // this will most likely interact with either view or controller which we don't have yet.
   @Override
-  public void placePiece(Posn p) {
+  public Posn placePiece(ROReversiModel model) {
     throw new RuntimeException(errormsg);
   }
 

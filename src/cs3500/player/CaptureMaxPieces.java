@@ -1,6 +1,9 @@
 package cs3500.player;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cs3500.model.HexagonalReversiModel;
 import cs3500.model.ITile;
@@ -13,13 +16,13 @@ import cs3500.model.ROReversiModel;
  */
 public class CaptureMaxPieces implements Strategy{
   @Override
-  public Posn choosePosn(ROReversiModel model, Player p) {
+  public List<ITile> filterMoves(ROReversiModel model, Player p, List<ITile> moves) {
     if (!model.hasLegalMoves(p)) {
       return null;
     }
-    int maxIndex = 0;
+    Map<ITile, Integer> scoredMoves = new HashMap<>();
+    //Populate the map with all the moves and their scores
     int maxScore = 0;
-    List<ITile> moves = model.possibleMoves(p);
     for(int i = 0; i < moves.size(); i++) {
       MutableReversiModel mock = new HexagonalReversiModel(model);
       int moveScore = -model.getScore(p);
@@ -27,9 +30,16 @@ public class CaptureMaxPieces implements Strategy{
       moveScore += mock.getScore(p);
       if(moveScore > maxScore) {
         maxScore = moveScore;
-        maxIndex = i;
+      }
+      scoredMoves.put(moves.get(i), moveScore);
+    }
+    //Find all values in map with this max score and return those tiles in a list.
+    List<ITile> filtered = new ArrayList<>();
+    for(ITile t : moves) {
+      if (scoredMoves.get(t) == maxScore) {
+        filtered.add(t);
       }
     }
-    return moves.get(maxIndex).getPosition();
+    return filtered;
   }
 }
