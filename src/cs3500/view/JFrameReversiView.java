@@ -11,7 +11,7 @@ public class JFrameReversiView extends JFrame implements ReversiView {
 
   public JFrameReversiView(ROReversiModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.panel = new JReversiPanel(this, model);
+    this.panel = new JReversiPanel(this, model, 7);
     this.add(panel);
     this.setLocationRelativeTo(null);
     this.pack();

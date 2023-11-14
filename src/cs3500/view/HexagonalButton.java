@@ -18,7 +18,7 @@ public class HexagonalButton extends JButton {
    * Gives the hexagon the properties to make it filled and look like a hexagon.
    */
   public HexagonalButton() {
-    setContentAreaFilled(false);
+    setContentAreaFilled(true);
     setOpaque(false);
     setBorderPainted(false);
   }
@@ -26,10 +26,10 @@ public class HexagonalButton extends JButton {
   @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-    Path2D hexagon = createHexagon(getWidth() / 2, getHeight() / 2,
-            Math.min(getWidth(), getHeight()) / 2);
+    Path2D hexagon = createHexagon(250, 250,
+            1);
 
-    g2d.setColor(getBackground());
+    g2d.setColor(Color.RED);
     g2d.fill(hexagon);
   }
 

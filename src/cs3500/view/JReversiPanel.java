@@ -27,13 +27,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   private final int boardSize;
 
-private HexagonalButton hex;
+  private HexagonalButton hex;
 
   private boolean mouseIsDown;
 
   public JReversiPanel(ReversiView reversiView, ROReversiModel reversiModel, int boardSize) {
     this.model = Objects.requireNonNull(reversiModel);
     this.boardSize = boardSize;
+
+    hex = new HexagonalButton();
+    add(hex);
   }
 
   /**
@@ -50,8 +53,15 @@ private HexagonalButton hex;
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    Rectangle bounds = this.getBounds();
+    // Set the location for the HexagonalButton within the panel
+    int hexButtonX = 200;  // Adjust as needed
+    int hexButtonY = 200;  // Adjust as needed
 
+    // Draw the HexagonalButton at the specified location
+    hex.setBounds(hexButtonX, hexButtonY, hex.getWidth(), hex.getHeight());
+    hex.paintComponent(g2d);
+
+    g2d.dispose();
   }
 
   /**
