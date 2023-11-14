@@ -4,6 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import cs3500.player.AI;
+import cs3500.player.Player;
+import cs3500.player.User;
+
 public class TestPlayerImplementation {
   Player p1;
   Player ai;

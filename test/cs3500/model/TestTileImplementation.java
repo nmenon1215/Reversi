@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import java.util.List;
 
+import cs3500.player.AI;
+import cs3500.player.User;
+
 /**
  * Tests regarding the public methods of both the Tile and the Posn.
  */

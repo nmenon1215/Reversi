@@ -1,6 +1,10 @@
-package cs3500.model;
+package cs3500.player;
 
 import java.util.List;
+
+import cs3500.model.ITile;
+import cs3500.model.Posn;
+import cs3500.model.ROReversiModel;
 
 /**
  * This is a representation of a Player. A Player is anyone who can interact with the model
@@ -16,14 +20,11 @@ public interface Player {
   /**
    * A player can choose to place a piece on the board at any valid position.
    *
-   * @param p a position on the board where the piece should be placed.
-   * @throws IllegalArgumentException if the given posn is null or does not correspond to a valid
-   *                                  board coordinate.
-   * @throws IllegalStateException    if the given posn corresponds to a tile that is already
-   *                                  occupied or the move is invalid (does not flip over any other
-   *                                  pieces).
+   * @param model is the current model that we are operating on.
+   * @return null to skip the turn, or a valid Posn on the board where we would like to place the \
+   * piece.
    */
-  void placePiece(Posn p);
+  Posn placePiece(ROReversiModel model);
 
   /**
    * Skips the turn of the player. You are only allowed to skip your turn when you have no possible

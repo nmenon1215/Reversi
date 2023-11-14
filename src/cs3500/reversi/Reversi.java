@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import cs3500.model.HexagonalReversiModel;
-import cs3500.model.Player;
+import cs3500.player.Player;
 import cs3500.model.ROReversiModel;
-import cs3500.model.User;
+import cs3500.player.User;
 import cs3500.view.JFrameReversiView;
 import cs3500.view.ReversiView;
 

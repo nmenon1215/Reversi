@@ -1,7 +1,11 @@
-package cs3500.model;
+package cs3500.player;
 
 import java.util.List;
 import java.util.Objects;
+
+import cs3500.model.ITile;
+import cs3500.model.Posn;
+import cs3500.model.ROReversiModel;
 
 /**
  * An AI is a Player who automatically places a piece or skips their turn if they have no moves.
@@ -10,6 +14,7 @@ import java.util.Objects;
 public class AI implements Player {
 
   private final char player;
+  private Strategy strat;
 
   /**
    * Creates an AI with the given char as its display token.
@@ -22,8 +27,8 @@ public class AI implements Player {
   String errormsg = "If you got this to run, the code compiles!";
 
   @Override
-  public void placePiece(Posn p) {
-    throw new RuntimeException(errormsg);
+  public Posn placePiece(ROReversiModel model) {
+    return this.strat.choosePosn(model, this);
   }
 
   @Override

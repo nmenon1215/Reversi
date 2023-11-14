@@ -2,6 +2,8 @@ package cs3500.model;
 
 import java.util.Objects;
 
+import cs3500.player.Player;
+
 /**
  * A HexagonalTile is a tile that operates on the hexagonal coordinate system. For more info on that
  * please visit HexagonalPosn. All Tiles have a position of where they are on the board as well as

@@ -1,5 +1,7 @@
 package cs3500.model;
 
+import cs3500.player.Player;
+
 /**
  * This is a representation of a mutable Reversi Model. A Reversi Model is a model of the game
  * Reversi where players place pieces on a tiled board. A player can only place a piece if it flips

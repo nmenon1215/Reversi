@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.player.Player;
+import cs3500.player.User;
 import cs3500.view.ReversiTextualView;
 
 /**

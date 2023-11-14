@@ -1,7 +1,11 @@
-package cs3500.model;
+package cs3500.player;
 
 import java.util.List;
 import java.util.Objects;
+
+import cs3500.model.ITile;
+import cs3500.model.Posn;
+import cs3500.player.Player;
 
 /**
  * A User is the class that represents any human playing this game. Humans can place pieces and

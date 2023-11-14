@@ -3,6 +3,8 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.player.Player;
+
 /**
  * A HexagonalReversiModel is a representation of a Reversi board with the ability to place
  * pieces of any type, and skip a turn. The model does not keep track of which player is placing
@@ -78,6 +80,19 @@ public class HexagonalReversiModel implements MutableReversiModel {
     this.players = players;
     this.turnIndex = 0;
     startGame(players);
+  }
+
+  /**
+   * Constructs a duplicate Reversi Model.
+   * @param model
+   */
+  public HexagonalReversiModel(ROReversiModel model) {
+    this.board  = model.getBoard();
+    this.boardSize = model.getBoardSize();
+    this.numPlayers = model.getPlayers().size();
+    this.skipsInRow = model.getSkipsInARow();
+    this.players = model.getPlayers();
+    this.turnIndex = model.getTurnIndex();
   }
 
   @Override
@@ -221,6 +236,30 @@ public class HexagonalReversiModel implements MutableReversiModel {
   @Override
   public Player getTurn() {
     return this.players.get(this.turnIndex);
+  }
+
+  @Override
+  public List<ITile> getBoard() {
+    List<ITile> copyBoard = new ArrayList<>();
+    for(int i = 0; i < this.board.size(); i++) {
+      copyBoard.add(new HexagonalTile(this.board.get(i)));
+    }
+    return copyBoard;
+  }
+
+  @Override
+  public List<Player> getPlayers() {
+    return this.players;
+  }
+
+  @Override
+  public int getTurnIndex() {
+    return this.turnIndex;
+  }
+
+  @Override
+  public int getSkipsInARow() {
+    return this.skipsInRow;
   }
 
   private boolean isTileOnBoard(Posn posn) {

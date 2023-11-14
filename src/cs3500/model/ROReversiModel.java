@@ -2,6 +2,8 @@ package cs3500.model;
 
 import java.util.List;
 
+import cs3500.player.Player;
+
 /**
  * This is a representation of an immutable Reversi Model. The functions in this model are only
  * getters, so the Reversi Model cannot be changed. A Reversi Model is a model of the game Reversi
@@ -92,4 +94,28 @@ public interface ROReversiModel {
    * @return the player whose turn it is.
    */
   Player getTurn();
+
+  /**
+   * Returns the list of Tiles that make up the board.
+   * @return the list of tiles making up the board.
+   */
+  List<ITile> getBoard();
+
+  /**
+   * Returns a list of the players playing the game.
+   * @return the list of players in the game.
+   */
+  List<Player> getPlayers();
+
+  /**
+   * Returns the index of whose turn it is in the list of players.
+   * @return the index of whose turn it is
+   */
+  int getTurnIndex();
+
+  /**
+   * Returns the number of skips we have had in a row so far.
+   * @return the number of skips in a row.
+   */
+  int getSkipsInARow();
 }

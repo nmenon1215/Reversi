@@ -1,5 +1,7 @@
 package cs3500.model;
 
+import cs3500.player.Player;
+
 /**
  * An ITile is a representation of a Tile. Each Tile must have a position on the board
  * as well as a Player field describing which player is occupying it. The Player field is left null
