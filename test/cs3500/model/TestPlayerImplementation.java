@@ -28,14 +28,7 @@ public class TestPlayerImplementation {
     Assert.assertEquals(p1, aiBasic);
   }
 
-  // TESTING AI
-
-  // TESTING CaptureMaxPieces Strategy
-  @Test
-  public void choosesMoveWithMoreTilesToBeFlipped() {
-
-  }
-
+  // TESTING parameter checks work
   @Test
   public void ensureModelCannotBeNull() {}
 
@@ -51,7 +44,13 @@ public class TestPlayerImplementation {
   @Test
   public void ensureGivenMovesAreActuallyValid() {}
 
+  // TESTING CaptureMaxPieces Strategy
+  @Test
+  public void choosesMoveWithMoreTilesToBeFlipped() {}
+
   // TESTING AvoidCellsNextToCorners Strategy
+  @Test
+  public void aiChoosesMoveAwayFromCorner() {}
 
   // TESTING PlaceAtCorners
 
@@ -60,6 +59,5 @@ public class TestPlayerImplementation {
   // TESTING AvoidCellsNextToCorners as Priority Strategy
 
   // TESTING PlaceAtCorners as Priority Strategy
-
 
 }
