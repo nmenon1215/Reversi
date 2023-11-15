@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.player.AI;
+import cs3500.player.CaptureMaxPieces;
 import cs3500.player.Player;
 import cs3500.player.User;
 import cs3500.view.ReversiTextualView;
@@ -30,7 +31,7 @@ public class TestModelImplementation {
     p1 = new User('X');
     p2 = new User('O');
     pRigged = new User('X');
-    ai = new AI('X');
+    ai = new AI('X', List.of(new CaptureMaxPieces()));
     bigModel = new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2)));
     bigTv = new ReversiTextualView(bigModel, System.out);
     smallModel = new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2)), 3);
@@ -243,7 +244,7 @@ public class TestModelImplementation {
   // TESTING constructor
   @Test(expected = IllegalArgumentException.class)
   public void createReversiWithNullListOfPlayersThrowsIllegalArg() {
-    new HexagonalReversiModel(null);
+    new HexagonalReversiModel(null, 6);
   }
 
   @Test(expected = IllegalArgumentException.class)
