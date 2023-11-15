@@ -44,7 +44,7 @@ public class CaptureMaxPieces implements Strategy{
   private void validateParams(ROReversiModel model, Player p, List<ITile> moves) {
     if (model == null) {
       throw new IllegalArgumentException("The given model can't be null.");
-    }
+    }b
     if (p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }
@@ -53,6 +53,9 @@ public class CaptureMaxPieces implements Strategy{
     }
     if (moves.contains(null)) {
       throw new IllegalArgumentException("The given list of moves can't contain a null move.");
+    }
+    if(moves.size() < 1) {
+      throw new IllegalArgumentException("Must include at least 1 valid move.");
     }
     for (ITile t : moves) {
       if (!model.possibleMoves(p).contains(t)) {
