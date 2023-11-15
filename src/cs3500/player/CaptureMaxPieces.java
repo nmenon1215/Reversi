@@ -17,9 +17,7 @@ import cs3500.model.ROReversiModel;
 public class CaptureMaxPieces implements Strategy{
   @Override
   public List<ITile> filterMoves(ROReversiModel model, Player p, List<ITile> moves) {
-    if (!model.hasLegalMoves(p)) {
-      return null;
-    }
+    validateParams(model, p, moves);
     Map<ITile, Integer> scoredMoves = new HashMap<>();
     //Populate the map with all the moves and their scores
     int maxScore = 0;
@@ -41,5 +39,25 @@ public class CaptureMaxPieces implements Strategy{
       }
     }
     return filtered;
+  }
+
+  private void validateParams(ROReversiModel model, Player p, List<ITile> moves) {
+    if (model == null) {
+      throw new IllegalArgumentException("The given model can't be null.");
+    }
+    if (p == null) {
+      throw new IllegalArgumentException("The given player can't be null.");
+    }
+    if (moves == null) {
+      throw new IllegalArgumentException("The given list of moves can't be null.");
+    }
+    if (moves.contains(null)) {
+      throw new IllegalArgumentException("The given list of moves can't contain a null move.");
+    }
+    for (ITile t : moves) {
+      if (!model.possibleMoves(p).contains(t)) {
+        throw new IllegalArgumentException("All moves given must be valid moves.");
+      }
+    }
   }
 }
