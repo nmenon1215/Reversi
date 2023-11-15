@@ -172,8 +172,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
-  //Assume this.size is the pixel width of the grid.
   private int calculateWidth(int size) {
-    return this.size / (size * 2 + 1);
+    return this.getPreferredSize().width / (size * 2 + 1);
   }
 }
