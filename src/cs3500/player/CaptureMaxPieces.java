@@ -44,7 +44,7 @@ public class CaptureMaxPieces implements Strategy{
   private void validateParams(ROReversiModel model, Player p, List<ITile> moves) {
     if (model == null) {
       throw new IllegalArgumentException("The given model can't be null.");
-    }b
+    }
     if (p == null) {
       throw new IllegalArgumentException("The given player can't be null.");
     }

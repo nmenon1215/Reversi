@@ -262,6 +262,19 @@ public class HexagonalReversiModel implements MutableReversiModel {
     return this.skipsInRow;
   }
 
+  @Override
+  public List<Posn> getCorners() {
+    List<Posn> corners = new ArrayList<>();
+    corners.add(new HexagonalPosn(0, this.boardSize, -this.boardSize));
+    corners.add(new HexagonalPosn(0, -this.boardSize, this.boardSize));
+    corners.add(new HexagonalPosn(this.boardSize, 0, -this.boardSize));
+    corners.add(new HexagonalPosn(-this.boardSize, 0, this.boardSize));
+    corners.add(new HexagonalPosn(this.boardSize, -this.boardSize, 0));
+    corners.add(new HexagonalPosn(-this.boardSize, this.boardSize, 0));
+
+    return corners;
+  }
+
   private boolean isTileOnBoard(Posn posn) {
     if (posn == null) {
       return false;

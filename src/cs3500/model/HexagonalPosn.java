@@ -71,6 +71,23 @@ public class HexagonalPosn implements Posn {
   }
 
   @Override
+  public boolean adjacentTo(Posn other) {
+    if (other instanceof HexagonalPosn) {
+      HexagonalPosn that = (HexagonalPosn) other;
+      if(this.q == that.q) {
+        return this.r + 1 == that.r || this.r - 1 == that.r;
+      }
+      else if(this.r == that.r) {
+        return this.s + 1 == that.s || this.s - 1 == that.s;
+      }
+      else if(this.s == that.s) {
+        return this.q + 1 == that.q || this.q - 1 == that.q;
+      }
+    }
+    return false;
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (!(obj instanceof HexagonalPosn)) {
       return false;

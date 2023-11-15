@@ -118,4 +118,10 @@ public interface ROReversiModel {
    * @return the number of skips in a row.
    */
   int getSkipsInARow();
+
+  /**
+   * Returns the tiles at the corners of the grid.
+   * @return the positions of the tiles in the corners of the board.
+   */
+  List<Posn> getCorners();
 }

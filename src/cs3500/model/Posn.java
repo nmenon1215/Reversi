@@ -15,4 +15,11 @@ public interface Posn {
    * @return the list of coordinates that correspond to this posn.
    */
   List<Integer> getCoords();
+
+  /**
+   * Determines if this position is adjacent to the given tile's position.
+   * @param other any other position
+   * @return if the other position is adjacent to this position.
+   */
+  boolean adjacentTo(Posn other);
 }
