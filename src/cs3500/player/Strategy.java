@@ -7,5 +7,5 @@ import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 public interface Strategy {
-  List<ITile> filterMoves(ROReversiModel model, Player p, List<ITile> moves);
+  List<Posn> filterMoves(ROReversiModel model, Player p, List<Posn> moves);
 }

@@ -16,15 +16,15 @@ import cs3500.model.ROReversiModel;
  */
 public class CaptureMaxPieces implements Strategy{
   @Override
-  public List<ITile> filterMoves(ROReversiModel model, Player p, List<ITile> moves) {
+  public List<Posn> filterMoves(ROReversiModel model, Player p, List<Posn> moves) {
     validateParams(model, p, moves);
-    Map<ITile, Integer> scoredMoves = new HashMap<>();
+    Map<Posn, Integer> scoredMoves = new HashMap<>();
     //Populate the map with all the moves and their scores
     int maxScore = 0;
     for(int i = 0; i < moves.size(); i++) {
       MutableReversiModel mock = new HexagonalReversiModel(model);
       int moveScore = -model.getScore(p);
-      mock.placePiece(p, moves.get(i).getPosition());
+      mock.placePiece(p, moves.get(i));
       moveScore += mock.getScore(p);
       if(moveScore > maxScore) {
         maxScore = moveScore;
@@ -32,16 +32,16 @@ public class CaptureMaxPieces implements Strategy{
       scoredMoves.put(moves.get(i), moveScore);
     }
     //Find all values in map with this max score and return those tiles in a list.
-    List<ITile> filtered = new ArrayList<>();
-    for(ITile t : moves) {
-      if (scoredMoves.get(t) == maxScore) {
-        filtered.add(t);
+    List<Posn> filtered = new ArrayList<>();
+    for(Posn posn : moves) {
+      if (scoredMoves.get(posn) == maxScore) {
+        filtered.add(posn);
       }
     }
     return filtered;
   }
 
-  private void validateParams(ROReversiModel model, Player p, List<ITile> moves) {
+  private void validateParams(ROReversiModel model, Player p, List<Posn> moves) {
     if (model == null) {
       throw new IllegalArgumentException("The given model can't be null.");
     }
@@ -57,8 +57,8 @@ public class CaptureMaxPieces implements Strategy{
     if(moves.size() < 1) {
       throw new IllegalArgumentException("Must include at least 1 valid move.");
     }
-    for (ITile t : moves) {
-      if (!model.possibleMoves(p).contains(t)) {
+    for (Posn posn : moves) {
+      if (!model.possibleMoves(p).contains(posn)) {
         throw new IllegalArgumentException("All moves given must be valid moves.");
       }
     }

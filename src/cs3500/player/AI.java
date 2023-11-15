@@ -1,5 +1,6 @@
 package cs3500.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,15 +37,19 @@ public class AI implements Player {
   @Override
   public Posn placePiece(ROReversiModel model) {
     if(model.hasLegalMoves(this)) {
-      List<ITile> possibleMoves = model.possibleMoves(this);
+      List<Posn> possibleMoves = new ArrayList<>();
+      for(ITile tile : model.possibleMoves(this)) {
+        possibleMoves.add(tile.getPosition());
+      }
+
       for (int i = 0; i < strats.size(); i++) {
         if(possibleMoves.size() == 1) {
-          return possibleMoves.get(0).getPosition();
+          return possibleMoves.get(0);
         }
         //filter the possible moves with the strategy
         possibleMoves = strats.get(i).filterMoves(model, this, possibleMoves);
       }
-      return possibleMoves.get(0).getPosition();
+      return possibleMoves.get(0);
     }
     //The model has no possible moves, so we return null which means skip turn.
     return null;

@@ -3,28 +3,25 @@ package cs3500.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
-public class AvoidCellsNextToCorners implements Strategy{
+public class PlaceAtCorners implements Strategy{
   @Override
   public List<Posn> filterMoves(ROReversiModel model, Player p, List<Posn> moves) {
     validateParams(model, p, moves);
-    // Find all moves not next to corner
-    List<Posn> notAdjacentToCorner = new ArrayList<>();
-    for(Posn posn : moves) {
-      if(!adjacentToCorner(posn, model)) {
-        notAdjacentToCorner.add(posn);
+    List<Posn> cornerMoves = new ArrayList<>();
+    for(Posn posn : model.getCorners()) {
+      if (moves.contains(posn)) {
+        cornerMoves.add(posn);
       }
     }
-    // If we find none, return all moves
-    if(notAdjacentToCorner.isEmpty()) {
+    if (cornerMoves.isEmpty()) {
+      // no corners found, do not filter anything
       return moves;
     }
-    // Otherwise, return all moves not adjacent to corner.
-    return notAdjacentToCorner;
+    return cornerMoves;
   }
 
   private void validateParams(ROReversiModel model, Player p, List<Posn> moves) {
@@ -48,15 +45,5 @@ public class AvoidCellsNextToCorners implements Strategy{
         throw new IllegalArgumentException("All moves given must be valid moves.");
       }
     }
-  }
-
-  private boolean adjacentToCorner(Posn position, ROReversiModel model) {
-    List<Posn> corners = model.getCorners();
-    for(int i  = 0; i < corners.size(); i++) {
-      if(position.adjacentTo(corners.get(i))) {
-        return true;
-      }
-    }
-    return false;
   }
 }
