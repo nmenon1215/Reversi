@@ -58,7 +58,11 @@ public class CaptureMaxPieces implements Strategy{
       throw new IllegalArgumentException("Must include at least 1 valid move.");
     }
     for (Posn posn : moves) {
-      if (!model.possibleMoves(p).contains(posn)) {
+      List<Posn> allPossibleMoves = new ArrayList<>();
+      for(ITile tile : model.possibleMoves(p)) {
+        allPossibleMoves.add(tile.getPosition());
+      }
+      if (!allPossibleMoves.contains(posn)) {
         throw new IllegalArgumentException("All moves given must be valid moves.");
       }
     }
