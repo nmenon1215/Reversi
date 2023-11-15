@@ -28,6 +28,7 @@ import cs3500.model.ROReversiModel;
 public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
 
   private final int BOARDWIDTH = 450;
+  private final int BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3)/2 * BOARDWIDTH);
   private final ROReversiModel model;
 
   private final int size;
@@ -49,27 +50,20 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
    */
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(BOARDWIDTH, (int) Math.ceil(2/Math.sqrt(3) * BOARDWIDTH));
+    return new Dimension(BOARDWIDTH, BOARDHEIGHT);
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-
-//    // Draw the HexagonalButton at the specified location
-//    hex.setLocation(getWidth() / 2, getHeight() / 2);
-//    hex.setBounds(ge, getWidth(), getHeight());
-    hex.paintComponent(g2d);
-
-    g2d.dispose();
   }
 
   private void populateBoard() {
     JButton center = new HexagonalButton();
-    int width = calculateWidth(size); // of a single piece
-    int height = calculateHeight(size); // of a single piece
-    int y = startingY(size); //Don't know if u need size for this. You might need nothing if you top left align
+    int width = calculatePieceWidth(); // of a single piece
+    int height = calculatePieceHeight(); // of a single piece
+    int y = 0; //Don't know if u need size for this. You might need nothing if you top left align
     for (int r = -size; r <= size; r++) {
       int qStart;
       int qEnd;
@@ -90,24 +84,22 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
       }
       y += height; // assume positive down
     }
-    /*
-    for (int i = 1; i < size; i++) {
-      for (int j = 0; j < calculateCircumference(i); j++) {
-        JButton button = new HexagonalButton();
-        add(button);
-        List<Integer> placement = findPlacement(i, j);
-        button.setBounds()
-      }
+  }
+
+  private int startingX(int r) {
+    if (r < 0) {
+      return -r * calculatePieceWidth() / 2;
+    } else {
+      return r * calculatePieceWidth() / 2;
     }
-    */
   }
 
-  private int calculateWidth(int size) {
-    return this.getPreferredSize().width / (size * 2 + 1);
+  private int calculatePieceWidth() {
+    return this.getWidth() / (size * 2 + 1);
   }
 
-  private int calculateHeight(int size) {
-    return this.getPreferredSize().height * 2 / (size * 4 + 1);
+  private int calculatePieceHeight() {
+    return this.getHeight() * 2 / (size * 4 + 1);
   }
   /**
    * Computes the transformation that converts board coordinates
