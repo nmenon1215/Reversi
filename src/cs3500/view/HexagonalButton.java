@@ -4,6 +4,9 @@ package cs3500.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Path2D;
 
 import javax.swing.JButton;
@@ -14,13 +17,33 @@ import javax.swing.JButton;
  */
 public class HexagonalButton extends JButton {
 
+  private boolean click = false;
+
   /**
    * Gives the hexagon the properties to make it filled and look like a hexagon.
    */
   public HexagonalButton() {
     setContentAreaFilled(true);
     setOpaque(false);
-    setBorderPainted(false);
+    setBorderPainted(true);
+
+    addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        click = !click;
+        highlight();
+      }
+    });
+  }
+
+  private void highlight() {
+    if (click) {
+      setBackground(Color.RED);
+    }
+    else {
+      setBackground(Color.DARK_GRAY);
+    }
+    repaint();
   }
 
   @Override
