@@ -149,11 +149,31 @@ public class ReversiExamples {
   @Test
   public void gameOverIfNumberOfPlayersEqualsNumberOfSkips() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    smallModel.placePiece(pRigged, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p2, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(3, -1, -2));
+    smallModel.placePiece(p2, new HexagonalPosn(3, 0, -3));
     smallModel.placePiece(p1, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(p2, new HexagonalPosn(-2, -1, 3));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p2, new HexagonalPosn(-2, 1, 1));
+    smallModel.placePiece(p1, new HexagonalPosn(-3, 1, 2));
+    smallModel.placePiece(p2, new HexagonalPosn(-3, 2, 1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    smallModel.placePiece(p2, new HexagonalPosn(1, 2, -3));
+
+
     smallModel.skip(pRigged);
     smallModel.skip(p1);
     Assert.assertTrue(smallModel.isGameOver());
+
+    String initialBoard =
+            "   _ _ _ _ \n" +
+                    "  _ _ X _ O \n" +
+                    " O O O X O O \n" +
+                    "_ _ O _ X _ O \n" +
+                    " X O O O O O \n" +
+                    "  O _ _ _ _ \n" +
+                    "   _ _ _ _ \n";
   }
 
   @Test
