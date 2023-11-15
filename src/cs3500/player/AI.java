@@ -22,7 +22,7 @@ public class AI implements Player {
    * @param player a character representing the display of this player.
    */
   public AI(char player, List<Strategy> strats) {
-    if(strats.equals(null)) {
+    if(strats == null) {
       throw new IllegalArgumentException("The given strategies can't be null.");
     }
     if(strats.contains(null)) {

@@ -27,31 +27,29 @@ import cs3500.model.ROReversiModel;
  */
 public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
 
+  private final int BOARDWIDTH = 450;
   private final ROReversiModel model;
 
   private final int size;
-
-  private HexagonalButton hex;
   private JButton background;
 
   private boolean mouseIsDown;
 
-  public JReversiPanel(ReversiView reversiView, ROReversiModel reversiModel, int boardSize) {
+  public JReversiPanel(ROReversiModel reversiModel, int boardSize) {
     this.model = Objects.requireNonNull(reversiModel);
     this.size = boardSize;
 
-    hex = new HexagonalButton();
-    add(hex);
+    this.populateBoard();
   }
 
   /**
    * This method tells Swing what the "natural" size should be
-   * for this panel.  Here, we set it to 400x400 pixels.
+   * for this panel.  Here, we set it to 500x500 pixels.
    * @return  Our preferred *physical* size.
    */
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(450, 450);
+    return new Dimension(BOARDWIDTH, (int) Math.ceil(2/Math.sqrt(3) * BOARDWIDTH));
   }
 
   @Override
@@ -67,11 +65,11 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     g2d.dispose();
   }
 
-  private void populateBoard(int centerX, int centerY, int size) {
+  private void populateBoard() {
     JButton center = new HexagonalButton();
     int width = calculateWidth(size); // of a single piece
     int height = calculateHeight(size); // of a single piece
-    int y = startingY(centerX, centerY, size); //Don't know if u need size for this. You might need nothing if you top left align
+    int y = startingY(size); //Don't know if u need size for this. You might need nothing if you top left align
     for (int r = -size; r <= size; r++) {
       int qStart;
       int qEnd;
@@ -104,6 +102,13 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     */
   }
 
+  private int calculateWidth(int size) {
+    return this.getPreferredSize().width / (size * 2 + 1);
+  }
+
+  private int calculateHeight(int size) {
+    return this.getPreferredSize().height * 2 / (size * 4 + 1);
+  }
   /**
    * Computes the transformation that converts board coordinates
    * (with (0,0) in center, width and height our logical size)
@@ -172,7 +177,5 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
-  private int calculateWidth(int size) {
-    return this.getPreferredSize().width / (size * 2 + 1);
-  }
+
 }
