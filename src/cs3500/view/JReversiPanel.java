@@ -171,4 +171,9 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
       // TODO: Figure out whether this location is inside a circle, and if so, which one
     }
   }
+
+  //Assume this.size is the pixel width of the grid.
+  private int calculateWidth(int size) {
+    return this.size / (size * 2 + 1);
+  }
 }
