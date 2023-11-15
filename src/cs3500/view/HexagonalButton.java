@@ -17,6 +17,8 @@ import javax.swing.JButton;
  */
 public class HexagonalButton extends JButton {
 
+  private int width;
+  private int height;
   private boolean click = false;
 
   /**
@@ -49,16 +51,16 @@ public class HexagonalButton extends JButton {
   @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-
-    int width = 100;
-    int height = 100;
-    Path2D hexagon = createHexagon(width, height);
+    Rectangle bounds= this.getBounds();
+    width = bounds.width;
+    height = bounds.height;
+    Path2D hexagon = createHexagon();
 
     g2d.setColor(Color.DARK_GRAY);
     g2d.fill(hexagon);
   }
 
-  private Path2D createHexagon(int width, int height) {
+  private Path2D createHexagon() {
     Path2D line = new Path2D.Double();
 
     double sideLength = (double) width / 2;
