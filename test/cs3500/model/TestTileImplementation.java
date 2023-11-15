@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.List;
 
 import cs3500.player.AI;
+import cs3500.player.CaptureMaxPieces;
 import cs3500.player.User;
 
 /**
@@ -29,9 +30,9 @@ public class TestTileImplementation {
   @Test
   public void flipToWithAnyPlayerWorks() {
     tile.flipTo(new User('A'));
-    Assert.assertEquals(new AI('A'), tile.getPlayer());
+    Assert.assertEquals(new AI('A', List.of(new CaptureMaxPieces())), tile.getPlayer());
 
-    tile.flipTo(new AI('c'));
+    tile.flipTo(new AI('c', List.of(new CaptureMaxPieces())));
     Assert.assertEquals(new User('c'), tile.getPlayer());
   }
 
