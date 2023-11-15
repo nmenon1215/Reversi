@@ -27,7 +27,7 @@ public class HexagonalButton extends JButton {
   public HexagonalButton() {
     setContentAreaFilled(false);
     setOpaque(false);
-    setBorderPainted(true);
+    setBorderPainted(false);
     setFocusPainted(false);
 
     addActionListener(new ActionListener() {
@@ -63,7 +63,17 @@ public class HexagonalButton extends JButton {
     g2d.fill(hexagon);
   }
 
+  @Override
+  public boolean contains(int x, int y) {
+    Path2D.Double hexagon = new Path2D.Double();
+    createHexagon(hexagon);
+
+    return hexagon.contains(x, y);
+  }
+
   private void createHexagon(Path2D.Double line) {
+    Rectangle bounds = this.getBounds();
+    double height = bounds.getHeight();
     double sideLength = height / 2;
     double widthMovement = sideLength * Math.sqrt(3) / 2;
     line.moveTo(widthMovement, 0);

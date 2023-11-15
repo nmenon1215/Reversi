@@ -27,8 +27,8 @@ import cs3500.model.ROReversiModel;
  */
 public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
 
-  private final int BOARDWIDTH = 450;
-  private final int BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3)/2 * BOARDWIDTH);
+  private final double BOARDWIDTH = 450;
+  private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3)/2 * BOARDWIDTH);
   private final ROReversiModel model;
 
   private final int size;
@@ -53,7 +53,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
    */
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(BOARDWIDTH, BOARDHEIGHT);
+    return new Dimension((int) BOARDWIDTH, (int) BOARDHEIGHT);
   }
 
   @Override
@@ -63,9 +63,9 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   }
 
   private void populateBoard() {
-    int width = calculatePieceWidth(BOARDWIDTH); // of a single piece
-    int height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
-    int y = 0; //Don't know if u need size for this. You might need nothing if you top left align
+    double width = calculatePieceWidth(BOARDWIDTH); // of a single piece
+    double height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
+    double y = 0; //Don't know if u need size for this. You might need nothing if you top left align
     for (int r = -size; r <= size; r++) {
       int qStart;
       int qEnd;
@@ -76,18 +76,18 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
         qStart = -size;
         qEnd = size - r;
       }
-      int x = startingX(r, BOARDWIDTH);
+      double x = startingX(r, BOARDWIDTH);
       for (int q = qStart; q <= qEnd; q++) {
         JButton button = new HexagonalButton();
         add(button);
-        button.setBounds(x, y, width, height);
+        button.setBounds((int) x, (int) y, (int) width, (int) height);
         x += width; // assume positive right
       }
-      y += height; // assume positive down
+      y += 3 * height / 4; // assume positive down
     }
   }
 
-  private int startingX(int r, int boardWidth) {
+  private double startingX(int r, double boardWidth) {
     if (r < 0) {
       return -r * calculatePieceWidth(boardWidth) / 2;
     } else {
@@ -95,12 +95,12 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
-  private int calculatePieceWidth(int boardWidth) {
+  private double calculatePieceWidth(double boardWidth) {
     return boardWidth / (size * 2 + 1);
   }
 
-  private int calculatePieceHeight(int boardHeight) {
-    return boardHeight * 2 / (size * 4 + 1);
+  private double calculatePieceHeight(double boardHeight) {
+    return boardHeight * 2 / (size * 3 + 2);
   }
   /**
    * Computes the transformation that converts board coordinates
