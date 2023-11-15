@@ -18,7 +18,7 @@ public final class Reversi {
 
   public static void main(String[] args) {
     // INPUTS NOT DONE
-    ROReversiModel model = new HexagonalReversiModel( new ArrayList<>(Arrays.asList(p1, p2)),  5);
+    ROReversiModel model = new HexagonalReversiModel( new ArrayList<>(Arrays.asList(p1, p2)),  3);
     ReversiView view = new JFrameReversiView(model);
     view.setVisible(true);
   }

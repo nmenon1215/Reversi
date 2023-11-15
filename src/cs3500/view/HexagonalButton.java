@@ -25,9 +25,10 @@ public class HexagonalButton extends JButton {
    * Gives the hexagon the properties to make it filled and look like a hexagon.
    */
   public HexagonalButton() {
-    setContentAreaFilled(true);
+    setContentAreaFilled(false);
     setOpaque(false);
     setBorderPainted(true);
+    setFocusPainted(false);
 
     addActionListener(new ActionListener() {
       @Override
@@ -51,31 +52,26 @@ public class HexagonalButton extends JButton {
   @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-    Rectangle bounds= this.getBounds();
+    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_DEFAULT);
+    Rectangle bounds = this.getBounds();
     width = bounds.width;
     height = bounds.height;
-    Path2D hexagon = createHexagon();
+    Path2D.Double hexagon = new Path2D.Double();
+    createHexagon(hexagon);
 
     g2d.setColor(Color.DARK_GRAY);
     g2d.fill(hexagon);
   }
 
-  private Path2D createHexagon() {
-    Path2D line = new Path2D.Double();
-
-    double sideLength = (double) width / 2;
-    double midpoint = Math.sqrt(3) / 2 * sideLength;
-    double x = width / 2.0;
-    double y = height / 2.0;
-
-    line.moveTo(x + sideLength, y);
-    line.lineTo(x + sideLength / 2, y - midpoint);
-    line.lineTo(x - sideLength / 2, y - midpoint);
-    line.lineTo(x - sideLength, y);
-    line.lineTo(x - sideLength / 2, y + midpoint);
-    line.lineTo(x + sideLength / 2, y + midpoint);
+  private void createHexagon(Path2D.Double line) {
+    double sideLength = height / 2;
+    double widthMovement = sideLength * Math.sqrt(3) / 2;
+    line.moveTo(widthMovement, 0);
+    line.lineTo(widthMovement * 2, sideLength / 2);
+    line.lineTo(widthMovement * 2, 3 * sideLength / 2);
+    line.lineTo(widthMovement, 2 * sideLength);
+    line.lineTo(0, 3 * sideLength / 2);
+    line.lineTo(0, sideLength / 2);
     line.closePath();
-
-    return line;
   }
 }

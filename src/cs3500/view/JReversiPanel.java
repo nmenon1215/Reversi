@@ -32,13 +32,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private final ROReversiModel model;
 
   private final int size;
+  private JFrame frame;
   private JButton background;
 
   private boolean mouseIsDown;
 
-  public JReversiPanel(ROReversiModel reversiModel, int boardSize) {
+  public JReversiPanel(JFrame frame, ROReversiModel reversiModel) {
     this.model = Objects.requireNonNull(reversiModel);
-    this.size = boardSize;
+    this.size = model.getBoardSize();
+    this.frame = Objects.requireNonNull(frame);
+    this.frame.setPreferredSize(this.getPreferredSize());
 
     this.populateBoard();
   }
@@ -60,9 +63,8 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   }
 
   private void populateBoard() {
-    JButton center = new HexagonalButton();
-    int width = calculatePieceWidth(); // of a single piece
-    int height = calculatePieceHeight(); // of a single piece
+    int width = calculatePieceWidth(BOARDWIDTH); // of a single piece
+    int height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
     int y = 0; //Don't know if u need size for this. You might need nothing if you top left align
     for (int r = -size; r <= size; r++) {
       int qStart;
@@ -74,9 +76,8 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
         qStart = -size;
         qEnd = size - r;
       }
-      int x = startingX(r);
+      int x = startingX(r, BOARDWIDTH);
       for (int q = qStart; q <= qEnd; q++) {
-        int s = -q - r;
         JButton button = new HexagonalButton();
         add(button);
         button.setBounds(x, y, width, height);
@@ -86,20 +87,20 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
-  private int startingX(int r) {
+  private int startingX(int r, int boardWidth) {
     if (r < 0) {
-      return -r * calculatePieceWidth() / 2;
+      return -r * calculatePieceWidth(boardWidth) / 2;
     } else {
-      return r * calculatePieceWidth() / 2;
+      return r * calculatePieceWidth(boardWidth) / 2;
     }
   }
 
-  private int calculatePieceWidth() {
-    return this.getWidth() / (size * 2 + 1);
+  private int calculatePieceWidth(int boardWidth) {
+    return boardWidth / (size * 2 + 1);
   }
 
-  private int calculatePieceHeight() {
-    return this.getHeight() * 2 / (size * 4 + 1);
+  private int calculatePieceHeight(int boardHeight) {
+    return boardHeight * 2 / (size * 4 + 1);
   }
   /**
    * Computes the transformation that converts board coordinates
