@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.swing.*;
@@ -54,11 +55,11 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
     // Set the location for the HexagonalButton within the panel
-    int hexButtonX = 200;  // Adjust as needed
-    int hexButtonY = 200;  // Adjust as needed
+    int hexButtonX = 250;  // Adjust as needed
+    int hexButtonY = 250;  // Adjust as needed
 
     // Draw the HexagonalButton at the specified location
-    hex.setBounds(hexButtonX, hexButtonY, hex.getWidth(), hex.getHeight());
+    hex.setBounds(hexButtonX * 2, hexButtonY * 2, hex.getWidth() * 2, hex.getHeight() * 2);
     hex.paintComponent(g2d);
 
     g2d.dispose();

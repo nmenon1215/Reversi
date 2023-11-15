@@ -26,30 +26,31 @@ public class HexagonalButton extends JButton {
   @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-    Path2D hexagon = createHexagon(250, 250,
-            1);
 
-    g2d.setColor(Color.RED);
+    int width = 100;
+    int height = 100;
+    Path2D hexagon = createHexagon(width, height);
+
+    g2d.setColor(Color.DARK_GRAY);
     g2d.fill(hexagon);
   }
 
-  private Path2D createHexagon(int q, int r, int size) {
-    Path2D hexagon = new Path2D.Double();
-    double angle;
+  private Path2D createHexagon(int width, int height) {
+    Path2D line = new Path2D.Double();
 
-    for (int i = 0; i < 6; i++) {
-      angle = (2.0 * Math.PI * i) / 6;
-      double x = size * (3.0 / 2.0) * q * Math.cos(angle);
-      double y = size * Math.sqrt(3) * (r + q / 2.0) * Math.sin(angle);
+    double sideLength = (double) width / 2;
+    double midpoint = Math.sqrt(3) / 2 * sideLength;
+    double x = width / 2.0;
+    double y = height / 2.0;
 
-      if (i == 0) {
-        hexagon.moveTo(x, y);
-      } else {
-        hexagon.lineTo(x, y);
-      }
-    }
+    line.moveTo(x + sideLength, y);
+    line.lineTo(x + sideLength / 2, y - midpoint);
+    line.lineTo(x - sideLength / 2, y - midpoint);
+    line.lineTo(x - sideLength, y);
+    line.lineTo(x - sideLength / 2, y + midpoint);
+    line.lineTo(x + sideLength / 2, y + midpoint);
+    line.closePath();
 
-    hexagon.closePath();
-    return hexagon;
+    return line;
   }
 }
