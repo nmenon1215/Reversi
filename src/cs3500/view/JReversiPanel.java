@@ -11,10 +11,13 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
+import cs3500.model.HexagonalPosn;
+import cs3500.model.HexagonalTile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
@@ -26,15 +29,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   private final ROReversiModel model;
 
-  private final int boardSize;
+  private final int size;
 
   private HexagonalButton hex;
+  private JButton background;
 
   private boolean mouseIsDown;
 
   public JReversiPanel(ReversiView reversiView, ROReversiModel reversiModel, int boardSize) {
     this.model = Objects.requireNonNull(reversiModel);
-    this.boardSize = boardSize;
+    this.size = boardSize;
 
     hex = new HexagonalButton();
     add(hex);
@@ -54,15 +58,50 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    // Set the location for the HexagonalButton within the panel
-    int hexButtonX = 250;  // Adjust as needed
-    int hexButtonY = 250;  // Adjust as needed
 
-    // Draw the HexagonalButton at the specified location
-    hex.setBounds(hexButtonX * 2, hexButtonY * 2, hex.getWidth() * 2, hex.getHeight() * 2);
+//    // Draw the HexagonalButton at the specified location
+//    hex.setLocation(getWidth() / 2, getHeight() / 2);
+//    hex.setBounds(ge, getWidth(), getHeight());
     hex.paintComponent(g2d);
 
     g2d.dispose();
+  }
+
+  private void populateBoard(int centerX, int centerY, int size) {
+    JButton center = new HexagonalButton();
+    int width = calculateWidth(size); // of a single piece
+    int height = calculateHeight(size); // of a single piece
+    int y = startingY(centerX, centerY, size); //Don't know if u need size for this. You might need nothing if you top left align
+    for (int r = -size; r <= size; r++) {
+      int qStart;
+      int qEnd;
+      if (r < 0) {
+        qStart = -size - r;
+        qEnd = size;
+      } else {
+        qStart = -size;
+        qEnd = size - r;
+      }
+      int x = startingX(r);
+      for (int q = qStart; q <= qEnd; q++) {
+        int s = -q - r;
+        JButton button = new HexagonalButton();
+        add(button);
+        button.setBounds(x, y, width, height);
+        x += width; // assume positive right
+      }
+      y += height; // assume positive down
+    }
+    /*
+    for (int i = 1; i < size; i++) {
+      for (int j = 0; j < calculateCircumference(i); j++) {
+        JButton button = new HexagonalButton();
+        add(button);
+        List<Integer> placement = findPlacement(i, j);
+        button.setBounds()
+      }
+    }
+    */
   }
 
   /**
