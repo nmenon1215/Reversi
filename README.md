@@ -37,6 +37,14 @@ The Model is based on the Tile, and Player interfaces. It is also somewhat tight
 #### Tests
 Classes: ReversiExamples, TestModelImplementation, TestTileImplementation  
 
+## Changes Made To Model
+1. We now keep track of whose turn it is
+2. Change constructor to accept List<Player>() instead of Player
+3. Use playerTurn which cycles through list (added private method nextPlayer();)
+4. Updated skip to account for player turn
+5. Updated placePiece() to account for player turn
+6. New Getters (getCurrentPlayer(), getBoardIf(Player p, Posn posn), isLegalMove(Player p, Posn posn), hasLegalMoves(Player p), getSurroundingTiles())
+
 ## Invariant
 
 1. **Board Consistency/Size**:
