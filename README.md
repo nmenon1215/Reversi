@@ -53,7 +53,7 @@ Classes: ReversiExamples, TestModelImplementation, TestTileImplementation, TestP
 3. Use playerTurn which cycles through list (added private method nextPlayer();)
 4. Updated skip to account for player turn
 5. Updated placePiece() to account for player turn
-6. New Getters (getCurrentPlayer(), getBoardIf(Player p, Posn posn), isLegalMove(Player p, Posn posn), hasLegalMoves(Player p), getSurroundingTiles())
+6. New Getters (getCurrentPlayer(), getBoardIf(Player p, Posn posn), isLegalMove(Player p, Posn posn), hasLegalMoves(Player p), getSurroundingTiles())  
 
 By keeping track of whose turn it is, we eliminate the possibility of one player placing pieces repeatedly until they win the game. Changes 1-5 helped account for that. The new getters are there to help enforce players turn and for the strategies.
 
