@@ -105,19 +105,28 @@ public class TestPlayerImplementation {
   // TESTING CaptureMaxPieces Strategy
   @Test
   public void choosesMoveWithMoreTilesToBeFlipped() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    Assert.assertEquals(new HexagonalPosn(3, -2, -1), aiBasic.placePiece(smallModel));
+  }
+  @Test
+  public void topLeftOptionChosenWhenMaxNumberTies() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(aiBasic, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(aiBasic, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
     System.out.println(aiBasic.placePiece(smallModel).getCoords());
-    Assert.assertEquals(new HexagonalPosn(1, -2, 1), aiBasic.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(-2, -1, 3), aiBasic.placePiece(smallModel));
+
     String board =
-            "   _ _ _ _ \n" +
-                    "  _ _ _ _ _ \n" +
-                    " _ _ X O _ _ \n" +
-                    "_ _ O _ X _ _ \n" +
-                    " _ _ X O _ _ \n" +
+                    "   _ _ _ _ \n" +
+                    "  X _ _ _ O \n" +
+                    " O X O O O _ \n" +
+                    "_ _ X _ O _ _ \n" +
+                    " _ _ X X X _ \n" +
                     "  _ _ _ _ _ \n" +
                     "   _ _ _ _ \n";
   }
-  @Test
-  public void topLeftOptionChosenWhenMaxNumberTies() {}
 
   // TESTING AvoidCellsNextToCorners Strategy
   @Test
