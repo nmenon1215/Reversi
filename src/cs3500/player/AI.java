@@ -25,8 +25,10 @@ public class AI implements Player {
     if(strats == null) {
       throw new IllegalArgumentException("The given strategies can't be null.");
     }
-    if(strats.contains(null)) {
-      throw new IllegalArgumentException("None of the strategies can be null.");
+    for(Strategy strat : strats) {
+      if(strat == null) {
+        throw new IllegalArgumentException("Strategy can't be null.");
+      }
     }
     this.player = player;
     this.strats = strats;
