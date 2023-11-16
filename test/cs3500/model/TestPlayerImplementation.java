@@ -207,4 +207,13 @@ public class TestPlayerImplementation {
     Assert.assertEquals(new HexagonalPosn(0, -3, 3),
             aiCornerPriority.placePiece(smallModel));
   }
+
+  @Test
+  public void useMockToConfirmPiecePlacement() {
+    Player p1 = new AI('X', List.of(new CaptureMaxPieces()));
+    Player p2 = new User('O');
+    MutableReversiModel actualModel = new HexagonalReversiModel(List.of(p1, p2));
+    MutableReversiModel mock = new MockModel(actualModel);
+    mock.placePiece(p1, p1.placePiece(mock));
+  }
 }
