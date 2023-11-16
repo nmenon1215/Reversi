@@ -6,7 +6,6 @@ import java.util.Objects;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
-import cs3500.player.Player;
 
 /**
  * A User is the class that represents any human playing this game. Humans can place pieces and
@@ -18,6 +17,7 @@ public class User implements Player {
 
   /**
    * This creates a basic User with a given display character.
+   *
    * @param player is the character that represents this player
    */
   public User(char player) {
@@ -47,6 +47,7 @@ public class User implements Player {
 
   /**
    * This displays the player using its display character.
+   *
    * @return the player's display character as a string
    */
   @Override

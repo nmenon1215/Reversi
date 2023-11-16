@@ -16,7 +16,7 @@ public interface MutableReversiModel extends ROReversiModel {
    * Places a piece of the given player at the given position. Follows the rules of Reversi to
    * modify the game board based on the placement.
    *
-   * @param p the player who's piece we are placing
+   * @param p    the player who's piece we are placing
    * @param posn the position at which the piece that is being placed
    * @throws IllegalArgumentException if the player or posn is null, or if the posn is not in bounds
    * @throws IllegalStateException    if the move is not possible with the current board.

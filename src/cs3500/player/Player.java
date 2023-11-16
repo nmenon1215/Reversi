@@ -22,7 +22,7 @@ public interface Player {
    *
    * @param model is the current model that we are operating on.
    * @return null to skip the turn, or a valid Posn on the board where we would like to place the \
-   * piece.
+   *         piece.
    */
   Posn placePiece(ROReversiModel model);
 

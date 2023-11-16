@@ -7,19 +7,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 import cs3500.model.HexagonalPosn;
-import cs3500.model.HexagonalTile;
 import cs3500.model.ITile;
-import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
@@ -29,7 +26,7 @@ import cs3500.model.ROReversiModel;
 public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
 
   private final double BOARDWIDTH = 450;
-  private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3)/2 * BOARDWIDTH);
+  private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3) / 2 * BOARDWIDTH);
   private final ROReversiModel model;
   private List<List<HexagonalButton>> board;
 
@@ -52,7 +49,8 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   /**
    * This method tells Swing what the "natural" size should be
    * for this panel.  Here, we set it to 500x500 pixels.
-   * @return  Our preferred *physical* size.
+   *
+   * @return Our preferred *physical* size.
    */
   @Override
   public Dimension getPreferredSize() {
@@ -106,13 +104,12 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
         qEnd = size - r;
       }
       for (int q = qStart; q <= qEnd; q++) {
-        ITile tile = model.getTileAt(new HexagonalPosn(q, r, -r -q));
+        ITile tile = model.getTileAt(new HexagonalPosn(q, r, -r - q));
         HexagonalButton button = board.get(r + size).get(q - qStart);
-        if(tile.getPlayer() != null) {
-          if(tile.getPlayer().toString().equals("X")) {
+        if (tile.getPlayer() != null) {
+          if (tile.getPlayer().toString().equals("X")) {
             button.flipBlack();
-          }
-          else if(tile.getPlayer().toString().equals("O")) {
+          } else if (tile.getPlayer().toString().equals("O")) {
             button.flipWhite();
           }
         }
@@ -135,6 +132,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private double calculatePieceHeight(double boardHeight) {
     return boardHeight * 2 / (size * 3 + 2);
   }
+
   /**
    * Computes the transformation that converts board coordinates
    * (with (0,0) in center, width and height our logical size)
@@ -142,6 +140,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
    * width and height in pixels).
    * <p>
    * This is the inverse of {@link JReversiPanel#transformPhysicalToLogical()}.
+   *
    * @return The necessary transformation
    */
   private AffineTransform transformLogicalToPhysical() {
@@ -155,6 +154,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
    * our logical size).
    * <p>
    * This is the inverse of {@link JReversiPanel#transformLogicalToPhysical()}.
+   *
    * @return The necessary transformation
    */
   private AffineTransform transformPhysicalToLogical() {

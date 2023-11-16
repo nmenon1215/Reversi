@@ -235,7 +235,7 @@ public class TestModelImplementation {
   @Test
   public void getSurroundingTilesDoesNotCompromiseTilesToMutation() {
     List<ITile> tiles = smallModel.getSurroundingTiles(new HexagonalPosn(0, 0, 0));
-    for(ITile tile : tiles) {
+    for (ITile tile : tiles) {
       tile.flipTo(p1);
     }
     Assert.assertNotEquals(6, smallModel.getScore(p1));

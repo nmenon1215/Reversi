@@ -14,8 +14,6 @@ import cs3500.player.PlaceAtCorners;
 import cs3500.player.Player;
 import cs3500.player.Strategy;
 import cs3500.player.User;
-import cs3500.view.ReversiTextualView;
-import cs3500.view.TextualView;
 
 public class TestPlayerImplementation {
   Player p1;

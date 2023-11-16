@@ -28,6 +28,7 @@ public interface ROReversiModel {
   /**
    * Retrieves a list of tiles surrounding the tile at the given position. Starts with the tile
    * that is directly to the left of the center tile.
+   *
    * @param posn the position of the center tile.
    * @return a list of tiles surrounding the tile at the given position.
    * @throws IllegalArgumentException if the given posn is out of bounds or null.
@@ -55,7 +56,8 @@ public interface ROReversiModel {
 
   /**
    * Returns a boolean correlating to whether a player can make a move at a certain posn.
-   * @param p the player whose move is in question.
+   *
+   * @param p    the player whose move is in question.
    * @param posn the position that is being checked if it is legal.
    * @return A boolean whether the move is legal.
    * @throws IllegalArgumentException if the given player or posn is null, or the position is out
@@ -65,6 +67,7 @@ public interface ROReversiModel {
 
   /**
    * Returns a boolean correlating to whether a player has any possible moves to make.
+   *
    * @param p the player who may or may not have legal moves.
    * @return A boolean whether a player has any legal moves.
    * @throws IllegalArgumentException if the given player is null
@@ -91,36 +94,42 @@ public interface ROReversiModel {
 
   /**
    * Returns the player whose turn it currently is.
+   *
    * @return the player whose turn it is.
    */
   Player getTurn();
 
   /**
    * Returns the list of Tiles that make up the board.
+   *
    * @return the list of tiles making up the board.
    */
   List<ITile> getBoard();
 
   /**
    * Returns a list of the players playing the game.
+   *
    * @return the list of players in the game.
    */
   List<Player> getPlayers();
 
   /**
    * Returns the index of whose turn it is in the list of players.
+   *
    * @return the index of whose turn it is
    */
   int getTurnIndex();
 
   /**
    * Returns the number of skips we have had in a row so far.
+   *
    * @return the number of skips in a row.
    */
   int getSkipsInARow();
 
   /**
    * Returns the tiles at the corners of the grid.
+   *
    * @return the positions of the tiles in the corners of the board.
    */
   List<Posn> getCorners();

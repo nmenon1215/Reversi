@@ -7,12 +7,16 @@ import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
-public class PlaceAtCorners implements Strategy{
+/**
+ * If possible, place the pieces at the corners. Returns all moves in corners. Or all moves if
+ * no moves to the corner.
+ */
+public class PlaceAtCorners implements Strategy {
   @Override
   public List<Posn> filterMoves(ROReversiModel model, Player p, List<Posn> moves) {
     validateParams(model, p, moves);
     List<Posn> cornerMoves = new ArrayList<>();
-    for(Posn posn : model.getCorners()) {
+    for (Posn posn : model.getCorners()) {
       if (moves.contains(posn)) {
         cornerMoves.add(posn);
       }
@@ -37,12 +41,12 @@ public class PlaceAtCorners implements Strategy{
     if (moves.contains(null)) {
       throw new IllegalArgumentException("The given list of moves can't contain a null move.");
     }
-    if(moves.size() < 1) {
+    if (moves.size() < 1) {
       throw new IllegalArgumentException("Must include at least 1 valid move.");
     }
     for (Posn posn : moves) {
       List<Posn> allPossibleMoves = new ArrayList<>();
-      for(ITile tile : model.possibleMoves(p)) {
+      for (ITile tile : model.possibleMoves(p)) {
         allPossibleMoves.add(tile.getPosition());
       }
       if (!allPossibleMoves.contains(posn)) {

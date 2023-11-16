@@ -16,9 +16,10 @@ public class HexagonalPosn implements Posn {
   private final int q;
   private final int r;
   private final int s;
-  
+
   /**
    * Creates a position coordinate with the given coordinates. q + r + s must equal 0.
+   *
    * @param q the q coordinate
    * @param r the r coordinate
    * @param s the s coordinate
@@ -36,6 +37,7 @@ public class HexagonalPosn implements Posn {
   /**
    * Given a list of integers, create a position with first value assigned to q, second to r, and
    * last to s.
+   *
    * @param qrs a list of length 3 which represents the coordinates [q, r, s]
    * @throws IllegalArgumentException if the list is not length 3, or the vals don't add up to 0.
    */
@@ -74,13 +76,11 @@ public class HexagonalPosn implements Posn {
   public boolean adjacentTo(Posn other) {
     if (other instanceof HexagonalPosn) {
       HexagonalPosn that = (HexagonalPosn) other;
-      if(this.q == that.q) {
+      if (this.q == that.q) {
         return this.r + 1 == that.r || this.r - 1 == that.r;
-      }
-      else if(this.r == that.r) {
+      } else if (this.r == that.r) {
         return this.s + 1 == that.s || this.s - 1 == that.s;
-      }
-      else if(this.s == that.s) {
+      } else if (this.s == that.s) {
         return this.q + 1 == that.q || this.q - 1 == that.q;
       }
     }

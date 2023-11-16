@@ -14,26 +14,26 @@ import cs3500.model.ROReversiModel;
 /**
  * Captures the max number of pieces. If there is a tie, it chooses the topmost, leftmost piece.
  */
-public class CaptureMaxPieces implements Strategy{
+public class CaptureMaxPieces implements Strategy {
   @Override
   public List<Posn> filterMoves(ROReversiModel model, Player p, List<Posn> moves) {
     validateParams(model, p, moves);
     Map<Posn, Integer> scoredMoves = new HashMap<>();
     //Populate the map with all the moves and their scores
     int maxScore = 0;
-    for(int i = 0; i < moves.size(); i++) {
+    for (int i = 0; i < moves.size(); i++) {
       MutableReversiModel mock = new HexagonalReversiModel(model);
       int moveScore = -model.getScore(p);
       mock.placePiece(p, moves.get(i));
       moveScore += mock.getScore(p);
-      if(moveScore > maxScore) {
+      if (moveScore > maxScore) {
         maxScore = moveScore;
       }
       scoredMoves.put(moves.get(i), moveScore);
     }
     //Find all values in map with this max score and return those tiles in a list.
     List<Posn> filtered = new ArrayList<>();
-    for(Posn posn : moves) {
+    for (Posn posn : moves) {
       if (scoredMoves.get(posn) == maxScore) {
         filtered.add(posn);
       }
@@ -54,12 +54,12 @@ public class CaptureMaxPieces implements Strategy{
     if (moves.contains(null)) {
       throw new IllegalArgumentException("The given list of moves can't contain a null move.");
     }
-    if(moves.size() < 1) {
+    if (moves.size() < 1) {
       throw new IllegalArgumentException("Must include at least 1 valid move.");
     }
     for (Posn posn : moves) {
       List<Posn> allPossibleMoves = new ArrayList<>();
-      for(ITile tile : model.possibleMoves(p)) {
+      for (ITile tile : model.possibleMoves(p)) {
         allPossibleMoves.add(tile.getPosition());
       }
       if (!allPossibleMoves.contains(posn)) {

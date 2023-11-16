@@ -18,8 +18,9 @@ public class ReversiTextualView implements TextualView {
   /**
    * Create a TextualModel linked with the model and an appendable. The model is RO(read only) to
    * show that the view will not modify the model, but simply display it.
+   *
    * @param model a READONLY version of the model.
-   * @param out where the model is appended to for render.
+   * @param out   where the model is appended to for render.
    * @throws IllegalArgumentException if model or out is null.
    */
   public ReversiTextualView(ROReversiModel model, Appendable out) {
@@ -40,6 +41,7 @@ public class ReversiTextualView implements TextualView {
 
   /**
    * Displays the model tied to this textual view as a string.
+   *
    * @return the textual representation of the current state of the model.
    */
   public String toString() {

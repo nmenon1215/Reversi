@@ -5,12 +5,17 @@ import java.util.Objects;
 
 import cs3500.player.Player;
 
+/**
+ * Records all calls made to the model.
+ */
 public class MockModel implements MutableReversiModel {
 
   MutableReversiModel model;
+
   public MockModel(MutableReversiModel model) {
     this.model = Objects.requireNonNull(model);
   }
+
   @Override
   public void placePiece(Player p, Posn posn) {
     model.placePiece(p, posn);

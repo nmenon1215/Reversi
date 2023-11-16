@@ -1,8 +1,7 @@
 package cs3500.view;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
-import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 public class JFrameReversiView extends JFrame implements ReversiView {

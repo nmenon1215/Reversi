@@ -18,6 +18,7 @@ public interface Posn {
 
   /**
    * Determines if this position is adjacent to the given tile's position.
+   *
    * @param other any other position
    * @return if the other position is adjacent to this position.
    */

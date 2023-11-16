@@ -4,12 +4,9 @@ package cs3500.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Path2D;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 /**
  * Creates a hexagonal button that will be added to a board to create the grid for the Reversi
@@ -43,8 +40,7 @@ public class HexagonalButton extends JButton {
   private void highlight() {
     if (click) {
       setBackground(Color.RED);
-    }
-    else {
+    } else {
       setBackground(Color.DARK_GRAY);
     }
     repaint();

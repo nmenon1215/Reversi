@@ -22,10 +22,11 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   /**
    * Constructs the board of size 5 and initializes with the starting piece setup which is:
-   *      X O
-   *     O - X
-   *      X O
+   * X O
+   * O - X
+   * X O
    * placed in the center of the board with X representing player 1, and O representing player 2.
+   *
    * @param players A list that consists of the first and second players in the game. (Used for the
    *                initialization of the game.)
    * @throws IllegalArgumentException if there is a null value in players, the players list is null,
@@ -51,14 +52,15 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   /**
    * Constructs the board of given size and initializes with the starting piece setup which is:
-   *       X O
-   *      O - X
-   *       X O
-   *  placed in the center of the board with X representing player 1, and O representing player 2.
+   * X O
+   * O - X
+   * X O
+   * placed in the center of the board with X representing player 1, and O representing player 2.
+   *
    * @param boardSize is the size of board defined by how many tiles away from the center the edge
    *                  of the board is. Ex: board above is size 1. boardSize must be >= 2.
-   * @param players A list that consists of the first and second players in the game. (Used for the
-   *                initialization of the game.)
+   * @param players   A list that consists of the first and second players in the game. (Used for the
+   *                  initialization of the game.)
    * @throws IllegalArgumentException if the board size is less than 2 or players are null.
    */
   public HexagonalReversiModel(List<Player> players, int boardSize) {
@@ -84,10 +86,11 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
   /**
    * Constructs a duplicate Reversi Model.
-   * @param model
+   *
+   * @param model is a current working model
    */
   public HexagonalReversiModel(ROReversiModel model) {
-    this.board  = model.getBoard();
+    this.board = model.getBoard();
     this.boardSize = model.getBoardSize();
     this.numPlayers = model.getPlayers().size();
     this.skipsInRow = model.getSkipsInARow();
@@ -241,7 +244,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
   @Override
   public List<ITile> getBoard() {
     List<ITile> copyBoard = new ArrayList<>();
-    for(int i = 0; i < this.board.size(); i++) {
+    for (int i = 0; i < this.board.size(); i++) {
       copyBoard.add(new HexagonalTile(this.board.get(i)));
     }
     return copyBoard;
@@ -347,7 +350,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
    *                  which point will be subtracted.
    * @param coords    Represents the starting coordinate which we are finding lines from.
    * @return The line(List of ITile) adjacent to a tile in a certain direction specified by
-   *         indexList
+   * indexList
    */
   private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
     // check inputs are valid

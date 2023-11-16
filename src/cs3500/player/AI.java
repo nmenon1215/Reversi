@@ -19,14 +19,15 @@ public class AI implements Player {
 
   /**
    * Creates an AI with the given char as its display token.
+   *
    * @param player a character representing the display of this player.
    */
   public AI(char player, List<Strategy> strats) {
-    if(strats == null) {
+    if (strats == null) {
       throw new IllegalArgumentException("The given strategies can't be null.");
     }
-    for(Strategy strat : strats) {
-      if(strat == null) {
+    for (Strategy strat : strats) {
+      if (strat == null) {
         throw new IllegalArgumentException("Strategy can't be null.");
       }
     }
@@ -38,14 +39,14 @@ public class AI implements Player {
 
   @Override
   public Posn placePiece(ROReversiModel model) {
-    if(model.hasLegalMoves(this)) {
+    if (model.hasLegalMoves(this)) {
       List<Posn> possibleMoves = new ArrayList<>();
-      for(ITile tile : model.possibleMoves(this)) {
+      for (ITile tile : model.possibleMoves(this)) {
         possibleMoves.add(tile.getPosition());
       }
 
       for (int i = 0; i < strats.size(); i++) {
-        if(possibleMoves.size() == 1) {
+        if (possibleMoves.size() == 1) {
           return possibleMoves.get(0);
         }
         //filter the possible moves with the strategy
@@ -70,6 +71,7 @@ public class AI implements Player {
 
   /**
    * Displays the character which represents the player.
+   *
    * @return The character representing the player.
    */
   @Override
@@ -81,6 +83,7 @@ public class AI implements Player {
    * Players with the same display are equal. This is regardless of if they are AI or not, multiple
    * players with the same character are on the same team, and therefore equal for all intents and
    * purposes.
+   *
    * @param obj any object, ideally another player.
    * @return if the obj is equal to this player.
    */

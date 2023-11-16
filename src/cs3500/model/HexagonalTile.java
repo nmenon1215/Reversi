@@ -17,6 +17,7 @@ public class HexagonalTile implements ITile {
 
   /**
    * Initialize a HexagonalTile with the given position coordinate.
+   *
    * @param p a position representing where the tile is.
    * @throws IllegalArgumentException if the given posn is null.
    */
@@ -29,6 +30,7 @@ public class HexagonalTile implements ITile {
 
   /**
    * Copy constructor.
+   *
    * @param other another tile
    * @throws IllegalArgumentException if the given tile is null.
    */
@@ -62,8 +64,7 @@ public class HexagonalTile implements ITile {
   public String toString() {
     if (this.player == null) {
       return "_";
-    }
-    else {
+    } else {
       return this.player.toString();
     }
   }
