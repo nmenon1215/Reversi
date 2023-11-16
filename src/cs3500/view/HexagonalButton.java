@@ -20,6 +20,7 @@ public class HexagonalButton extends JButton {
   private int width;
   private int height;
   private boolean click = false;
+  private Color buttonColor = Color.DARK_GRAY;
 
   /**
    * Gives the hexagon the properties to make it filled and look like a hexagon.
@@ -61,6 +62,8 @@ public class HexagonalButton extends JButton {
 
     g2d.setColor(Color.DARK_GRAY);
     g2d.fill(hexagon);
+    g2d.setColor(this.buttonColor);
+    g2d.fillOval(width / 4, height / 4, width / 2, width / 2);
   }
 
   @Override
@@ -83,5 +86,13 @@ public class HexagonalButton extends JButton {
     line.lineTo(0, 3 * sideLength / 2);
     line.lineTo(0, sideLength / 2);
     line.closePath();
+  }
+
+  public void flipBlack() {
+    buttonColor = Color.BLACK;
+  }
+
+  public void flipWhite() {
+    buttonColor = Color.WHITE;
   }
 }

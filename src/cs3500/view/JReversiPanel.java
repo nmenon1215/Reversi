@@ -31,6 +31,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private final double BOARDWIDTH = 450;
   private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3)/2 * BOARDWIDTH);
   private final ROReversiModel model;
+  private List<List<HexagonalButton>> board;
 
   private final int size;
   private JFrame frame;
@@ -43,6 +44,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     this.size = model.getBoardSize();
     this.frame = Objects.requireNonNull(frame);
     this.frame.setPreferredSize(this.getPreferredSize());
+    this.board = new ArrayList<>();
 
     this.populateBoard();
   }
@@ -68,6 +70,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     double height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
     double y = 0; //Don't know if u need size for this. You might need nothing if you top left align
     for (int r = -size; r <= size; r++) {
+      List<HexagonalButton> rowOfButtons = new ArrayList<>();
       int qStart;
       int qEnd;
       if (r < 0) {
@@ -79,13 +82,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
       }
       double x = startingX(r, BOARDWIDTH);
       for (int q = qStart; q <= qEnd; q++) {
-        JButton button = new HexagonalButton();
+        HexagonalButton button = new HexagonalButton();
         add(button);
         button.setBounds((int) x, (int) y, (int) width, (int) height);
+        rowOfButtons.add(button);
         x += width; // assume positive right
       }
+      this.board.add(rowOfButtons);
       y += 3 * height / 4; // assume positive down
     }
+    updateBoard();
   }
 
   private void updateBoard() {
@@ -101,6 +107,15 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
       }
       for (int q = qStart; q <= qEnd; q++) {
         ITile tile = model.getTileAt(new HexagonalPosn(q, r, -r -q));
+        HexagonalButton button = board.get(r + size).get(q - qStart);
+        if(tile.getPlayer() != null) {
+          if(tile.getPlayer().toString().equals("X")) {
+            button.flipBlack();
+          }
+          else if(tile.getPlayer().toString().equals("O")) {
+            button.flipWhite();
+          }
+        }
       }
     }
   }
