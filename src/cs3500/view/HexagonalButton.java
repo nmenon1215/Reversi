@@ -1,12 +1,15 @@
 package cs3500.view;
 
-
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 
-import javax.swing.*;
+import javax.swing.JButton;
 
 /**
  * Creates a hexagonal button that will be added to a board to create the grid for the Reversi

@@ -1,6 +1,6 @@
 package cs3500.view;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import cs3500.model.ROReversiModel;
 
@@ -9,7 +9,6 @@ import cs3500.model.ROReversiModel;
  */
 public class JFrameReversiView extends JFrame implements ReversiView {
 
-  private final JReversiPanel panel;
 
   /**
    * Create a background frame.
@@ -17,8 +16,7 @@ public class JFrameReversiView extends JFrame implements ReversiView {
    */
   public JFrameReversiView(ROReversiModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.panel = new JReversiPanel(this, model);
-    this.setContentPane(panel);
+    this.setContentPane(new JReversiPanel(this, model));
     this.setLocationRelativeTo(null);
     this.setLayout(null);
     this.pack();

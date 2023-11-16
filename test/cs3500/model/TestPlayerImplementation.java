@@ -15,6 +15,9 @@ import cs3500.player.Player;
 import cs3500.player.Strategy;
 import cs3500.player.User;
 
+/**
+ * Testing suite for Players and their possible strategies.
+ */
 public class TestPlayerImplementation {
   Player p1;
   Player p2;
@@ -212,6 +215,8 @@ public class TestPlayerImplementation {
     Player p2 = new User('O');
     MutableReversiModel actualModel = new HexagonalReversiModel(List.of(p1, p2));
     MutableReversiModel mock = new MockModel(actualModel);
+    Assert.assertEquals(new HexagonalPosn(1, -2, 1), p1.placePiece(mock));
     mock.placePiece(p1, p1.placePiece(mock));
+
   }
 }

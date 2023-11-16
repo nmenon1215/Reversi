@@ -6,7 +6,6 @@ import java.util.List;
 
 import cs3500.model.HexagonalReversiModel;
 import cs3500.model.MutableReversiModel;
-import cs3500.model.Posn;
 import cs3500.player.AI;
 import cs3500.player.CaptureMaxPieces;
 import cs3500.player.Player;

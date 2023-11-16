@@ -1,6 +1,9 @@
 package cs3500.view;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.event.MouseInputAdapter;
 
 import cs3500.model.HexagonalPosn;
@@ -31,16 +36,19 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private List<List<HexagonalButton>> board;
 
   private final int size;
-  private JFrame frame;
   private JButton background;
 
   private boolean mouseIsDown;
 
+  /**
+   * Constructs a ReversiPanel and populates the view with the current board state.
+   * @param frame the background frame to display on.
+   * @param reversiModel is the model which we are displaying.
+   */
   public JReversiPanel(JFrame frame, ROReversiModel reversiModel) {
     this.model = Objects.requireNonNull(reversiModel);
     this.size = model.getBoardSize();
-    this.frame = Objects.requireNonNull(frame);
-    this.frame.setPreferredSize(this.getPreferredSize());
+    frame.setPreferredSize(this.getPreferredSize());
     this.board = new ArrayList<>();
 
     this.populateBoard();
@@ -138,7 +146,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
    * (with (0,0) in center, width and height our logical size)
    * into screen coordinates (with (0,0) in upper-left,
    * width and height in pixels).
-   * <p>
    * This is the inverse of {@link JReversiPanel#transformPhysicalToLogical()}.
    *
    * @return The necessary transformation
@@ -152,7 +159,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
    * (with (0,0) in upper-left, width and height in pixels)
    * into board coordinates (with (0,0) in center, width and height
    * our logical size).
-   * <p>
    * This is the inverse of {@link JReversiPanel#transformLogicalToPhysical()}.
    *
    * @return The necessary transformation
@@ -163,22 +169,22 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   @Override
   public void actionPerformed(ActionEvent e) {
-
+    //TODO
   }
 
   @Override
   public void keyTyped(KeyEvent e) {
-
+    //TODO
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-
+    //TODO
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-
+    //TODO
   }
 
   private class MouseEventsListener extends MouseInputAdapter {
@@ -190,6 +196,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
     @Override
     public void mouseReleased(MouseEvent e) {
+      //TODO
     }
 
     @Override
