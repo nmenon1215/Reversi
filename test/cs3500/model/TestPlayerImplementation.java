@@ -15,11 +15,18 @@ import cs3500.player.Player;
 import cs3500.player.Strategy;
 import cs3500.player.User;
 import cs3500.view.ReversiTextualView;
+import cs3500.view.TextualView;
 
 public class TestPlayerImplementation {
   Player p1;
   Player p2;
-  Player aiBasic;
+  Player ai;
+  Player aiMax;
+  Player aiNoCorners;
+  Player aiCorners;
+  Player aiMaxPriority;
+  Player aiNoCorPriority;
+  Player aiCornerPriority;
   Strategy corners;
   Strategy noCorners;
   Strategy maxPieces;
@@ -32,10 +39,19 @@ public class TestPlayerImplementation {
   public void init() {
     p1 = new User('X');
     p2 = new User('O');
-    aiBasic = new AI('O', new ArrayList<>(List.of(new CaptureMaxPieces())));
+    ai = new AI('X', new ArrayList<>());
+    aiMax = new AI('O', new ArrayList<>(List.of(new CaptureMaxPieces())));
+    aiNoCorners = new AI('O', new ArrayList<>(List.of(new AvoidCellsNextToCorners())));
+    aiCorners = new AI('O', new ArrayList<>(List.of(new PlaceAtCorners())));
+    aiMaxPriority = new AI('O', new ArrayList<>(List.of(new CaptureMaxPieces(),
+            new PlaceAtCorners())));
+    aiNoCorPriority = new AI('O', new ArrayList<>(List.of(new AvoidCellsNextToCorners(),
+            new CaptureMaxPieces())));
+    aiCornerPriority = new AI('O', new ArrayList<>(List.of(new PlaceAtCorners(),
+            new CaptureMaxPieces())));
     players = new ArrayList<>();
     players.add(p1);
-    players.add(aiBasic);
+    players.add(aiMax);
 
     corners = new PlaceAtCorners();
     noCorners = new AvoidCellsNextToCorners();
@@ -48,7 +64,7 @@ public class TestPlayerImplementation {
   // TESTING equals(Object obj)
   @Test
   public void compareAIAndUserWithSamePlayerValue() {
-    Assert.assertEquals(p1, aiBasic);
+    Assert.assertEquals(p1, ai);
   }
 
   // TESTING parameter checks work
@@ -106,54 +122,89 @@ public class TestPlayerImplementation {
   @Test
   public void choosesMoveWithMoreTilesToBeFlipped() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    Assert.assertEquals(new HexagonalPosn(3, -2, -1), aiBasic.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(3, -2, -1), aiMax.placePiece(smallModel));
   }
+
   @Test
   public void topLeftOptionChosenWhenMaxNumberTies() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    smallModel.placePiece(aiBasic, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(aiMax, new HexagonalPosn(3, -2, -1));
     smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
-    smallModel.placePiece(aiBasic, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(aiMax, new HexagonalPosn(-1, -1, 2));
     smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
-    System.out.println(aiBasic.placePiece(smallModel).getCoords());
-    Assert.assertEquals(new HexagonalPosn(-2, -1, 3), aiBasic.placePiece(smallModel));
-
-    String board =
-                    "   _ _ _ _ \n" +
-                    "  X _ _ _ O \n" +
-                    " O X O O O _ \n" +
-                    "_ _ X _ O _ _ \n" +
-                    " _ _ X X X _ \n" +
-                    "  _ _ _ _ _ \n" +
-                    "   _ _ _ _ \n";
+    Assert.assertEquals(new HexagonalPosn(-1, 2, -1), aiMax.placePiece(smallModel));
   }
 
   // TESTING AvoidCellsNextToCorners Strategy
   @Test
-  public void aiChoosesMoveAwayFromCorner() {}
+  public void aiChoosesMoveAwayFromCorner() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    Assert.assertNotEquals(new HexagonalPosn(3, -2, -1), aiNoCorners.placePiece(smallModel));
+
+  }
 
   // TESTING PlaceAtCorners
   @Test
-  public void aiChoosesToPlaceAPieceInCorner() {}
+  public void aiChoosesToPlaceAPieceInCorner() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(-2, -1, 3));
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    Assert.assertEquals(new HexagonalPosn(0, -3, 3), aiNoCorners.placePiece(smallModel));
+
+  }
 
   @Test
-  public void topLeftOptionChosenWhenTwoCornersOpen() {}
+  public void topLeftOptionChosenWhenTwoCornersOpen() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(-2, -1, 3));
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(-1, 2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, 3, -2));
+    smallModel.placePiece(aiNoCorners, new HexagonalPosn(-2, 3, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(3, -1, -2));
+    Assert.assertEquals(new HexagonalPosn(0, -3, 3), aiNoCorners.placePiece(smallModel));
+  }
 
   // TESTING CaptureMaxPieces as Priority Strategy
   @Test
-  public void capturesMaxNumberOfPiecesWhenPresentedWithCornerMove() {}
-
-  @Test
-  public void capturesMaxNumberOfPiecesWhenPresentedWithSpaceNextToCorner() {}
+  public void capturesMaxNumberOfPiecesWhenPresentedWithCornerMove() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(aiMaxPriority, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(aiMaxPriority, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
+    smallModel.placePiece(aiMaxPriority, new HexagonalPosn(-2, -1, 3));
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    Assert.assertEquals(new HexagonalPosn(-1, 2, -1), aiMaxPriority.placePiece(smallModel));
+  }
 
   // TESTING AvoidCellsNextToCorners as Priority Strategy
   @Test
-  public void ifMaxNumberOfCellsFlippedIsNextToCornerDontDoIt() {}
+  public void ifMaxNumberOfCellsFlippedIsNextToCornerDontDoIt() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    Assert.assertNotEquals(new HexagonalPosn(3, -2, -1),
+            aiNoCorPriority.placePiece(smallModel).getCoords());
+  }
 
   // TESTING PlaceAtCorners as Priority Strategy
   @Test
-  public void willPlaceInCornerEvenIfItWontCaptureMaxPieces() {}
-
-  @Test
-  public void choosesTopLeftCornerPlacement() {}
+  public void willPlaceInCornerEvenIfItWontCaptureMaxPieces() {
+    smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
+    smallModel.placePiece(aiCornerPriority, new HexagonalPosn(3, -2, -1));
+    smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(aiCornerPriority, new HexagonalPosn(-1, -1, 2));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
+    smallModel.placePiece(aiCornerPriority, new HexagonalPosn(-2, -1, 3));
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    Assert.assertEquals(new HexagonalPosn(0, -3, 3),
+            aiCornerPriority.placePiece(smallModel));
+  }
 }
