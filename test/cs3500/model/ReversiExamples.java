@@ -159,7 +159,7 @@ public class ReversiExamples {
     smallModel.placePiece(p1, new HexagonalPosn(-3, 1, 2));
     smallModel.placePiece(p2, new HexagonalPosn(-3, 2, 1));
     smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
-    smallModel.placePiece(p2, new HexagonalPosn(1, 2, -3));
+    smallModel.placePiece(p2, new HexagonalPosn(2, 1, -3));
 
 
     smallModel.skip(pRigged);
