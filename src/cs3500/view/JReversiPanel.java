@@ -18,6 +18,7 @@ import javax.swing.event.MouseInputAdapter;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.HexagonalTile;
+import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
@@ -84,6 +85,23 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
         x += width; // assume positive right
       }
       y += 3 * height / 4; // assume positive down
+    }
+  }
+
+  private void updateBoard() {
+    for (int r = -size; r <= size; r++) {
+      int qStart;
+      int qEnd;
+      if (r < 0) {
+        qStart = -size - r;
+        qEnd = size;
+      } else {
+        qStart = -size;
+        qEnd = size - r;
+      }
+      for (int q = qStart; q <= qEnd; q++) {
+        ITile tile = model.getTileAt(new HexagonalPosn(q, r, -r -q));
+      }
     }
   }
 
