@@ -20,6 +20,9 @@ public class JFrameReversiView extends JFrame implements ReversiView {
     this.setLocationRelativeTo(null);
     this.setLayout(null);
     this.pack();
+
+    // TODO:
+    //  - add a key listener that senses m and p key strokes and calls the methods for it
   }
 
   @Override

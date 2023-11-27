@@ -52,6 +52,9 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     this.board = new ArrayList<>();
 
     this.populateBoard();
+
+    // TODO:
+    //  - add the key listener
   }
 
   /**
@@ -71,6 +74,9 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     Graphics2D g2d = (Graphics2D) g.create();
   }
 
+  // TODO:
+  //  - somewhere in here add a mouselistener to each tile
+  //  - in here, override mouseClicked(MouseEvent e)
   private void populateBoard() {
     double width = calculatePieceWidth(BOARDWIDTH); // of a single piece
     double height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
@@ -140,6 +146,17 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private double calculatePieceHeight(double boardHeight) {
     return boardHeight * 2 / (size * 3 + 2);
   }
+
+  // TODO:
+  //  - Create a method for when a Tile is clicked
+  //  - highlight the tile
+
+  // TODO:
+  //  - Create a refresh board method if wanted
+
+  //  TODO:
+  //   - Create a method to handle keypress
+  //   - Determines whether to move or to pass
 
   /**
    * Computes the transformation that converts board coordinates
