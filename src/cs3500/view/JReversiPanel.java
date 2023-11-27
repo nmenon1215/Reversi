@@ -203,29 +203,4 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   public void keyReleased(KeyEvent e) {
     //TODO
   }
-
-  private class MouseEventsListener extends MouseInputAdapter {
-    @Override
-    public void mousePressed(MouseEvent e) {
-      JReversiPanel.this.mouseIsDown = true;
-      this.mouseDragged(e);
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-      //TODO
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-      // This point is measured in actual physical pixels
-      Point physicalP = e.getPoint();
-      // For us to figure out which circle it belongs to, we need to transform it
-      // into logical coordinates
-      Point2D logicalP = transformPhysicalToLogical().transform(physicalP, null);
-      // TODO: Figure out whether this location is inside a circle, and if so, which one
-    }
-  }
-
-
 }
