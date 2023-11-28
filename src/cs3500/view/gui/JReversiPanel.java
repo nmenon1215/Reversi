@@ -100,11 +100,14 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
         HexagonalButton button = new HexagonalButton();
 
         // Add a MouseListener to each button directly within the loop
+        int finalQ = q;
+        int finalR = r;
         button.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
             // notify the controller of where this position is
             // TODO: return the logical position of the button
+            System.out.println("clicked at q = " + finalQ + " r = " + finalR);
           }
         });
 
@@ -119,6 +122,7 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     updateBoard();
   }
 
+  // TODO: each time it is updated, repaint the tile to reflect highlight
   private void updateBoard() {
     for (int r = -size; r <= size; r++) {
       int qStart;
@@ -172,18 +176,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   private double calculatePieceHeight(double boardHeight) {
     return boardHeight * 2 / (size * 3 + 2);
-  }
-
-  // TODO:
-  //  - go through each tile and repaint it with the updated values
-  // Repaints the board so that the new moves are represented.
-  private void refresh() {
-    for (int r = 0; r <= board.size(); r++) {
-      for (int q = 0; q <= board.get(r).size(); q++) {
-        HexagonalButton button = board.get(r).get(r);
-        button.repaint();
-      }
-    }
   }
 
 
