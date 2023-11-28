@@ -49,14 +49,16 @@ public class HexagonalButton extends JButton {
     Path2D.Double hexagon = new Path2D.Double();
     createHexagon(hexagon);
 
+    // highlight the background
     if (highlighted) {
       g2d.setColor(Color.GREEN);
     }
     else {
       g2d.setColor(Color.DARK_GRAY);
     }
-
     g2d.fill(hexagon);
+
+    // highlight the chip if it is gray
     if (highlighted && this.buttonColor.equals(Color.DARK_GRAY)) {
       g2d.setColor(Color.GREEN);
     }
