@@ -1,4 +1,4 @@
-package cs3500.view;
+package cs3500.view.textual;
 
 import java.io.IOException;
 

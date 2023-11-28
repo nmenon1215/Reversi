@@ -9,7 +9,7 @@ import java.util.List;
 
 import cs3500.player.Player;
 import cs3500.player.User;
-import cs3500.view.ReversiTextualView;
+import cs3500.view.textual.ReversiTextualView;
 
 /**
  * Simple Examples of how the model is supposed to operate. Please look at TestModelImplementation

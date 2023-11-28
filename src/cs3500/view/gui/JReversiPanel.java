@@ -1,6 +1,5 @@
-package cs3500.view;
+package cs3500.view.gui;
 
-import java.awt.Point;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Dimension;
@@ -8,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +15,6 @@ import java.util.Objects;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import javax.swing.event.MouseInputAdapter;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;

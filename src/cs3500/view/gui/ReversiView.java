@@ -1,4 +1,4 @@
-package cs3500.view;
+package cs3500.view.gui;
 
 /**
  * Creates a gui view of our Reversi game.

@@ -1,10 +1,11 @@
-package cs3500.view;
+package cs3500.view.textual;
 
 import java.io.IOException;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
 import cs3500.model.ROReversiModel;
+import cs3500.view.textual.TextualView;
 
 /**
  * This is a simple representation of the model. It is meant mainly for debug purposes.

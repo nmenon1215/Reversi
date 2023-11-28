@@ -11,7 +11,7 @@ import cs3500.player.AI;
 import cs3500.player.CaptureMaxPieces;
 import cs3500.player.Player;
 import cs3500.player.User;
-import cs3500.view.ReversiTextualView;
+import cs3500.view.textual.ReversiTextualView;
 
 /**
  * Implementation specific tests regarding how the model interacts with each public method.

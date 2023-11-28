@@ -9,8 +9,8 @@ import cs3500.model.MutableReversiModel;
 import cs3500.player.AI;
 import cs3500.player.CaptureMaxPieces;
 import cs3500.player.Player;
-import cs3500.view.JFrameReversiView;
-import cs3500.view.ReversiView;
+import cs3500.view.gui.JFrameReversiView;
+import cs3500.view.gui.ReversiView;
 
 /**
  * Starts a game of Reversi.
