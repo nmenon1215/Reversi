@@ -19,7 +19,7 @@ public class HexagonalButton extends JButton {
 
   private int width;
   private int height;
-  private boolean click = false;
+  private boolean highlighted = false;
   private Color buttonColor = Color.DARK_GRAY;
 
   /**
@@ -32,13 +32,11 @@ public class HexagonalButton extends JButton {
     setFocusPainted(false);
   }
 
-  private void highlight() {
-    if (click) {
-      setBackground(Color.RED);
-    } else {
-      setBackground(Color.DARK_GRAY);
-    }
-    repaint();
+  /**
+   * Changes whether or not the button should be highlighted.
+   */
+  public void toggleHighlight() {
+    highlighted = !highlighted;
   }
 
   @Override
@@ -51,7 +49,13 @@ public class HexagonalButton extends JButton {
     Path2D.Double hexagon = new Path2D.Double();
     createHexagon(hexagon);
 
-    g2d.setColor(Color.DARK_GRAY);
+    if (highlighted) {
+      g2d.setColor(Color.GREEN);
+    }
+    else {
+      g2d.setColor(Color.DARK_GRAY);
+    }
+
     g2d.fill(hexagon);
     g2d.setColor(this.buttonColor);
     g2d.fillOval(width / 4, height / 4, width / 2, width / 2);

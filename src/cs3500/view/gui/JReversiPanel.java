@@ -5,16 +5,17 @@ import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.AffineTransform;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.JButton;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
@@ -33,6 +34,10 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   private final int size;
 
+
+  // there is no button initially highlighted
+  private HexagonalButton highlightedButton = null;
+
   /**
    * Constructs a ReversiPanel and populates the view with the current board state.
    * @param frame the background frame to display on.
@@ -46,8 +51,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
     this.populateBoard();
 
-    // TODO:
-    //  - add the key listener
+    addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        /* TODO:
+            - check which key was pressed
+            - either highlight for a move or pass
+            - refresh the board at the end of it
+         */
+      }
+    });
   }
 
   /**
@@ -67,9 +80,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     Graphics2D g2d = (Graphics2D) g.create();
   }
 
-  // TODO:
-  //  - somewhere in here add a mouselistener to each tile
-  //  - in here, override mouseClicked(MouseEvent e)
   private void populateBoard() {
     double width = calculatePieceWidth(BOARDWIDTH); // of a single piece
     double height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
@@ -88,6 +98,16 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
       double x = startingX(r, BOARDWIDTH);
       for (int q = qStart; q <= qEnd; q++) {
         HexagonalButton button = new HexagonalButton();
+
+        // Add a MouseListener to each button directly within the loop
+        button.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            // notify the controller of where this position is
+            // TODO: return the logical position of the button
+          }
+        });
+
         add(button);
         button.setBounds((int) x, (int) y, (int) width, (int) height);
         rowOfButtons.add(button);
@@ -124,6 +144,20 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
+  // takes in the button that was clicked
+  private void buttonClicked(HexagonalButton button) {
+    // if a button is already highlighted, de-highlight it
+    if (highlightedButton != null) {
+      highlightedButton.toggleHighlight();
+    }
+
+    // highlights the current button
+    if (button != null && button != highlightedButton) {
+      highlightedButton = button;
+      highlightedButton.toggleHighlight();
+    }
+  }
+
   private double startingX(int r, double boardWidth) {
     if (r < 0) {
       return -r * calculatePieceWidth(boardWidth) / 2;
@@ -141,15 +175,21 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   }
 
   // TODO:
-  //  - Create a method for when a Tile is clicked
-  //  - highlight the tile
+  //  - go through each tile and repaint it with the updated values
+  // Repaints the board so that the new moves are represented.
+  private void refresh() {
+    for (int r = 0; r <= board.size(); r++) {
+      for (int q = 0; q <= board.get(r).size(); q++) {
+        HexagonalButton button = board.get(r).get(r);
+        button.repaint();
+      }
+    }
+  }
 
-  // TODO:
-  //  - Create a refresh board method if wanted
 
-  //  TODO:
-  //   - Create a method to handle keypress
-  //   - Determines whether to move or to pass
+            ////////////////////////
+            // ARE THESE NEEDED???//
+            ////////////////////////
 
   @Override
   public void actionPerformed(ActionEvent e) {
