@@ -35,8 +35,8 @@ public class HexagonalButton extends JButton {
   /**
    * Changes whether or not the button should be highlighted.
    */
-  public void toggleHighlight() {
-    highlighted = !highlighted;
+  public void setHighlight(boolean highlighted) {
+    this.highlighted = highlighted;
   }
 
   @Override

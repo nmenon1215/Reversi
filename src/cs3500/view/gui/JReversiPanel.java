@@ -11,7 +11,6 @@ import javax.swing.*;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
-import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
@@ -28,7 +27,7 @@ public class JReversiPanel extends JPanel {
   private final int size;
 
   // there is no button initially highlighted
-  private HexagonalButton previousButton = null;
+  private HexagonalButton highlightedButton = null;
   private final JLabel clickedCoords;
 
   /**
@@ -135,10 +134,11 @@ public class JReversiPanel extends JPanel {
          - de-highlight previously highlighted button
          - highlight given button (DONE)
      */
-
-    if (previousButton != button) {
-      button.toggleHighlight();
+    if (highlightedButton != null) {
+      highlightedButton.setHighlight(false);
     }
+    highlightedButton = button;
+    highlightedButton.setHighlight(true);
   }
 
   private double startingX(int r) {
