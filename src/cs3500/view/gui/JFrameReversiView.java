@@ -1,5 +1,8 @@
 package cs3500.view.gui;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JFrame;
 
 import cs3500.model.ROReversiModel;
@@ -21,8 +24,23 @@ public class JFrameReversiView extends JFrame implements ReversiView {
     this.setLayout(null);
     this.pack();
 
-    // TODO:
-    //  - add a key listener that senses m and p key strokes and calls the methods for it
+    addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        char keyPressed = e.getKeyChar();
+        if (keyPressed == 's') {
+          //TODO: attempt to pass turn
+          System.out.println("s");
+        }
+        else if (keyPressed == 'p') {
+          //TODO: attempt to place a piece.
+          System.out.println("p");
+        }
+        //TODO: Make sure controller tells view to refresh!!!
+      }
+    });
+
+    this.setFocusable(true);
   }
 
   @Override

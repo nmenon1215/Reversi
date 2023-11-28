@@ -57,7 +57,12 @@ public class HexagonalButton extends JButton {
     }
 
     g2d.fill(hexagon);
-    g2d.setColor(this.buttonColor);
+    if (highlighted && this.buttonColor.equals(Color.DARK_GRAY)) {
+      g2d.setColor(Color.GREEN);
+    }
+    else {
+      g2d.setColor(this.buttonColor);
+    }
     g2d.fillOval(width / 4, height / 4, width / 2, width / 2);
   }
 

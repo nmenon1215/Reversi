@@ -1,21 +1,13 @@
 package cs3500.view.gui;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.JPanel;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
@@ -26,7 +18,7 @@ import cs3500.model.ROReversiModel;
  * A JReversiPanel will draw all the tiles on the board, allow users to click on them,
  * and play the game.
  */
-public class JReversiPanel extends JPanel implements ActionListener, KeyListener {
+public class JReversiPanel extends JPanel {
 
   private final double BOARDWIDTH = 450;
   private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3) / 2 * BOARDWIDTH);
@@ -36,7 +28,8 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private final int size;
 
   // there is no button initially highlighted
-  private HexagonalButton highlightedButton = null;
+  private HexagonalButton previousButton = null;
+  private final JLabel clickedCoords;
 
   /**
    * Constructs a ReversiPanel and populates the view with the current board state.
@@ -46,24 +39,13 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   public JReversiPanel(JFrame frame, ROReversiModel reversiModel) {
     this.model = Objects.requireNonNull(reversiModel);
     this.size = model.getBoardSize();
-    frame.setPreferredSize(this.getPreferredSize());
+    frame.setSize(this.getPreferredSize());
     this.board = new ArrayList<>();
+    clickedCoords = new JLabel("Coords");
+    add(clickedCoords);
+    clickedCoords.setBounds(10, (int) BOARDHEIGHT - 20, 300, 20); // Adjust the position as needed
 
     this.populateBoard();
-
-    addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyPressed(KeyEvent e) {
-        char keyPressed = e.getKeyChar();
-        if (keyPressed == 's') {
-          //TODO: attempt to pass turn
-        }
-        else if (keyPressed == 'p') {
-          //TODO: attempt to place a piece.
-        }
-        //TODO: Make sure controller tells view to refresh!!!
-      }
-    });
   }
 
   /**
@@ -75,12 +57,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   @Override
   public Dimension getPreferredSize() {
     return new Dimension((int) BOARDWIDTH, (int) BOARDHEIGHT);
-  }
-
-  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g.create();
   }
 
   private void populateBoard() {
@@ -110,8 +86,8 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
       @Override
       public void mouseClicked(MouseEvent e) {
         // notify the controller of where this position is
-        // TODO: return the logical position of the button
-        System.out.println("clicked at q = " + q + " r = " + r + " s = " + s);
+        buttonClicked(button);
+        printCoords(q, r, s);
       }
     });
   }
@@ -133,6 +109,12 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
+  // prints the logical coordinates of the clicked tile
+  private void printCoords(int q, int r, int s) {
+    String infoText = String.format("q= %d, r= %d, s= %d", q, r, s);
+    clickedCoords.setText(infoText);
+  }
+
   private List<Integer> gridToAxialCoord(int row, int col) {
     int qStart;
     int r = row - size;
@@ -149,15 +131,13 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   // takes in the button that was clicked
   private void buttonClicked(HexagonalButton button) {
-    // if a button is already highlighted, de-highlight it
-    if (highlightedButton != null) {
-      highlightedButton.toggleHighlight();
-    }
+     /* TODO:
+         - de-highlight previously highlighted button
+         - highlight given button (DONE)
+     */
 
-    // highlights the current button
-    if (button != null && button != highlightedButton) {
-      highlightedButton = button;
-      highlightedButton.toggleHighlight();
+    if (previousButton != button) {
+      button.toggleHighlight();
     }
   }
 
@@ -176,30 +156,5 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
 
   private double calculatePieceHeight(double boardHeight) {
     return boardHeight * 2 / (size * 3 + 2);
-  }
-
-
-            ////////////////////////
-            // ARE THESE NEEDED???//
-            ////////////////////////
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    //TODO
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-    //TODO
-  }
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-    //TODO
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    //TODO
   }
 }
