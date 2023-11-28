@@ -139,6 +139,8 @@ public class JReversiPanel extends JPanel {
     }
     highlightedButton = button;
     highlightedButton.setHighlight(true);
+
+    this.repaint();
   }
 
   private double startingX(int r) {
