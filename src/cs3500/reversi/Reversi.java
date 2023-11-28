@@ -28,6 +28,6 @@ public final class Reversi {
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
     ReversiView view = new JFrameReversiView(model);
-    view.setVisible(true);
+    view.makeVisible();
   }
 }
