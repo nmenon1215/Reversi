@@ -24,9 +24,4 @@ public class JFrameReversiView extends JFrame implements ReversiView {
     // TODO:
     //  - add a key listener that senses m and p key strokes and calls the methods for it
   }
-
-  @Override
-  public void display(boolean show) {
-    this.setVisible(show);
-  }
 }

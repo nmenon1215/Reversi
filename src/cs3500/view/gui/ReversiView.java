@@ -7,5 +7,4 @@ public interface ReversiView {
 
   void setVisible(boolean b);
 
-  void display(boolean show);
 }

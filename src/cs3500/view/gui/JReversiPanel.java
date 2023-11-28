@@ -32,9 +32,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private List<List<HexagonalButton>> board;
 
   private final int size;
-  private JButton background;
-
-  private boolean mouseIsDown;
 
   /**
    * Constructs a ReversiPanel and populates the view with the current board state.
@@ -153,32 +150,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   //  TODO:
   //   - Create a method to handle keypress
   //   - Determines whether to move or to pass
-
-  /**
-   * Computes the transformation that converts board coordinates
-   * (with (0,0) in center, width and height our logical size)
-   * into screen coordinates (with (0,0) in upper-left,
-   * width and height in pixels).
-   * This is the inverse of {@link JReversiPanel#transformPhysicalToLogical()}.
-   *
-   * @return The necessary transformation
-   */
-  private AffineTransform transformLogicalToPhysical() {
-    return null;
-  }
-
-  /**
-   * Computes the transformation that converts screen coordinates
-   * (with (0,0) in upper-left, width and height in pixels)
-   * into board coordinates (with (0,0) in center, width and height
-   * our logical size).
-   * This is the inverse of {@link JReversiPanel#transformLogicalToPhysical()}.
-   *
-   * @return The necessary transformation
-   */
-  private AffineTransform transformPhysicalToLogical() {
-    return null;
-  }
 
   @Override
   public void actionPerformed(ActionEvent e) {

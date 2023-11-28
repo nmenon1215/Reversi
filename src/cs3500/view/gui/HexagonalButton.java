@@ -30,14 +30,6 @@ public class HexagonalButton extends JButton {
     setOpaque(false);
     setBorderPainted(false);
     setFocusPainted(false);
-
-    addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        click = !click;
-        highlight();
-      }
-    });
   }
 
   private void highlight() {
