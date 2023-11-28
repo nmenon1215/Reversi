@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
+import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
@@ -33,7 +34,6 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   private List<List<HexagonalButton>> board;
 
   private final int size;
-
 
   // there is no button initially highlighted
   private HexagonalButton highlightedButton = null;
@@ -54,11 +54,14 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
-        /* TODO:
-            - check which key was pressed
-            - either highlight for a move or pass
-            - refresh the board at the end of it
-         */
+        char keyPressed = e.getKeyChar();
+        if (keyPressed == 's') {
+          //TODO: attempt to pass turn
+        }
+        else if (keyPressed == 'p') {
+          //TODO: attempt to place a piece.
+        }
+        //TODO: Make sure controller tells view to refresh!!!
       }
     });
   }
@@ -81,62 +84,44 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
   }
 
   private void populateBoard() {
-    double width = calculatePieceWidth(BOARDWIDTH); // of a single piece
-    double height = calculatePieceHeight(BOARDHEIGHT); // of a single piece
-    double y = 0; //Don't know if u need size for this. You might need nothing if you top left align
-    for (int r = -size; r <= size; r++) {
+    double pieceWidth = calculatePieceWidth(BOARDWIDTH);
+    double pieceHeight = calculatePieceHeight(BOARDHEIGHT);
+    double y = 0;
+    for (int row = 0; row < size * 2 + 1; row++) {
       List<HexagonalButton> rowOfButtons = new ArrayList<>();
-      int qStart;
-      int qEnd;
-      if (r < 0) {
-        qStart = -size - r;
-        qEnd = size;
-      } else {
-        qStart = -size;
-        qEnd = size - r;
-      }
-      double x = startingX(r, BOARDWIDTH);
-      for (int q = qStart; q <= qEnd; q++) {
+      double x  = startingX(row);
+      for (int col = 0; col < -Math.abs(row - size) + size * 2 + 1; col++) {
         HexagonalButton button = new HexagonalButton();
-
-        // Add a MouseListener to each button directly within the loop
-        int finalQ = q;
-        int finalR = r;
-        button.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseClicked(MouseEvent e) {
-            // notify the controller of where this position is
-            // TODO: return the logical position of the button
-            System.out.println("clicked at q = " + finalQ + " r = " + finalR);
-          }
-        });
-
+        List<Integer> coord = gridToAxialCoord(row, col);
+        createListener(button, coord.get(0), coord.get(1), coord.get(2));
         add(button);
-        button.setBounds((int) x, (int) y, (int) width, (int) height);
+        button.setBounds((int) x, (int) y, (int) pieceWidth, (int) pieceHeight);
         rowOfButtons.add(button);
-        x += width; // assume positive right
+        x += pieceWidth;
       }
       this.board.add(rowOfButtons);
-      y += 3 * height / 4; // assume positive down
+      y += 3 * pieceHeight / 4; // assume positive down
     }
     updateBoard();
   }
 
+  private void createListener(HexagonalButton button, int q, int r, int s) {
+    button.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        // notify the controller of where this position is
+        // TODO: return the logical position of the button
+        System.out.println("clicked at q = " + q + " r = " + r + " s = " + s);
+      }
+    });
+  }
+
   // TODO: each time it is updated, repaint the tile to reflect highlight
   private void updateBoard() {
-    for (int r = -size; r <= size; r++) {
-      int qStart;
-      int qEnd;
-      if (r < 0) {
-        qStart = -size - r;
-        qEnd = size;
-      } else {
-        qStart = -size;
-        qEnd = size - r;
-      }
-      for (int q = qStart; q <= qEnd; q++) {
-        ITile tile = model.getTileAt(new HexagonalPosn(q, r, -r - q));
-        HexagonalButton button = board.get(r + size).get(q - qStart);
+    for (int row = 0; row < size * 2 + 1; row++) {
+      for (int col = 0; col < board.get(row).size(); col++) {
+        ITile tile = model.getTileAt(new HexagonalPosn(gridToAxialCoord(row, col)));
+        HexagonalButton button = board.get(row).get(col);
         if (tile.getPlayer() != null) {
           if (tile.getPlayer().toString().equals("X")) {
             button.flipBlack();
@@ -146,6 +131,20 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
         }
       }
     }
+  }
+
+  private List<Integer> gridToAxialCoord(int row, int col) {
+    int qStart;
+    int r = row - size;
+    if(r < 0) {
+      qStart = -r - size;
+    }
+    else {
+      qStart = -size;
+    }
+    int q = qStart + col;
+    int s = - r - q;
+    return List.of(q, r, s);
   }
 
   // takes in the button that was clicked
@@ -162,11 +161,12 @@ public class JReversiPanel extends JPanel implements ActionListener, KeyListener
     }
   }
 
-  private double startingX(int r, double boardWidth) {
+  private double startingX(int r) {
+    r -= size;
     if (r < 0) {
-      return -r * calculatePieceWidth(boardWidth) / 2;
+      return -r * calculatePieceWidth(BOARDWIDTH) / 2;
     } else {
-      return r * calculatePieceWidth(boardWidth) / 2;
+      return r * calculatePieceWidth(BOARDWIDTH) / 2;
     }
   }
 
