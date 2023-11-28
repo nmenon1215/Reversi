@@ -160,8 +160,6 @@ public class ReversiExamples {
     smallModel.placePiece(p2, new HexagonalPosn(-3, 2, 1));
     smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
     smallModel.placePiece(p2, new HexagonalPosn(2, 1, -3));
-
-
     smallModel.skip(pRigged);
     smallModel.skip(p1);
     Assert.assertTrue(smallModel.isGameOver());
@@ -194,6 +192,70 @@ public class ReversiExamples {
     smallModel.skip(p2); // SECOND SKIP!!!
     // game is not over since skips were not in a row.
     Assert.assertFalse(smallModel.isGameOver());
+  }
+
+  @Test
+  public void getCornersReturnsCorners() {
+    List<Posn> corners = new ArrayList<>();
+    corners.add(new HexagonalPosn(0, 3, -3));
+    corners.add(new HexagonalPosn(0, -3, 3));
+    corners.add(new HexagonalPosn(3, 0, -3));
+    corners.add(new HexagonalPosn(-3, 0, 3));
+    corners.add(new HexagonalPosn(3, -3, 0));
+    corners.add(new HexagonalPosn(-3, 3, 0));
+    Assert.assertEquals(smallModel.getCorners(), corners);
+  }
+
+  @Test
+  public void getSkipsInARowReturnsCorrectly() {
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    smallModel.placePiece(p2, new HexagonalPosn(2, -3, 1));
+    smallModel.placePiece(p1, new HexagonalPosn(-1, 2, -1));
+    smallModel.placePiece(p2, new HexagonalPosn(-1, 3, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(-2, 3, -1));
+    smallModel.placePiece(p2, new HexagonalPosn(1, 1, -2));
+    smallModel.placePiece(p1, new HexagonalPosn(0, 3, -3));
+    Assert.assertEquals(smallModel.getSkipsInARow(), 0); // NO SKIPS YET
+    smallModel.skip(p2); // FIRST SKIP
+    Assert.assertEquals(smallModel.getSkipsInARow(), 1); // ONE SKIP
+  }
+
+  @Test
+  public void getTurnIndexReturnsCorrectly() {
+    Assert.assertEquals(smallModel.getTurnIndex(), 0);
+    smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
+    Assert.assertEquals(smallModel.getTurnIndex(), 1);
+    smallModel.placePiece(p2, new HexagonalPosn(2, -3, 1));
+  }
+
+  @Test
+  public void getPlayersReturnsCorrectly() {
+    List<Player> players = new ArrayList<>(List.of(new User('X'), new User('O')));
+    Assert.assertEquals(smallModel.getPlayers(), players);
+  }
+
+//  @Test
+//  public void getBoardReturnsCorrectly() {
+//    List<ITile> board = new ArrayList<>();
+//    for (int i = 0; i < 12; i++) {
+//      board.add(new HexagonalTile())
+//    }
+//    Assert.assertEquals(smallModel.getBoard().get(0), null);
+//  }
+
+  @Test
+  public void getTurnReturnsCorrectly() {
+
+  }
+
+  @Test
+  public void getBoardSizeReturnsCorrectly() {
+
+  }
+
+  @Test
+  public void adjacentToReturnsCorrectly() {
+
   }
 
 }
