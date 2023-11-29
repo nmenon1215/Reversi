@@ -233,29 +233,4 @@ public class ReversiExamples {
     List<Player> players = new ArrayList<>(List.of(new User('X'), new User('O')));
     Assert.assertEquals(smallModel.getPlayers(), players);
   }
-
-//  @Test
-//  public void getBoardReturnsCorrectly() {
-//    List<ITile> board = new ArrayList<>();
-//    for (int i = 0; i < 12; i++) {
-//      board.add(new HexagonalTile())
-//    }
-//    Assert.assertEquals(smallModel.getBoard().get(0), null);
-//  }
-
-  @Test
-  public void getTurnReturnsCorrectly() {
-
-  }
-
-  @Test
-  public void getBoardSizeReturnsCorrectly() {
-
-  }
-
-  @Test
-  public void adjacentToReturnsCorrectly() {
-
-  }
-
 }

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
@@ -106,6 +108,7 @@ public class JReversiPanel extends JPanel {
         }
       }
     }
+    this.repaint();
   }
 
   // prints the logical coordinates of the clicked tile
@@ -117,7 +120,7 @@ public class JReversiPanel extends JPanel {
   private List<Integer> gridToAxialCoord(int row, int col) {
     int qStart;
     int r = row - size;
-    if(r < 0) {
+    if (r < 0) {
       qStart = -r - size;
     }
     else {
@@ -130,10 +133,6 @@ public class JReversiPanel extends JPanel {
 
   // takes in the button that was clicked
   private void buttonClicked(HexagonalButton button) {
-     /* TODO:
-         - de-highlight previously highlighted button
-         - highlight given button (DONE)
-     */
     if (highlightedButton != null) {
       highlightedButton.setHighlight(false);
     }

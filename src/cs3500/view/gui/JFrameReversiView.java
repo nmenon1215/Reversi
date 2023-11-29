@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import cs3500.model.ROReversiModel;
 
@@ -19,7 +20,8 @@ public class JFrameReversiView extends JFrame implements ReversiView {
    */
   public JFrameReversiView(ROReversiModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setContentPane(new JReversiPanel(this, model));
+    JPanel panel = new JReversiPanel(this, model);
+    this.setContentPane(panel);
     this.setLocationRelativeTo(null);
     this.setLayout(null);
     this.pack();
