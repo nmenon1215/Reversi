@@ -6,5 +6,5 @@ package cs3500.view.gui;
 public interface Actions {
 
   // TODO:
-  //  - callback methods for m and p?
+  //  - callback methods for p and s?
 }

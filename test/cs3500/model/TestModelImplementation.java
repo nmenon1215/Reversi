@@ -11,7 +11,6 @@ import cs3500.player.AI;
 import cs3500.player.CaptureMaxPieces;
 import cs3500.player.Player;
 import cs3500.player.User;
-import cs3500.view.gui.ReversiView;
 import cs3500.view.textual.ReversiTextualView;
 
 /**

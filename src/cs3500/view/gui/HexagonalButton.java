@@ -11,8 +11,6 @@ import java.util.Objects;
 
 import javax.swing.JButton;
 
-import cs3500.model.Posn;
-
 /**
  * Creates a hexagonal button that will be added to a board to create the grid for the Reversi
  * game.

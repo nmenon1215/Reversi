@@ -1,13 +1,12 @@
 package cs3500.view.gui;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-import javax.swing.*;
 
-import cs3500.model.Posn;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import cs3500.model.ROReversiModel;
 
 /**

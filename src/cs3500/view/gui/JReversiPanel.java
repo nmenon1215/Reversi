@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
-import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
