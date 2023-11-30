@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JButton;
 
@@ -28,6 +29,7 @@ public class HexagonalButton extends JButton {
    * Gives the hexagon the properties to make it filled and look like a hexagon.
    */
   public HexagonalButton(List<Integer> coords) {
+    this.coords = Objects.requireNonNull(coords);
     if(coords.get(0) + coords.get(1) + coords.get(2) != 0) {
       throw new IllegalArgumentException("Can't create button with illogical coordinates.");
     }

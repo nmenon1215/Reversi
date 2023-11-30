@@ -26,13 +26,15 @@ public final class Reversi {
    */
   public static void main(String[] args) {
     Player p1 = new User('X');
+    //Player p2 = new User('O');
     Player p2 = new AI('O', List.of(new CaptureMaxPieces()));
     // INPUTS NOT DONE
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
-    ReversiView view = new JFrameReversiView(model);
-    ReversiController controller = new Controller(model, view, p1);
-    controller.start();
-    view.makeVisible();
+    ReversiView viewPlayer1 = new JFrameReversiView(model);
+    ReversiView viewPlayer2 = new JFrameReversiView(model);
+    ReversiController p1Controller = new Controller(model, viewPlayer1, p1);
+    ReversiController p2Controller = new Controller(model, viewPlayer2, p2);
+    p1Controller.start();
   }
 }

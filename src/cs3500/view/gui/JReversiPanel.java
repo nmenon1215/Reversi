@@ -87,6 +87,7 @@ public class JReversiPanel extends JPanel {
         // notify the controller of where this position is
         buttonClicked(button);
         printCoords(q, r, s);
+        requestFocusInWindow();
       }
     });
   }
@@ -135,7 +136,7 @@ public class JReversiPanel extends JPanel {
     }
     highlightedButton = button;
     highlightedButton.setHighlight(true);
-
+    System.out.println(highlightedButton == null);
     this.repaint();
   }
 

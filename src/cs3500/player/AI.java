@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.controller.ReversiController;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
@@ -17,6 +18,7 @@ public class AI implements Player {
 
   private final char player;
   private List<Strategy> strats;
+  private ReversiController controller;
 
   /**
    * Creates an AI with the given char as its display token.
@@ -65,11 +67,6 @@ public class AI implements Player {
     throw new RuntimeException(errormsg);
   }
 
-  @Override
-  public List<ITile> getPossibleMoves() {
-    throw new RuntimeException(errormsg);
-  }
-
   /**
    * Displays the character which represents the player.
    *
@@ -78,6 +75,21 @@ public class AI implements Player {
   @Override
   public String toString() {
     return this.player + "";
+  }
+
+  @Override
+  public void setController(ReversiController controller) {
+    this.controller = controller;
+  }
+
+  @Override
+  public void notifyController(ROReversiModel model) {
+    if (model.hasLegalMoves(this)) {
+      this.controller.makeMove("p");
+    }
+    else {
+      this.controller.makeMove("s");
+    }
   }
 
   /**

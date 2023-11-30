@@ -5,8 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
@@ -43,7 +42,8 @@ public class JFrameReversiView extends JFrame implements ReversiView {
 
   @Override
   public void displayException(Exception e) {
-    //TODO
+    JOptionPane errorMsg = new JOptionPane();
+    errorMsg.showMessageDialog(this.panel, e.getMessage());
   }
 
   @Override

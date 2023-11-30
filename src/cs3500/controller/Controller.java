@@ -13,21 +13,20 @@ public class Controller implements ReversiController, KeyListener {
   MutableReversiModel model;
   ReversiView view;
   Player p;
-  Features skip;
-  Features placePiece;
 
   public Controller(MutableReversiModel model, ReversiView view, Player p) {
     this.model = Objects.requireNonNull(model);
     this.view = Objects.requireNonNull(view);
     this.p = Objects.requireNonNull(p);
 
+    this.view.makeVisible();
     this.view.addKeyListener(this);
-    this.view.requestFocusInWindow();
+    this.model.subscribe(this, this.p);
   }
 
   @Override
   public void start() {
-
+    this.view.requestFocusInWindow();
   }
 
   @Override
@@ -57,6 +56,7 @@ public class Controller implements ReversiController, KeyListener {
         try {
           Posn move = this.p.placePiece(model, view);
           model.placePiece(this.p, move);
+          System.out.println("here");
           view.update();
         }
         catch(IllegalArgumentException | IllegalStateException e) {
@@ -65,7 +65,8 @@ public class Controller implements ReversiController, KeyListener {
         break;
       case "s":
         try {
-          this.p.skipTurn();
+          this.model.skip(this.p);
+          view.update();
         }
         catch(IllegalStateException e) {
           view.displayException(e);
@@ -74,6 +75,12 @@ public class Controller implements ReversiController, KeyListener {
       default:
         // do nothing
     }
+  }
+
+  @Override
+  public void startTurn() {
+    this.view.update();
+    this.view.requestFocusInWindow();
   }
 
   @Override

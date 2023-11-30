@@ -2,6 +2,7 @@ package cs3500.player;
 
 import java.util.List;
 
+import cs3500.controller.ReversiController;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
@@ -35,20 +36,14 @@ public interface Player {
    */
   void skipTurn();
 
-  //OBSERVATIONS
-
-  /**
-   * A player can attempt to see all the possible moves that they can make. Later on, this might
-   * evolve to allow for hints with those moves as well.
-   *
-   * @return a list of all possible tiles that are valid moves for this player.
-   */
-  List<ITile> getPossibleMoves();
-
   /**
    * Represents the player as a string. Each unique player has a unique toSting.
    *
    * @return textual representation of a player
    */
   String toString();
+
+  void setController(ReversiController controller);
+
+  void notifyController(ROReversiModel model);
 }

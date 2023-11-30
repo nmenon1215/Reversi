@@ -16,4 +16,6 @@ public interface ReversiController {
    * @param p either p for placePiece or s for skip
    */
   void makeMove(String p);
+
+  void startTurn();
 }

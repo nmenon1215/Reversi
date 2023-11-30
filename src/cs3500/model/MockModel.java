@@ -3,6 +3,7 @@ package cs3500.model;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.controller.ReversiController;
 import cs3500.player.Player;
 
 /**
@@ -26,6 +27,11 @@ public class MockModel implements MutableReversiModel {
   public void skip(Player p) {
     model.skip(p);
     System.out.println("Called skip with: " + "PLAYER: " + p);
+
+  }
+
+  @Override
+  public void subscribe(ReversiController controller, Player p) {
 
   }
 

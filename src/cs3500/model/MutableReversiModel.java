@@ -1,5 +1,6 @@
 package cs3500.model;
 
+import cs3500.controller.ReversiController;
 import cs3500.player.Player;
 
 /**
@@ -34,4 +35,6 @@ public interface MutableReversiModel extends ROReversiModel {
    * @throws IllegalStateException    if the player has other possible moves to be made.
    */
   void skip(Player p);
+
+  void subscribe(ReversiController controller,Player p);
 }

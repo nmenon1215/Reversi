@@ -3,6 +3,7 @@ package cs3500.player;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.controller.ReversiController;
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
@@ -16,6 +17,7 @@ import cs3500.view.gui.ReversiView;
 public class User implements Player {
 
   private final char player;
+  private ReversiController controller;
 
   /**
    * This creates a basic User with a given display character.
@@ -40,13 +42,6 @@ public class User implements Player {
   public void skipTurn() {
     throw new RuntimeException(errormsg);
   }
-
-  // this will most likely interact with either view or controller which we don't have yet.
-  @Override
-  public List<ITile> getPossibleMoves() {
-    throw new RuntimeException(errormsg);
-  }
-
   /**
    * This displays the player using its display character.
    *
@@ -55,6 +50,18 @@ public class User implements Player {
   @Override
   public String toString() {
     return this.player + "";
+  }
+
+  @Override
+  public void setController(ReversiController controller) {
+    this.controller = controller;
+  }
+
+  @Override
+  public void notifyController(ROReversiModel model) {
+    if (this.controller != null) {
+      this.controller.startTurn();
+    }
   }
 
   @Override

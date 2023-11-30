@@ -3,6 +3,7 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.controller.ReversiController;
 import cs3500.player.Player;
 
 /**
@@ -149,6 +150,11 @@ public class HexagonalReversiModel implements MutableReversiModel {
 
     this.nextTurn();
     this.skipsInRow++;
+  }
+
+  @Override
+  public void subscribe(ReversiController controller, Player p) {
+    p.setController(controller);
   }
 
   @Override
@@ -452,5 +458,6 @@ public class HexagonalReversiModel implements MutableReversiModel {
   private void nextTurn() {
     this.turnIndex++;
     this.turnIndex = this.turnIndex % this.players.size();
+    players.get(turnIndex).notifyController(this);
   }
 }
