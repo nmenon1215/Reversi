@@ -3,9 +3,11 @@ package cs3500.player;
 import java.util.List;
 import java.util.Objects;
 
+import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
+import cs3500.view.gui.ReversiView;
 
 /**
  * A User is the class that represents any human playing this game. Humans can place pieces and
@@ -29,8 +31,8 @@ public class User implements Player {
 
   // this will most likely interact with either view or controller which we don't have yet.
   @Override
-  public Posn placePiece(ROReversiModel model) {
-    throw new RuntimeException(errormsg);
+  public Posn placePiece(ROReversiModel model, ReversiView view) {
+    return new HexagonalPosn(view.getHighlighted());
   }
 
   // this will most likely interact with either view or controller which we don't have yet.

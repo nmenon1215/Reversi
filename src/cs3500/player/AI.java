@@ -7,6 +7,7 @@ import java.util.Objects;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
+import cs3500.view.gui.ReversiView;
 
 /**
  * An AI is a Player who automatically places a piece or skips their turn if they have no moves.
@@ -38,7 +39,7 @@ public class AI implements Player {
   String errormsg = "If you got this to run, the code compiles!";
 
   @Override
-  public Posn placePiece(ROReversiModel model) {
+  public Posn placePiece(ROReversiModel model, ReversiView view) {
     if (model.hasLegalMoves(this)) {
       List<Posn> possibleMoves = new ArrayList<>();
       for (ITile tile : model.possibleMoves(this)) {

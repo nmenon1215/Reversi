@@ -5,6 +5,7 @@ import java.util.List;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
+import cs3500.view.gui.ReversiView;
 
 /**
  * This is a representation of a Player. A Player is anyone who can interact with the model
@@ -24,7 +25,7 @@ public interface Player {
    * @return null to skip the turn, or a valid Posn on the board where we would like to place the \
    *         piece.
    */
-  Posn placePiece(ROReversiModel model);
+  Posn placePiece(ROReversiModel model, ReversiView view);
 
   /**
    * Skips the turn of the player. You are only allowed to skip your turn when you have no possible

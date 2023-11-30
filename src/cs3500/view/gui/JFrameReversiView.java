@@ -2,10 +2,13 @@ package cs3500.view.gui;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
@@ -13,40 +16,48 @@ import cs3500.model.ROReversiModel;
  */
 public class JFrameReversiView extends JFrame implements ReversiView {
 
-
+  JReversiPanel panel;
   /**
    * Create a background frame.
    * @param model the model to follow.
    */
   public JFrameReversiView(ROReversiModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    JPanel panel = new JReversiPanel(this, model);
+    panel = new JReversiPanel(this, model);
     this.setContentPane(panel);
     this.setLocationRelativeTo(null);
     this.setLayout(null);
     this.pack();
-
-    addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyPressed(KeyEvent e) {
-        char keyPressed = e.getKeyChar();
-        if (keyPressed == 's') {
-          //TODO: attempt to pass turn
-          System.out.println("s");
-        }
-        else if (keyPressed == 'p') {
-          //TODO: attempt to place a piece.
-          System.out.println("p");
-        }
-        //TODO: Make sure controller tells view to refresh!!!
-      }
-    });
-
     this.setFocusable(true);
   }
 
   @Override
   public void makeVisible() {
     this.setVisible(true);
+  }
+
+  @Override
+  public void update() {
+    this.panel.updateBoard();
+  }
+
+  @Override
+  public void displayException(Exception e) {
+    //TODO
+  }
+
+  @Override
+  public void addKeyListener(KeyListener listener) {
+    this.panel.addKeyListener(listener);
+  }
+
+  @Override
+  public boolean requestFocusInWindow() {
+    return this.panel.requestFocusInWindow();
+  }
+
+  @Override
+  public List<Integer> getHighlighted() {
+    return this.panel.getHighlighted();
   }
 }

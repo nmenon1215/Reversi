@@ -6,8 +6,11 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Color;
 import java.awt.geom.Path2D;
+import java.util.List;
 
 import javax.swing.JButton;
+
+import cs3500.model.Posn;
 
 /**
  * Creates a hexagonal button that will be added to a board to create the grid for the Reversi
@@ -19,11 +22,15 @@ public class HexagonalButton extends JButton {
   private int height;
   private boolean highlighted = false;
   private Color buttonColor = Color.DARK_GRAY;
+  private List<Integer> coords;
 
   /**
    * Gives the hexagon the properties to make it filled and look like a hexagon.
    */
-  public HexagonalButton() {
+  public HexagonalButton(List<Integer> coords) {
+    if(coords.get(0) + coords.get(1) + coords.get(2) != 0) {
+      throw new IllegalArgumentException("Can't create button with illogical coordinates.");
+    }
     setContentAreaFilled(false);
     setOpaque(false);
     setBorderPainted(false);
@@ -94,5 +101,9 @@ public class HexagonalButton extends JButton {
 
   public void flipWhite() {
     buttonColor = Color.WHITE;
+  }
+
+  public List<Integer> getCoords() {
+    return coords;
   }
 }

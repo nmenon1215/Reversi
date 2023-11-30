@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import cs3500.model.HexagonalPosn;
 import cs3500.model.ITile;
+import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;
 
 /**
@@ -65,8 +66,8 @@ public class JReversiPanel extends JPanel {
       List<HexagonalButton> rowOfButtons = new ArrayList<>();
       double x  = startingX(row);
       for (int col = 0; col < -Math.abs(row - size) + size * 2 + 1; col++) {
-        HexagonalButton button = new HexagonalButton();
         List<Integer> coord = gridToAxialCoord(row, col);
+        HexagonalButton button = new HexagonalButton(coord);
         createListener(button, coord.get(0), coord.get(1), coord.get(2));
         add(button);
         button.setBounds((int) x, (int) y, (int) pieceWidth, (int) pieceHeight);
@@ -90,7 +91,7 @@ public class JReversiPanel extends JPanel {
     });
   }
 
-  private void updateBoard() {
+  void updateBoard() {
     for (int row = 0; row < size * 2 + 1; row++) {
       for (int col = 0; col < board.get(row).size(); col++) {
         ITile tile = model.getTileAt(new HexagonalPosn(gridToAxialCoord(row, col)));
@@ -153,5 +154,9 @@ public class JReversiPanel extends JPanel {
 
   private double calculatePieceHeight(double boardHeight) {
     return boardHeight * 2 / (size * 3 + 2);
+  }
+
+  public List<Integer> getHighlighted() {
+    return this.highlightedButton.getCoords();
   }
 }
