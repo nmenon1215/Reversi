@@ -109,3 +109,30 @@ to help enforce players turn and for the strategies.
     - The code enforces rules related to tile flipping, ensuring that a tile can only be flipped if
       it is sandwiched between the player's tiles.
 
+## Part 3
+
+### Control Flow
+Quick runthrough: When a game is started, 2 controllers and views are created. Each controller  
+subscribes to the model to listen for when it is their turn to make a move. The model connects  
+each player to its controller and then when switching turns, it tells the next player to notify  
+its controller that it is their turn.
+
+Once a game is started, the Controller tells the view that it is the main screen. The controller  
+then waits for a key event to occur. When the key event occurs, it triggers the key event in the  
+controller. The controller sends this information to a function called make move. It then asks the  
+player to identify its move. AI will analyze the model, and User will analyze the view to see what  
+button is pressed. The controller will then prompt the model to make the move. If the move is  
+successful, the model will move turn to the next player and notify the player that it is their turn.  
+The player will then notify the controller. If the player is AI, it will automatically call placePiece  
+once again, but if it is a User, it will declare its view as the main view.
+
+## Changes For Part 3
+
+  1. Fixed the view in part 2:  
+     a. made buttons clickable with highlighting  
+     b. fixed spacing of buttons  
+     c. made key events  
+  2. added function to model so controller could subscribe.  
+  3. Deleted functions from player such as getPlayableTiles()
+  4. Updated Player functionality to automatically tell controller to place piece or tell controller
+     to wait for key action.
