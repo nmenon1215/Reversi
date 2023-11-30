@@ -24,23 +24,67 @@ public class MockView implements ReversiView {
 
   @Override
   public void makeVisible() {
-
+    try {
+      appendable.append("makeVisible()\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.view.makeVisible();
   }
 
   @Override
   public void update() {
-
+    try {
+      appendable.append("update()\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.view.update();
   }
 
-  /**
-   * Displays a popup with the given exception.
-   */
-  void displayException(Exception e);
+  @Override
+  public void displayException(Exception e) {
+    try {
+      appendable.append("displayException(Exception e)\n");
+    }
+    catch (Exception ex) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.view.displayException(e);
+  }
 
-  void addKeyListener(KeyListener listener);
+  @Override
+  public void addKeyListener(KeyListener listener) {
+    try {
+      appendable.append("addKeyListener(KeyListener listener)\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.view.addKeyListener(listener);
+  }
 
-  boolean requestFocusInWindow();
+  @Override
+  public boolean requestFocusInWindow() {
+    try {
+      appendable.append("requestFocusInWindow()\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    return this.view.requestFocusInWindow();
+  }
 
-  List<Integer> getHighlighted();
-
+  @Override
+  public List<Integer> getHighlighted() {
+    try {
+      appendable.append("getHighlighted()\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    return this.view.getHighlighted();
+  }
 }
