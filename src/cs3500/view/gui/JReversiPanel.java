@@ -25,10 +25,7 @@ public class JReversiPanel extends JPanel {
   private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3) / 2 * BOARDWIDTH);
   private final ROReversiModel model;
   private List<List<HexagonalButton>> board;
-
   private final int size;
-
-  // there is no button initially highlighted
   private HexagonalButton highlightedButton = null;
   private final JLabel clickedCoords;
 
@@ -44,7 +41,7 @@ public class JReversiPanel extends JPanel {
     this.board = new ArrayList<>();
     clickedCoords = new JLabel("Coords");
     add(clickedCoords);
-    clickedCoords.setBounds(10, (int) BOARDHEIGHT - 20, 300, 20); // Adjust the position as needed
+    clickedCoords.setBounds(10, (int) BOARDHEIGHT - 20, 300, 20);
 
     this.populateBoard();
   }
@@ -93,7 +90,6 @@ public class JReversiPanel extends JPanel {
     });
   }
 
-  // TODO: each time it is updated, repaint the tile to reflect highlight
   private void updateBoard() {
     for (int row = 0; row < size * 2 + 1; row++) {
       for (int col = 0; col < board.get(row).size(); col++) {
