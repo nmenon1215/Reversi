@@ -47,7 +47,7 @@ public class MockView implements ReversiView {
   @Override
   public void displayException(Exception e) {
     try {
-      appendable.append("displayException(Exception e)\n");
+      appendable.append("displayException(" + e.getMessage() + ")\n");
     }
     catch (Exception ex) {
       throw new RuntimeException("Mock failed");
@@ -58,7 +58,7 @@ public class MockView implements ReversiView {
   @Override
   public void addKeyListener(KeyListener listener) {
     try {
-      appendable.append("addKeyListener(KeyListener listener)\n");
+      appendable.append("addKeyListener(" + listener + ")\n");
     }
     catch (Exception e) {
       throw new RuntimeException("Mock failed");
@@ -86,5 +86,16 @@ public class MockView implements ReversiView {
       throw new RuntimeException("Mock failed");
     }
     return this.view.getHighlighted();
+  }
+
+  @Override
+  public void createTitle(String toString) {
+    try {
+      appendable.append("createTitle(" + toString + ")\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.view.createTitle(toString);
   }
 }
