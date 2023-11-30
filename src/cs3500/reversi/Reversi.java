@@ -9,7 +9,9 @@ import cs3500.controller.ReversiController;
 import cs3500.model.HexagonalReversiModel;
 import cs3500.model.MutableReversiModel;
 import cs3500.player.AI;
+import cs3500.player.AvoidCellsNextToCorners;
 import cs3500.player.CaptureMaxPieces;
+import cs3500.player.PlaceAtCorners;
 import cs3500.player.Player;
 import cs3500.player.User;
 import cs3500.view.gui.JFrameReversiView;
@@ -25,9 +27,8 @@ public final class Reversi {
    * @param args no args yet.
    */
   public static void main(String[] args) {
-    Player p1 = new User('X');
-    // Player p2 = new User('O');
-    Player p2 = new AI('O', List.of(new CaptureMaxPieces()));
+    Player p1 = makePlayer(args[0], 'X');
+    Player p2 = makePlayer(args[1], 'O');
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
     ReversiView viewPlayer1 = new JFrameReversiView(model);
@@ -35,5 +36,23 @@ public final class Reversi {
     ReversiController p1Controller = new Controller(model, viewPlayer1, p1);
     ReversiController p2Controller = new Controller(model, viewPlayer2, p2);
     p1Controller.start();
+  }
+
+  static private Player makePlayer(String input, char c) {
+    if(input.equalsIgnoreCase("human")) {
+      return new User(c);
+    }
+    else if (input.equalsIgnoreCase("strategy1")) {
+      return new AI(c, List.of(new CaptureMaxPieces()));
+    }
+    else if (input.equalsIgnoreCase("strategy2")) {
+      return new AI(c, List.of(new AvoidCellsNextToCorners(), new CaptureMaxPieces()));
+    }
+    else if (input.equalsIgnoreCase("strategy3")) {
+      return new AI(c, List.of(new PlaceAtCorners(), new AvoidCellsNextToCorners(), new CaptureMaxPieces()));
+    }
+    else {
+      throw new IllegalArgumentException("This start command was unrecognized.");
+    }
   }
 }
