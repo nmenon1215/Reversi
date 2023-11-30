@@ -11,45 +11,71 @@ import cs3500.player.Player;
  */
 public class MockModel implements MutableReversiModel {
 
-  MutableReversiModel model;
+  private MutableReversiModel model;
+  private Appendable appendable;
 
   /**
    * Creates a mock of the model.
    * @param model the model being mocked
    */
-  public MockModel(MutableReversiModel model) {
+  public MockModel(MutableReversiModel model, Appendable appendable) {
     this.model = Objects.requireNonNull(model);
+    this.appendable = Objects.requireNonNull(appendable);
   }
 
   @Override
   public void placePiece(Player p, Posn posn) {
-    model.placePiece(p, posn);
-    System.out.println("Called placePiece with: " + "PLAYER: " + p + " Posn: " + posn.getCoords());
+    try {
+      appendable.append("placePiece(" + p + ", " + posn + ")\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.model.placePiece(p, posn);
   }
 
   @Override
   public void skip(Player p) {
-    model.skip(p);
-    System.out.println("Called skip with: " + "PLAYER: " + p);
-
+    try {
+      appendable.append("skip(" + p + ")\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.model.skip(p);
   }
 
   @Override
   public void subscribe(ReversiController controller, Player p) {
-    System.out.println("Called subscribe with: " + "PLAYER: " + p
-            + " CONTROLLER: " + controller);
+    try {
+      appendable.append("subscribe(" + controller + ", " + p + ")\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    this.model.subscribe(controller, p);
   }
 
   @Override
   public ITile getTileAt(Posn posn) {
-    System.out.println("Called getTileAt with: " + " Posn: " + posn);
-    return model.getTileAt(posn);
+    try {
+      appendable.append("placePiece(" + posn + ")\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    return this.model.getTileAt(posn);
   }
 
   @Override
   public List<ITile> getSurroundingTiles(Posn posn) {
-    System.out.println("Called getSurroundingTiles with: " + " Posn: " + posn);
-    return model.getSurroundingTiles(posn);
+    try {
+      appendable.append("getSurroundingTiles(" + posn + ")\n");
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Mock failed");
+    }
+    return this.model.getSurroundingTiles(posn);
   }
 
   @Override
@@ -122,5 +148,13 @@ public class MockModel implements MutableReversiModel {
   public List<Posn> getCorners() {
     System.out.println("Called getCorners");
     return model.getCorners();
+  }
+
+  /**
+   * Gets the appendable for testing.
+   * @return the Appendable
+   */
+  public Appendable getAppendable() {
+    return this.appendable;
   }
 }

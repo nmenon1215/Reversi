@@ -85,7 +85,7 @@ public class MockView implements ReversiView {
     catch (Exception e) {
       throw new RuntimeException("Mock failed");
     }
-    return this.view.getHighlighted();
+    return List.of(2, -1, -1);
   }
 
   @Override
@@ -97,5 +97,13 @@ public class MockView implements ReversiView {
       throw new RuntimeException("Mock failed");
     }
     this.view.createTitle(toString);
+  }
+
+  /**
+   * Gets the appendable for testing.
+   * @return the appendable
+   */
+  public Appendable getAppendable() {
+    return appendable;
   }
 }

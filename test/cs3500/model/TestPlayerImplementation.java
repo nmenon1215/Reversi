@@ -220,7 +220,7 @@ public class TestPlayerImplementation {
     Player p1 = new AI('X', List.of(new CaptureMaxPieces()));
     Player p2 = new User('O');
     MutableReversiModel actualModel = new HexagonalReversiModel(List.of(p1, p2));
-    MutableReversiModel mock = new MockModel(actualModel);
+    MutableReversiModel mock = new MockModel(actualModel, new StringBuilder());
     Assert.assertEquals(new HexagonalPosn(1, -2, 1), p1.placePiece(mock, view));
     mock.placePiece(p1, p1.placePiece(mock, view));
 

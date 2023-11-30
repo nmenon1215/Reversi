@@ -27,8 +27,8 @@ public final class Reversi {
    * @param args no args yet.
    */
   public static void main(String[] args) {
-    Player p1 = makePlayer(/*args[0]*/"human", 'X');
-    Player p2 = makePlayer(/*args[1]*/"strategy1", 'O');
+    Player p1 = makePlayer(args[0], 'X');
+    Player p2 = makePlayer(args[1], 'O');
 
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
@@ -40,7 +40,7 @@ public final class Reversi {
   }
 
   static private Player makePlayer(String input, char c) {
-    if(input.equalsIgnoreCase("human")) {
+    if (input.equalsIgnoreCase("human")) {
       return new User(c);
     }
     else if (input.equalsIgnoreCase("strategy1")) {
@@ -50,7 +50,8 @@ public final class Reversi {
       return new AI(c, List.of(new AvoidCellsNextToCorners(), new CaptureMaxPieces()));
     }
     else if (input.equalsIgnoreCase("strategy3")) {
-      return new AI(c, List.of(new PlaceAtCorners(), new AvoidCellsNextToCorners(), new CaptureMaxPieces()));
+      return new AI(c, List.of(new PlaceAtCorners(),
+              new AvoidCellsNextToCorners(), new CaptureMaxPieces()));
     }
     else {
       throw new IllegalArgumentException("This start command was unrecognized.");
