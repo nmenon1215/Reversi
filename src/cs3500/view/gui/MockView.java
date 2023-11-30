@@ -86,5 +86,5 @@ public class MockView implements ReversiView {
       throw new RuntimeException("Mock failed");
     }
     return this.view.getHighlighted();
-  }g
+  }
 }
