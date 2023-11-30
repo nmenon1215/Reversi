@@ -9,11 +9,21 @@ import cs3500.model.Posn;
 import cs3500.player.Player;
 import cs3500.view.gui.ReversiView;
 
+/**
+ * Creates a controller to gain a connection between the view and the model.
+ */
 public class Controller implements ReversiController, KeyListener {
   MutableReversiModel model;
   ReversiView view;
   Player p;
 
+  /**
+   * Creates a controller that will be used for a player. It handles the connection between
+   * the view and model.
+   * @param model the given model of the game being played.
+   * @param view the given view that represents the game being played.
+   * @param p the player the controller refers to.
+   */
   public Controller(MutableReversiModel model, ReversiView view, Player p) {
     this.model = Objects.requireNonNull(model);
     this.view = Objects.requireNonNull(view);
@@ -59,7 +69,7 @@ public class Controller implements ReversiController, KeyListener {
           System.out.println("here");
           view.update();
         }
-        catch(IllegalArgumentException | IllegalStateException e) {
+        catch (IllegalArgumentException | IllegalStateException e) {
           view.displayException(e);
         }
         break;
@@ -68,7 +78,7 @@ public class Controller implements ReversiController, KeyListener {
           this.model.skip(this.p);
           view.update();
         }
-        catch(IllegalStateException e) {
+        catch (IllegalStateException e) {
           view.displayException(e);
         }
         break;

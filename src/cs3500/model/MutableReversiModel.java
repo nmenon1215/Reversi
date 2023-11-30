@@ -36,5 +36,11 @@ public interface MutableReversiModel extends ROReversiModel {
    */
   void skip(Player p);
 
+  /**
+   * Subscribes the given controller player pair to listen for when it's their turn.
+   *
+   * @param controller the controller that needs to be paired
+   * @param p the player that needs to be paired
+   */
   void subscribe(ReversiController controller,Player p);
 }

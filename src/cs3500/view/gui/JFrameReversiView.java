@@ -15,6 +15,7 @@ import cs3500.model.ROReversiModel;
 public class JFrameReversiView extends JFrame implements ReversiView {
 
   JReversiPanel panel;
+  
   /**
    * Create a background frame.
    * @param model the model to follow.

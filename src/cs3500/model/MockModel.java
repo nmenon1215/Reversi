@@ -32,7 +32,8 @@ public class MockModel implements MutableReversiModel {
 
   @Override
   public void subscribe(ReversiController controller, Player p) {
-
+    System.out.println("Called subscribe with: " + "PLAYER: " + p
+            + " CONTROLLER: " + controller);
   }
 
   @Override

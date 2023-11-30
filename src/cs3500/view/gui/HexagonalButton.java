@@ -28,7 +28,7 @@ public class HexagonalButton extends JButton {
    */
   public HexagonalButton(List<Integer> coords) {
     this.coords = Objects.requireNonNull(coords);
-    if(coords.get(0) + coords.get(1) + coords.get(2) != 0) {
+    if (coords.get(0) + coords.get(1) + coords.get(2) != 0) {
       throw new IllegalArgumentException("Can't create button with illogical coordinates.");
     }
     setContentAreaFilled(false);

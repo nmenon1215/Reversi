@@ -24,7 +24,7 @@ public interface ReversiView {
 
   void addKeyListener(KeyListener listener);
 
-   boolean requestFocusInWindow();
+  boolean requestFocusInWindow();
 
   List<Integer> getHighlighted();
 }

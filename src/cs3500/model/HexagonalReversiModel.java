@@ -369,8 +369,8 @@ public class HexagonalReversiModel implements MutableReversiModel {
     int count = 0;
     for (int i : indexList) {
       if (i > 2 || i < 0) {
-        throw new IllegalArgumentException("Index list must only contain " +
-                "indexes from 0-2 inclusive");
+        throw new IllegalArgumentException("Index list must only contain "
+                + "indexes from 0-2 inclusive");
       }
     }
     findTile(new HexagonalPosn(coords)); // this throws exception if the coords are not valid
