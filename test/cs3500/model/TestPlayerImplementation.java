@@ -14,6 +14,8 @@ import cs3500.player.PlaceAtCorners;
 import cs3500.player.Player;
 import cs3500.player.Strategy;
 import cs3500.player.User;
+import cs3500.view.gui.JFrameReversiView;
+import cs3500.view.gui.ReversiView;
 
 /**
  * Testing suite for Players and their possible strategies.
@@ -33,8 +35,9 @@ public class TestPlayerImplementation {
   Strategy maxPieces;
   MutableReversiModel bigModel;
   MutableReversiModel smallModel;
-
+  ROReversiModel roSmallModel;
   List<Player> players;
+  ReversiView view;
 
   @Before
   public void init() {
@@ -60,6 +63,9 @@ public class TestPlayerImplementation {
 
     bigModel = new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2)));
     smallModel = new HexagonalReversiModel(players, 3);
+    roSmallModel = new HexagonalReversiModel(players, 3);
+
+    view = new JFrameReversiView(roSmallModel);
   }
 
   // TESTING equals(Object obj)
@@ -123,7 +129,7 @@ public class TestPlayerImplementation {
   @Test
   public void choosesMoveWithMoreTilesToBeFlipped() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    Assert.assertEquals(new HexagonalPosn(3, -2, -1), aiMax.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(3, -2, -1), aiMax.placePiece(smallModel, view));
   }
 
   @Test
@@ -133,14 +139,14 @@ public class TestPlayerImplementation {
     smallModel.placePiece(p1, new HexagonalPosn(1, 1, -2));
     smallModel.placePiece(aiMax, new HexagonalPosn(-1, -1, 2));
     smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
-    Assert.assertEquals(new HexagonalPosn(-1, 2, -1), aiMax.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(-1, 2, -1), aiMax.placePiece(smallModel, view));
   }
 
   // TESTING AvoidCellsNextToCorners Strategy
   @Test
   public void aiChoosesMoveAwayFromCorner() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
-    Assert.assertNotEquals(new HexagonalPosn(3, -2, -1), aiNoCorners.placePiece(smallModel));
+    Assert.assertNotEquals(new HexagonalPosn(3, -2, -1), aiNoCorners.placePiece(smallModel, view));
 
   }
 
@@ -154,7 +160,7 @@ public class TestPlayerImplementation {
     smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
     smallModel.placePiece(aiNoCorners, new HexagonalPosn(-2, -1, 3));
     smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
-    Assert.assertEquals(new HexagonalPosn(0, -3, 3), aiNoCorners.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(0, -3, 3), aiNoCorners.placePiece(smallModel, view));
 
   }
 
@@ -171,7 +177,7 @@ public class TestPlayerImplementation {
     smallModel.placePiece(p1, new HexagonalPosn(-1, 3, -2));
     smallModel.placePiece(aiNoCorners, new HexagonalPosn(-2, 3, -1));
     smallModel.placePiece(p1, new HexagonalPosn(3, -1, -2));
-    Assert.assertEquals(new HexagonalPosn(0, -3, 3), aiNoCorners.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(0, -3, 3), aiNoCorners.placePiece(smallModel, view));
   }
 
   // TESTING CaptureMaxPieces as Priority Strategy
@@ -184,7 +190,7 @@ public class TestPlayerImplementation {
     smallModel.placePiece(p1, new HexagonalPosn(-1, -2, 3));
     smallModel.placePiece(aiMaxPriority, new HexagonalPosn(-2, -1, 3));
     smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
-    Assert.assertEquals(new HexagonalPosn(-1, 2, -1), aiMaxPriority.placePiece(smallModel));
+    Assert.assertEquals(new HexagonalPosn(-1, 2, -1), aiMaxPriority.placePiece(smallModel, view));
   }
 
   // TESTING AvoidCellsNextToCorners as Priority Strategy
@@ -192,7 +198,7 @@ public class TestPlayerImplementation {
   public void ifMaxNumberOfCellsFlippedIsNextToCornerDontDoIt() {
     smallModel.placePiece(p1, new HexagonalPosn(2, -1, -1));
     Assert.assertNotEquals(new HexagonalPosn(3, -2, -1),
-            aiNoCorPriority.placePiece(smallModel).getCoords());
+            aiNoCorPriority.placePiece(smallModel, view).getCoords());
   }
 
   // TESTING PlaceAtCorners as Priority Strategy
@@ -206,7 +212,7 @@ public class TestPlayerImplementation {
     smallModel.placePiece(aiCornerPriority, new HexagonalPosn(-2, -1, 3));
     smallModel.placePiece(p1, new HexagonalPosn(1, -2, 1));
     Assert.assertEquals(new HexagonalPosn(0, -3, 3),
-            aiCornerPriority.placePiece(smallModel));
+            aiCornerPriority.placePiece(smallModel, view));
   }
 
   @Test
@@ -215,8 +221,8 @@ public class TestPlayerImplementation {
     Player p2 = new User('O');
     MutableReversiModel actualModel = new HexagonalReversiModel(List.of(p1, p2));
     MutableReversiModel mock = new MockModel(actualModel);
-    Assert.assertEquals(new HexagonalPosn(1, -2, 1), p1.placePiece(mock));
-    mock.placePiece(p1, p1.placePiece(mock));
+    Assert.assertEquals(new HexagonalPosn(1, -2, 1), p1.placePiece(mock, view));
+    mock.placePiece(p1, p1.placePiece(mock, view));
 
   }
 }
