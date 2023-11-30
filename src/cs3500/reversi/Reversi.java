@@ -27,8 +27,10 @@ public final class Reversi {
    * @param args no args yet.
    */
   public static void main(String[] args) {
-    Player p1 = makePlayer(args[0], 'X');
-    Player p2 = makePlayer(args[1], 'O');
+    //Player p1 = makePlayer(args[0], 'X');
+    //Player p2 = makePlayer(args[1], 'O');
+    Player p1 = new User('X');
+    Player p2 = new User('O');
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
     ReversiView viewPlayer1 = new JFrameReversiView(model);

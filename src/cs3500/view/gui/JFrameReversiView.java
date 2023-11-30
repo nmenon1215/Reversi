@@ -60,4 +60,14 @@ public class JFrameReversiView extends JFrame implements ReversiView {
   public List<Integer> getHighlighted() {
     return this.panel.getHighlighted();
   }
+
+  @Override
+  public void createTitle(String display) {
+    if (display.equalsIgnoreCase("X")) {
+      this.setTitle("BLACK");
+    }
+    else if (display.equalsIgnoreCase("O")) {
+      this.setTitle("WHITE");
+    }
+  }
 }

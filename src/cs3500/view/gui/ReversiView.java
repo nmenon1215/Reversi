@@ -27,4 +27,6 @@ public interface ReversiView {
   boolean requestFocusInWindow();
 
   List<Integer> getHighlighted();
+
+  void createTitle(String toString);
 }

@@ -32,6 +32,7 @@ public class Controller implements ReversiController, KeyListener {
     this.view.makeVisible();
     this.view.addKeyListener(this);
     this.model.subscribe(this, this.p);
+    this.view.createTitle(p.toString());
   }
 
   @Override
@@ -66,7 +67,6 @@ public class Controller implements ReversiController, KeyListener {
         try {
           Posn move = this.p.placePiece(model, view);
           model.placePiece(this.p, move);
-          System.out.println("here");
           view.update();
         }
         catch (IllegalArgumentException | IllegalStateException e) {
