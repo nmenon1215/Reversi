@@ -13,6 +13,10 @@ public class MockModel implements MutableReversiModel {
 
   MutableReversiModel model;
 
+  /**
+   * Creates a mock of the model.
+   * @param model the model being mocked
+   */
   public MockModel(MutableReversiModel model) {
     this.model = Objects.requireNonNull(model);
   }
