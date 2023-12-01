@@ -10,6 +10,10 @@ tiles and multiple players with some changes to the existing code.
 
 ## Quick Start
 
+TO RUN THE PROGRAM FROM JAR:  
+For two player game: java -jar Reversi.jar human human  
+For single player: replace the second human with either (strategy1, strategy2, strategy3) ex: java -jar Reversi.jar human strategy1  
+
 // sets up the players and the game  
 Player p1 = new User('X');  
 Player p2 = new User('O');  
@@ -47,22 +51,32 @@ who is making a move on the board.
 
 ## Source Organization
 
-#### CS3500 package
+### CS3500 package
 
-##### Model Package
+#### Model Package
 
 Interfaces: ROReversiModel, MutableReversiModel, ITile, Posn  
-Classes: HexagonalReversiModel, HexagonalTile, HexagonalPosn
+Classes: HexagonalReversiModel, HexagonalTile, HexagonalPosn, MockModel
+
+#### Controller Package
+
+Interface: ReversiController  
+Class: Controller  
 
 #### View Package
 
 Interfaces: Player, Strategy  
 Classes: User, AI, Minimax, AvoidCellsNextToCorners, CaptureMaxPieces, PlaceAtCorners
 
-##### View Package
+##### Gui Package
 
-Interface: TextualView, ReversiView  
-Class: ReversiTextualView, JReversiPanel, JFrameReversiView, HexagonalButton
+Interface: ReversiView  
+Class: JReversiPanel, JFrameReversiView, HexagonalButton, MockView  
+
+##### Textual Package
+
+Interface: TextualView  
+Class: ReversiTextualView  
 
 #### Reversi Package
 
@@ -70,7 +84,12 @@ Class: Reversi
 
 #### Tests
 
-Classes: ReversiExamples, TestModelImplementation, TestTileImplementation, TestPlayerImplementation
+Classes: ReversiExamples, TestModelImplementation, TestTileImplementation, TestPlayerImplementation, TestControllerImplementation
+
+## Roles on The Team
+
+Nikhil: PLANNING, model logic (Model Class), player strategies, displaying cells, controller logic, some README  
+Simon: PLANNING, some model logic (Supplemental Classes), model tests, view, key clicks, mouse clicks, mocks, controller tests, most README  
 
 ## Changes Made To Model
 
@@ -136,3 +155,10 @@ once again, but if it is a User, it will declare its view as the main view.
   3. Deleted functions from player such as getPlayableTiles()
   4. Updated Player functionality to automatically tell controller to place piece or tell controller
      to wait for key action.
+
+## Class/Interface Additions
+
+  1. ReversiController- Moderates the connection between a player, its view, and the joint model.  
+  2. Controller- Holds the code for the controller to serve as a pipeline from the model to view.  
+  3. MockView- Adds called methods to an Appendable to allow for testing.  
+  4. TestControllerImplementations- Holds the tests for the controller to check the connection.  
