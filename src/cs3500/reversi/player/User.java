@@ -2,7 +2,7 @@ package cs3500.player;
 
 import java.util.Objects;
 
-import cs3500.controller.ReversiController;
+import cs3500.reversi.controller.controller.ReversiController;
 import cs3500.model.HexagonalPosn;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;

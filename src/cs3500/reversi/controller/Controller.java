@@ -1,4 +1,4 @@
-package cs3500.controller;
+package cs3500.reversi.controller.controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

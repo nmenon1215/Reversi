@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import cs3500.controller.ReversiController;
+import cs3500.reversi.controller.controller.ReversiController;
 import cs3500.model.ITile;
 import cs3500.model.Posn;
 import cs3500.model.ROReversiModel;

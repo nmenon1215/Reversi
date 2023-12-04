@@ -1,6 +1,6 @@
 package cs3500.model;
 
-import cs3500.controller.ReversiController;
+import cs3500.reversi.controller.controller.ReversiController;
 import cs3500.player.Player;
 
 /**

@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.controller.Controller;
+import cs3500.reversi.controller.controller.Controller;
 import cs3500.player.AI;
 import cs3500.player.CaptureMaxPieces;
 import cs3500.player.Player;

@@ -3,7 +3,7 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.controller.ReversiController;
+import cs3500.reversi.controller.controller.ReversiController;
 import cs3500.player.Player;
 
 /**

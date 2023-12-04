@@ -1,11 +1,11 @@
-package cs3500.reversi;
+package cs3500;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cs3500.controller.Controller;
-import cs3500.controller.ReversiController;
+import cs3500.reversi.controller.controller.Controller;
+import cs3500.reversi.controller.controller.ReversiController;
 import cs3500.model.HexagonalReversiModel;
 import cs3500.model.MutableReversiModel;
 import cs3500.player.AI;
