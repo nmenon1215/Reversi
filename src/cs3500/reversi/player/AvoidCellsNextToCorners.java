@@ -1,11 +1,11 @@
-package cs3500.player;
+package cs3500.reversi.player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.model.ITile;
-import cs3500.model.Posn;
-import cs3500.model.ROReversiModel;
+import cs3500.reversi.model.ITile;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ROReversiModel;
 
 /**
  * Returns all moves that don't place next to a corner. If all moves place next to a corner,

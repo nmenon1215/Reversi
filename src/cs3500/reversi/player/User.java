@@ -1,12 +1,12 @@
-package cs3500.player;
+package cs3500.reversi.player;
 
 import java.util.Objects;
 
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.model.HexagonalPosn;
-import cs3500.model.Posn;
-import cs3500.model.ROReversiModel;
-import cs3500.view.gui.ReversiView;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.model.HexagonalPosn;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * A User is the class that represents any human playing this game. Humans can place pieces and

@@ -1,10 +1,10 @@
-package cs3500.model;
+package cs3500.reversi.model;
 
 import java.util.List;
 import java.util.Objects;
 
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.player.Player;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.player.Player;
 
 /**
  * Records all calls made to the model.

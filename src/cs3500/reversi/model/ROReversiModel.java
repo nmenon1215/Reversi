@@ -1,8 +1,8 @@
-package cs3500.model;
+package cs3500.reversi.model;
 
 import java.util.List;
 
-import cs3500.player.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * This is a representation of an immutable Reversi Model. The functions in this model are only

@@ -1,4 +1,4 @@
-package cs3500.view.gui;
+package cs3500.reversi.view.gui;
 
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 
-import cs3500.model.HexagonalPosn;
-import cs3500.model.ITile;
-import cs3500.model.ROReversiModel;
+import cs3500.reversi.model.HexagonalPosn;
+import cs3500.reversi.model.ITile;
+import cs3500.reversi.model.ROReversiModel;
 
 /**
  * A JReversiPanel will draw all the tiles on the board, allow users to click on them,

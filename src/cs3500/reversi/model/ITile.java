@@ -1,6 +1,6 @@
-package cs3500.model;
+package cs3500.reversi.model;
 
-import cs3500.player.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * An ITile is a representation of a Tile. Each Tile must have a position on the board

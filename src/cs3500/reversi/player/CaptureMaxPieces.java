@@ -1,15 +1,15 @@
-package cs3500.player;
+package cs3500.reversi.player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cs3500.model.HexagonalReversiModel;
-import cs3500.model.ITile;
-import cs3500.model.MutableReversiModel;
-import cs3500.model.Posn;
-import cs3500.model.ROReversiModel;
+import cs3500.reversi.model.HexagonalReversiModel;
+import cs3500.reversi.model.ITile;
+import cs3500.reversi.model.MutableReversiModel;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ROReversiModel;
 
 /**
  * Captures the max number of pieces. If there is a tie, it chooses the topmost, leftmost piece.

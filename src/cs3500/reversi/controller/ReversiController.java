@@ -1,4 +1,4 @@
-package cs3500.reversi.controller.controller;
+package cs3500.reversi.controller;
 
 /**
  * The controller for the Reversi game which connects the players, model, and view.

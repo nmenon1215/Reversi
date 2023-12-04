@@ -1,4 +1,4 @@
-package cs3500.view.gui;
+package cs3500.reversi.view.gui;
 
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import cs3500.model.ROReversiModel;
+import cs3500.reversi.model.ROReversiModel;
 
 /**
  * Represents the background frame.

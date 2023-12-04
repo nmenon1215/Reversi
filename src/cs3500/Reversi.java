@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cs3500.reversi.controller.controller.Controller;
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.model.HexagonalReversiModel;
-import cs3500.model.MutableReversiModel;
-import cs3500.player.AI;
-import cs3500.player.AvoidCellsNextToCorners;
-import cs3500.player.CaptureMaxPieces;
-import cs3500.player.PlaceAtCorners;
-import cs3500.player.Player;
-import cs3500.player.User;
-import cs3500.view.gui.JFrameReversiView;
-import cs3500.view.gui.ReversiView;
+import cs3500.reversi.controller.Controller;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.model.HexagonalReversiModel;
+import cs3500.reversi.model.MutableReversiModel;
+import cs3500.reversi.player.AI;
+import cs3500.reversi.player.AvoidCellsNextToCorners;
+import cs3500.reversi.player.CaptureMaxPieces;
+import cs3500.reversi.player.PlaceAtCorners;
+import cs3500.reversi.player.Player;
+import cs3500.reversi.player.User;
+import cs3500.reversi.view.gui.JFrameReversiView;
+import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * Starts a game of Reversi.

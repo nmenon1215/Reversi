@@ -1,4 +1,4 @@
-package cs3500.view.gui;
+package cs3500.reversi.view.gui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

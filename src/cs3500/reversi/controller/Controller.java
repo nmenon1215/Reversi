@@ -1,13 +1,13 @@
-package cs3500.reversi.controller.controller;
+package cs3500.reversi.controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
-import cs3500.model.MutableReversiModel;
-import cs3500.model.Posn;
-import cs3500.player.Player;
-import cs3500.view.gui.ReversiView;
+import cs3500.reversi.model.MutableReversiModel;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.player.Player;
+import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * Creates a controller to gain a connection between the view and the model.

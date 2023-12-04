@@ -1,10 +1,10 @@
-package cs3500.model;
+package cs3500.reversi.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.player.Player;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.player.Player;
 
 /**
  * A HexagonalReversiModel is a representation of a Reversi board with the ability to place

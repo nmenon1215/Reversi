@@ -1,9 +1,9 @@
-package cs3500.player;
+package cs3500.reversi.player;
 
 import java.util.List;
 
-import cs3500.model.Posn;
-import cs3500.model.ROReversiModel;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ROReversiModel;
 
 /**
  * Find the move that gives the opponent the worst move. Assume the opponent's strategy is placing

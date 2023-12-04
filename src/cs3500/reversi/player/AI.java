@@ -1,14 +1,14 @@
-package cs3500.player;
+package cs3500.reversi.player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.model.ITile;
-import cs3500.model.Posn;
-import cs3500.model.ROReversiModel;
-import cs3500.view.gui.ReversiView;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.model.ITile;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * An AI is a Player who automatically places a piece or skips their turn if they have no moves.

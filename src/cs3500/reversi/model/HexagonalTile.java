@@ -1,8 +1,8 @@
-package cs3500.model;
+package cs3500.reversi.model;
 
 import java.util.Objects;
 
-import cs3500.player.Player;
+import cs3500.reversi.player.Player;
 
 /**
  * A HexagonalTile is a tile that operates on the hexagonal coordinate system. For more info on that

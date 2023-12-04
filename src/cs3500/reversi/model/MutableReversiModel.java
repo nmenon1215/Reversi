@@ -1,7 +1,7 @@
-package cs3500.model;
+package cs3500.reversi.model;
 
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.player.Player;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.player.Player;
 
 /**
  * This is a representation of a mutable Reversi Model. A Reversi Model is a model of the game

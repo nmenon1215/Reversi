@@ -1,4 +1,4 @@
-package cs3500.view.textual;
+package cs3500.reversi.view.textual;
 
 import java.io.IOException;
 

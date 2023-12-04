@@ -1,10 +1,10 @@
-package cs3500.player;
+package cs3500.reversi.player;
 
 
-import cs3500.reversi.controller.controller.ReversiController;
-import cs3500.model.Posn;
-import cs3500.model.ROReversiModel;
-import cs3500.view.gui.ReversiView;
+import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * This is a representation of a Player. A Player is anyone who can interact with the model
