@@ -39,4 +39,6 @@ public interface ITile {
   Posn getPosition();
 
   HexagonCell getProviderHexagonCell();
+
+  void duplicateProviderHexagonCell();
 }

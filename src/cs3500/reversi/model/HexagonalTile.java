@@ -60,7 +60,6 @@ public class HexagonalTile implements ITile {
       throw new IllegalArgumentException("Player can't be null.");
     }
     this.player = p;
-
     this.providerCell.changeCellState(this.player.getPlayerEnum());
   }
 
@@ -77,6 +76,11 @@ public class HexagonalTile implements ITile {
   @Override
   public HexagonCell getProviderHexagonCell() {
     return this.providerCell;
+  }
+
+  @Override
+  public void duplicateProviderHexagonCell() {
+    this.providerCell = new HexagonCell(0, 0);
   }
 
   @Override

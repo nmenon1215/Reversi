@@ -7,6 +7,7 @@ import java.util.Objects;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.MutableReversiModel;
 import cs3500.reversi.model.Posn;
+import cs3500.reversi.player.AI;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.provider.controller.ViewFeatures;
 import cs3500.reversi.provider.view.gui.FrameView;
