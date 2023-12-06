@@ -8,6 +8,7 @@ import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.provider.model.PlayerEnum;
 import cs3500.reversi.view.gui.ReversiView;
 
 /**
@@ -38,8 +39,6 @@ public class AI implements Player {
     this.strats = strats;
   }
 
-  String errormsg = "If you got this to run, the code compiles!";
-
   @Override
   public Posn placePiece(ROReversiModel model, ReversiView view) {
     if (model.hasLegalMoves(this)) {
@@ -60,11 +59,6 @@ public class AI implements Player {
     //The model has no possible moves, so we return null which means skip turn.
     return null;
 
-  }
-
-  @Override
-  public void skipTurn() {
-    throw new RuntimeException(errormsg);
   }
 
   /**
@@ -89,6 +83,19 @@ public class AI implements Player {
     }
     else {
       this.controller.makeMove("s");
+    }
+  }
+
+  @Override
+  public PlayerEnum getPlayerEnum() {
+    if (this.player == 'X') {
+      return PlayerEnum.X;
+    }
+    else if (this.player == 'O') {
+      return PlayerEnum.O;
+    }
+    else {
+      return PlayerEnum.Empty;
     }
   }
 

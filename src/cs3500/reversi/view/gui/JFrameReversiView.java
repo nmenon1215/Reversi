@@ -1,18 +1,27 @@
 package cs3500.reversi.view.gui;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.MouseInputAdapter;
 
 import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.provider.cell.HexagonCell;
+import cs3500.reversi.provider.controller.ViewFeatures;
+import cs3500.reversi.provider.view.gui.FrameView;
+import cs3500.reversi.provider.view.gui.Hexagon;
+import cs3500.reversi.provider.view.gui.ReversiPanel;
 
 /**
  * Represents the background frame.
  */
-public class JFrameReversiView extends JFrame implements ReversiView {
+public class JFrameReversiView extends JFrame implements FrameView {
 
   JReversiPanel panel;
   
@@ -31,43 +40,23 @@ public class JFrameReversiView extends JFrame implements ReversiView {
   }
 
   @Override
-  public void makeVisible() {
-    this.setVisible(true);
-  }
-
-  @Override
-  public void update() {
+  public void refresh() {
     this.panel.updateBoard();
   }
 
   @Override
-  public void displayException(Exception e) {
+  public void showMessageDialog(String message) {
     JOptionPane errorMsg = new JOptionPane();
-    errorMsg.showMessageDialog(this.panel, e.getMessage());
+    errorMsg.showMessageDialog(this.panel, message);
   }
 
   @Override
-  public void addKeyListener(KeyListener listener) {
-    this.panel.addKeyListener(listener);
+  public void addFeatureListener(ViewFeatures features) {
+    this.panel.addFeatureListener(features);
   }
 
   @Override
-  public boolean requestFocusInWindow() {
-    return this.panel.requestFocusInWindow();
-  }
-
-  @Override
-  public List<Integer> getHighlighted() {
-    return this.panel.getHighlighted();
-  }
-
-  @Override
-  public void createTitle(String display) {
-    if (display.equalsIgnoreCase("X")) {
-      this.setTitle("BLACK");
-    }
-    else if (display.equalsIgnoreCase("O")) {
-      this.setTitle("WHITE");
-    }
+  public void deselectAll() {
+    this.panel.deselectAll();
   }
 }

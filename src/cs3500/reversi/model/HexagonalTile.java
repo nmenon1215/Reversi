@@ -3,6 +3,7 @@ package cs3500.reversi.model;
 import java.util.Objects;
 
 import cs3500.reversi.player.Player;
+import cs3500.reversi.provider.cell.HexagonCell;
 
 /**
  * A HexagonalTile is a tile that operates on the hexagonal coordinate system. For more info on that
@@ -58,6 +59,13 @@ public class HexagonalTile implements ITile {
   @Override
   public Posn getPosition() {
     return this.posn;
+  }
+
+  @Override
+  public HexagonCell toProviderHexagonCell() {
+    return new HexagonCell(this.player.getPlayerEnum(),
+            getPosition().getCoords().get(0),
+            getPosition().getCoords().get(1));
   }
 
   @Override

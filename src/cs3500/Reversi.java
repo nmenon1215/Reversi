@@ -8,14 +8,18 @@ import cs3500.reversi.controller.Controller;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.HexagonalReversiModel;
 import cs3500.reversi.model.MutableReversiModel;
+import cs3500.reversi.model.ProviderModel;
 import cs3500.reversi.player.AI;
 import cs3500.reversi.player.AvoidCellsNextToCorners;
 import cs3500.reversi.player.CaptureMaxPieces;
 import cs3500.reversi.player.PlaceAtCorners;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.User;
+import cs3500.reversi.provider.model.ReadOnlyReversiModel;
+import cs3500.reversi.provider.view.gui.FrameView;
+import cs3500.reversi.provider.view.gui.ReversiFrame;
 import cs3500.reversi.view.gui.JFrameReversiView;
-import cs3500.reversi.view.gui.ReversiView;
+
 
 /**
  * Starts a game of Reversi.
@@ -32,8 +36,9 @@ public final class Reversi {
 
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
-    ReversiView viewPlayer1 = new JFrameReversiView(model);
-    ReversiView viewPlayer2 = new JFrameReversiView(model);
+    ReadOnlyReversiModel providerModel = new ProviderModel(model);
+    FrameView viewPlayer1 = new JFrameReversiView(model); // OUR VIEW
+    FrameView viewPlayer2 = new ReversiFrame(providerModel); // PROVIDER VIEW
     ReversiController p1Controller = new Controller(model, viewPlayer1, p1);
     ReversiController p2Controller = new Controller(model, viewPlayer2, p2);
     p1Controller.start();

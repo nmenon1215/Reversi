@@ -1,6 +1,8 @@
 package cs3500.reversi.view.gui;
 
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ import javax.swing.JFrame;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.provider.cell.HexagonCell;
+import cs3500.reversi.provider.controller.ViewFeatures;
+import cs3500.reversi.provider.view.gui.ReversiPanel;
 
 /**
  * A JReversiPanel will draw all the tiles on the board, allow users to click on them,
@@ -28,6 +33,7 @@ public class JReversiPanel extends JPanel {
   private final int size;
   private HexagonalButton highlightedButton = null;
   private final JLabel clickedCoords;
+  private final List<ViewFeatures> featuresListener;
 
   /**
    * Constructs a ReversiPanel and populates the view with the current board state.
@@ -42,8 +48,15 @@ public class JReversiPanel extends JPanel {
     clickedCoords = new JLabel("Coords");
     add(clickedCoords);
     clickedCoords.setBounds(10, (int) BOARDHEIGHT - 20, 300, 20);
+    featuresListener = new ArrayList<>();
 
     this.populateBoard();
+
+    //add key listener
+    setFocusable(true);
+    requestFocusInWindow();
+    KeyEventsListener keyListener = new KeyEventsListener();
+    this.addKeyListener(keyListener);
   }
 
   /**
@@ -157,5 +170,50 @@ public class JReversiPanel extends JPanel {
 
   public List<Integer> getHighlighted() {
     return this.highlightedButton.getCoords();
+  }
+
+  public void addFeatureListener(ViewFeatures features) {
+    this.featuresListener.add(Objects.requireNonNull(features));
+  }
+
+  public void deselectAll() {
+    if(highlightedButton != null) {
+      this.highlightedButton.setHighlight(false);
+      this.highlightedButton = null;
+    }
+    updateBoard();
+  }
+
+  private class KeyEventsListener extends KeyAdapter {
+
+    /**
+     * Indicates that a player wants to make a move to the highlighted cell is the key "m"
+     * is pressed, and indicates that a cell must be selected if there is no highlighted cell.
+     * Indicates that a player wants to pass if the key "p" is pressed.
+     * @param e the event to be processed
+     */
+    @Override
+    public void keyTyped(KeyEvent e) {
+      Character key = e.getKeyChar();
+
+      // resets the highlight but does and indicates a move to be made
+      if (key.equals('m') || key.equals('\n') || key.equals('M') || key.equals(' ')) {
+        if (highlightedButton != null) {
+          List<Integer> coords = highlightedButton.getCoords();
+          for (ViewFeatures features : featuresListener) {
+            features.playerMove(coords.get(0), coords.get(1));
+          }
+
+          deselectAll();
+        }
+      }
+      if (key.equals('p') || key.equals('P')) {
+
+        for (ViewFeatures features : featuresListener) {
+          features.playerPass();
+        }
+        deselectAll();
+      }
+    }
   }
 }

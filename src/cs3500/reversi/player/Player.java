@@ -4,6 +4,7 @@ package cs3500.reversi.player;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.provider.model.PlayerEnum;
 import cs3500.reversi.view.gui.ReversiView;
 
 /**
@@ -14,7 +15,7 @@ import cs3500.reversi.view.gui.ReversiView;
  * specific view to play the game. The view will pass its player through the controller to the model
  * which will use the player to update who owns which tile.
  */
-public interface Player {
+public interface Player extends cs3500.reversi.provider.model.Player {
   //OPERATIONS
 
   /**
@@ -27,14 +28,6 @@ public interface Player {
   Posn placePiece(ROReversiModel model, ReversiView view);
 
   /**
-   * Skips the turn of the player. You are only allowed to skip your turn when you have no possible
-   * moves to make.
-   *
-   * @throws IllegalStateException if the player has any possible moves that they can make.
-   */
-  void skipTurn();
-
-  /**
    * Represents the player as a string. Each unique player has a unique toSting.
    *
    * @return textual representation of a player
@@ -44,4 +37,6 @@ public interface Player {
   void setController(ReversiController controller);
 
   void notifyController(ROReversiModel model);
+
+  PlayerEnum getPlayerEnum();
 }

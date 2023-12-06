@@ -6,6 +6,7 @@ import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.provider.model.PlayerEnum;
 import cs3500.reversi.view.gui.ReversiView;
 
 /**
@@ -26,18 +27,11 @@ public class User implements Player {
     this.player = player;
   }
 
-  String errormsg = "If you got this to run, the code compiles!";
 
   // this will most likely interact with either view or controller which we don't have yet.
   @Override
   public Posn placePiece(ROReversiModel model, ReversiView view) {
     return new HexagonalPosn(view.getHighlighted());
-  }
-
-  // this will most likely interact with either view or controller which we don't have yet.
-  @Override
-  public void skipTurn() {
-    throw new RuntimeException(errormsg);
   }
 
   /**
@@ -59,6 +53,19 @@ public class User implements Player {
   public void notifyController(ROReversiModel model) {
     if (this.controller != null) {
       this.controller.startTurn();
+    }
+  }
+
+  @Override
+  public PlayerEnum getPlayerEnum() {
+    if (this.player == 'X') {
+      return PlayerEnum.X;
+    }
+    else if (this.player == 'O') {
+      return PlayerEnum.O;
+    }
+    else {
+      return PlayerEnum.Empty;
     }
   }
 

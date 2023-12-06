@@ -58,6 +58,12 @@ public class HexagonalPosn implements Posn {
     this.s = s;
   }
 
+  public HexagonalPosn(int q, int r) {
+    this.q = q;
+    this.r = r;
+    this.s = -r - q;
+  }
+
   /**
    * We are returning the coordinates in order as (q, r, s).
    *

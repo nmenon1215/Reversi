@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import cs3500.reversi.player.Player;
+import cs3500.reversi.provider.cell.HexagonCell;
 
 /**
  * An ITile is a representation of a Tile. Each Tile must have a position on the board
@@ -36,4 +37,6 @@ public interface ITile {
    * @return the position of this tile relative to the game board.
    */
   Posn getPosition();
+
+  HexagonCell toProviderHexagonCell();
 }

@@ -28,6 +28,7 @@ public class ReversiFrame extends JFrame implements FrameView{
    * Adds a message to the view.
    * @param message the written message to be added.
    */
+  @Override
   public void showMessageDialog(String message) {
     JOptionPane.showMessageDialog(this, message);
   }
@@ -45,6 +46,7 @@ public class ReversiFrame extends JFrame implements FrameView{
   /**
    * Deselects all cells in the game board.
    */
+  @Override
   public void deselectAll() {
     this.panel.deselectAll();
   }
