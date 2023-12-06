@@ -21,7 +21,7 @@ public class GameController implements ActivePlayer, ModelFeatures, PlayerFeatur
     this.view = Objects.requireNonNull(view);
     this.player = Objects.requireNonNull(player);
 
-    this.model.addFeatureListener(this);
+    //this.model.subscribe(this, this.player);
     this.view.addFeatureListener(this);
   }
 
@@ -65,7 +65,7 @@ public class GameController implements ActivePlayer, ModelFeatures, PlayerFeatur
   @Override
   public void makeMoveIfAI() {
     if(!this.isHumanPlayer()) {
-      this.player.placePiece(model);
+      //this.player.placePiece(model, view);
     }
     else {
       notifyPlayerTurn();

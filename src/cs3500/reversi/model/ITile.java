@@ -38,5 +38,5 @@ public interface ITile {
    */
   Posn getPosition();
 
-  HexagonCell toProviderHexagonCell();
+  HexagonCell getProviderHexagonCell();
 }

@@ -2,6 +2,7 @@ package cs3500.reversi.player;
 
 import java.util.Objects;
 
+import cs3500.reversi.controller.Controller;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.Posn;
@@ -45,7 +46,7 @@ public class User implements Player {
   }
 
   @Override
-  public void setController(ReversiController controller) {
+  public void setController(Controller controller) {
     this.controller = controller;
   }
 

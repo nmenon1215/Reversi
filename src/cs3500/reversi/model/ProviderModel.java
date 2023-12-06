@@ -13,24 +13,25 @@ import cs3500.reversi.provider.model.ReadOnlyReversiModel;
 public class ProviderModel implements ReadOnlyReversiModel {
 
   ROReversiModel rootModel;
+  ArrayList<ArrayList<HexagonCell>> gameBoard;
 
   public ProviderModel(ROReversiModel rootModel) {
     this.rootModel = Objects.requireNonNull(rootModel);
-  }
-
-  @Override
-  public ArrayList<ArrayList<HexagonCell>> getGameBoard() {
-    ArrayList<ArrayList<HexagonCell>> gameBoard = new ArrayList<>();
+    gameBoard = new ArrayList<>();
     for (int row = 0; row < rootModel.getBoardSize() * 2 + 1; row++) {
       ArrayList<HexagonCell> rowOfCells = new ArrayList<>();
       for (int col = 0;
            col < -Math.abs(row - rootModel.getBoardSize()) + rootModel.getBoardSize() * 2 + 1;
            col++) {
         List<Integer> coord = gridToAxialCoord(row, col);
-        rowOfCells.add(rootModel.getTileAt(new HexagonalPosn(coord)).toProviderHexagonCell());
+        rowOfCells.add(rootModel.getTileAt(new HexagonalPosn(coord)).getProviderHexagonCell());
       }
       gameBoard.add(rowOfCells);
     }
+  }
+
+  @Override
+  public ArrayList<ArrayList<HexagonCell>> getGameBoard() {
     return gameBoard;
   }
 

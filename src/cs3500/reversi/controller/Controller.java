@@ -4,17 +4,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
+import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.MutableReversiModel;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.player.Player;
+import cs3500.reversi.provider.controller.ViewFeatures;
+import cs3500.reversi.provider.view.gui.FrameView;
 import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * Creates a controller to gain a connection between the view and the model.
  */
-public class Controller implements ReversiController, KeyListener {
+public class Controller implements ReversiController, ViewFeatures {
   MutableReversiModel model;
-  ReversiView view;
+  FrameView view;
   Player p;
 
   /**
@@ -24,40 +27,21 @@ public class Controller implements ReversiController, KeyListener {
    * @param view the given view that represents the game being played.
    * @param p the player the controller refers to.
    */
-  public Controller(MutableReversiModel model, ReversiView view, Player p) {
+  public Controller(MutableReversiModel model, FrameView view, Player p) {
     this.model = Objects.requireNonNull(model);
     this.view = Objects.requireNonNull(view);
     this.p = Objects.requireNonNull(p);
 
-    this.view.makeVisible();
-    this.view.addKeyListener(this);
+    this.view.addFeatureListener(this);
     this.model.subscribe(this, this.p);
-    this.view.createTitle(p.toString());
+    this.view.setVisible();
+    //this.view.createTitle(p.toString());
   }
 
-  @Override
+  //@Override
   public void start() {
-    this.view.requestFocusInWindow();
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-    // do nothing
-  }
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-    switch (e.getKeyCode()) {
-      case KeyEvent.VK_S :
-        makeMove("s");
-        break;
-      case KeyEvent.VK_M :
-      case KeyEvent.VK_P :
-        makeMove("p");
-        break;
-      default:
-        // do nothing
-    }
+    this.view.deselectAll();
+    this.view.refresh();
   }
 
   @Override
@@ -65,21 +49,21 @@ public class Controller implements ReversiController, KeyListener {
     switch (p) {
       case "p":
         try {
-          Posn move = this.p.placePiece(model, view);
-          model.placePiece(this.p, move);
-          view.update();
+          //Posn move = this.p.placePiece(model, view);
+          //model.placePiece(this.p, move);
+          //view.update();
         }
         catch (IllegalArgumentException | IllegalStateException e) {
-          view.displayException(e);
+          //view.displayException(e);
         }
         break;
       case "s":
         try {
           this.model.skip(this.p);
-          view.update();
+          //view.update();
         }
         catch (IllegalStateException e) {
-          view.displayException(e);
+          //view.displayException(e);
         }
         break;
       default:
@@ -89,12 +73,29 @@ public class Controller implements ReversiController, KeyListener {
 
   @Override
   public void startTurn() {
-    this.view.update();
-    this.view.requestFocusInWindow();
+    this.view.deselectAll();
+    this.view.refresh();
   }
 
   @Override
-  public void keyReleased(KeyEvent e) {
-    // do nothing
+  public void playerMove(int diagonalPos, int rowPos) {
+    try {
+      model.placePiece(this.p, new HexagonalPosn(diagonalPos, rowPos));
+      view.refresh();
+    }
+    catch (IllegalArgumentException | IllegalStateException e) {
+      view.showMessageDialog(e.getMessage());
+    }
+  }
+
+  @Override
+  public void playerPass() {
+    try {
+      this.model.skip(this.p);
+      view.refresh();
+    }
+    catch (IllegalStateException e) {
+      view.showMessageDialog(e.getMessage());
+    }
   }
 }

@@ -31,4 +31,8 @@ public interface FrameView {
    */
   void refresh();
 
+  /**
+   * Sets the view to be visible.
+   */
+  void setVisible();
 }

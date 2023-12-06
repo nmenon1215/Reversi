@@ -45,6 +45,11 @@ public class JFrameReversiView extends JFrame implements FrameView {
   }
 
   @Override
+  public void setVisible() {
+    this.setVisible(true);
+  }
+
+  @Override
   public void showMessageDialog(String message) {
     JOptionPane errorMsg = new JOptionPane();
     errorMsg.showMessageDialog(this.panel, message);

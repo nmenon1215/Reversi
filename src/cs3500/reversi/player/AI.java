@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import cs3500.reversi.controller.ReversiController;
+import cs3500.reversi.controller.Controller;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
@@ -19,7 +19,7 @@ public class AI implements Player {
 
   private final char player;
   private List<Strategy> strats;
-  private ReversiController controller;
+  private Controller controller;
 
   /**
    * Creates an AI with the given char as its display token.
@@ -72,17 +72,18 @@ public class AI implements Player {
   }
 
   @Override
-  public void setController(ReversiController controller) {
+  public void setController(Controller controller) {
     this.controller = controller;
   }
 
   @Override
   public void notifyController(ROReversiModel model) {
     if (model.hasLegalMoves(this)) {
-      this.controller.makeMove("p");
+      Posn posn = this.placePiece(model, null);
+      this.controller.playerMove(posn.getCoords().get(0), posn.getCoords().get(1));
     }
     else {
-      this.controller.makeMove("s");
+      this.controller.playerPass();
     }
   }
 

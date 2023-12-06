@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import cs3500.reversi.player.Player;
 import cs3500.reversi.provider.cell.HexagonCell;
+import cs3500.reversi.provider.model.PlayerEnum;
 
 /**
  * A HexagonalTile is a tile that operates on the hexagonal coordinate system. For more info on that
@@ -15,6 +16,7 @@ public class HexagonalTile implements ITile {
 
   private Posn posn;
   private Player player;
+  private HexagonCell providerCell;
 
   /**
    * Initialize a HexagonalTile with the given position coordinate.
@@ -27,6 +29,14 @@ public class HexagonalTile implements ITile {
       throw new IllegalArgumentException("The given position can't be null.");
     }
     this.posn = p;
+
+    PlayerEnum playerEnum = PlayerEnum.Empty;
+    if(this.player != null) {
+      playerEnum = this.player.getPlayerEnum();
+    }
+    this.providerCell = new HexagonCell(playerEnum,
+            getPosition().getCoords().get(0),
+            getPosition().getCoords().get(1));
   }
 
   /**
@@ -41,6 +51,7 @@ public class HexagonalTile implements ITile {
     }
     this.posn = other.getPosition();
     this.player = other.getPlayer();
+    this.providerCell = other.getProviderHexagonCell();
   }
 
   @Override
@@ -49,6 +60,8 @@ public class HexagonalTile implements ITile {
       throw new IllegalArgumentException("Player can't be null.");
     }
     this.player = p;
+
+    this.providerCell.changeCellState(this.player.getPlayerEnum());
   }
 
   @Override
@@ -62,10 +75,8 @@ public class HexagonalTile implements ITile {
   }
 
   @Override
-  public HexagonCell toProviderHexagonCell() {
-    return new HexagonCell(this.player.getPlayerEnum(),
-            getPosition().getCoords().get(0),
-            getPosition().getCoords().get(1));
+  public HexagonCell getProviderHexagonCell() {
+    return this.providerCell;
   }
 
   @Override

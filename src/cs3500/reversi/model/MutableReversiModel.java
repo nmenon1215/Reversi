@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.controller.Controller;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.player.Player;
 
@@ -42,5 +43,5 @@ public interface MutableReversiModel extends ROReversiModel {
    * @param controller the controller that needs to be paired
    * @param p the player that needs to be paired
    */
-  void subscribe(ReversiController controller,Player p);
+  void subscribe(Controller controller, Player p);
 }

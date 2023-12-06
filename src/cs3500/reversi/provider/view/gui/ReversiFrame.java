@@ -23,7 +23,6 @@ public class ReversiFrame extends JFrame implements FrameView{
     this.pack();
   }
 
-
   /**
    * Adds a message to the view.
    * @param message the written message to be added.
@@ -58,6 +57,14 @@ public class ReversiFrame extends JFrame implements FrameView{
   @Override
   public void refresh() {
     this.panel.repaint();
+  }
+
+  /**
+   * Sets the view to be visible.
+   */
+  @Override
+  public void setVisible() {
+    this.setVisible(true);
   }
 
 }

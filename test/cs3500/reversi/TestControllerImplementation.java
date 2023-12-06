@@ -13,11 +13,13 @@ import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.HexagonalReversiModel;
 import cs3500.reversi.model.MockModel;
 import cs3500.reversi.model.MutableReversiModel;
+import cs3500.reversi.model.ProviderModel;
 import cs3500.reversi.model.ROReversiModel;
 import cs3500.reversi.player.AI;
 import cs3500.reversi.player.CaptureMaxPieces;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.User;
+import cs3500.reversi.provider.view.gui.FrameView;
 import cs3500.reversi.view.gui.JFrameReversiView;
 import cs3500.reversi.view.gui.MockView;
 import cs3500.reversi.view.gui.ReversiView;
@@ -33,7 +35,7 @@ public class TestControllerImplementation {
   MutableReversiModel model;
   MockModel mockModel;
   ROReversiModel roModel;
-  ReversiView view;
+  FrameView view;
   MockView mockView;
   Appendable appendableView;
   Appendable appendableModel;
@@ -52,11 +54,11 @@ public class TestControllerImplementation {
     roModel = model;
 
     appendableView = new StringBuilder();
-    view = new JFrameReversiView(roModel);
-    mockView = new MockView(appendableView, view);
+    view = new JFrameReversiView(model);
+    //mockView = new MockView(appendableView, view);
 
-    controllerP1 = new Controller(model, mockView, p1);
-    controllerP2 = new Controller(model, mockView, p2);
+    //controllerP1 = new Controller(model, mockView, p1);
+    //controllerP2 = new Controller(model, mockView, p2);
   }
 
   @Test

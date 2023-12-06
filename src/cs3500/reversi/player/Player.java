@@ -1,6 +1,7 @@
 package cs3500.reversi.player;
 
 
+import cs3500.reversi.controller.Controller;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
@@ -34,7 +35,7 @@ public interface Player extends cs3500.reversi.provider.model.Player {
    */
   String toString();
 
-  void setController(ReversiController controller);
+  void setController(Controller controller);
 
   void notifyController(ROReversiModel model);
 

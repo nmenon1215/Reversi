@@ -70,7 +70,7 @@ public class TestPlayerImplementation {
     smallModel = new HexagonalReversiModel(players, 3);
     roSmallModel = new HexagonalReversiModel(players, 3);
 
-    view = new JFrameReversiView(roSmallModel);
+    //view = new JFrameReversiView(roSmallModel);
   }
 
   // TESTING equals(Object obj)
