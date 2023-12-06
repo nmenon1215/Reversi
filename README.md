@@ -168,6 +168,9 @@ once again, but if it is a User, it will declare its view as the main view.
   - Modularized our controller and view
   - Implemented a features interface
   - Added the Provider's view and made it compliant with our controller and model
+  - To place a piece, press 'm'
+  - To skip a turn, press 'p'
+  - Skip is only supported when the player cannot make any other move (Design choice)  
 
 #### Working vs. Non-working Features
   - 
