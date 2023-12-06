@@ -161,4 +161,13 @@ once again, but if it is a User, it will declare its view as the main view.
   1. ReversiController- Moderates the connection between a player, its view, and the joint model.  
   2. Controller- Holds the code for the controller to serve as a pipeline from the model to view.  
   3. MockView- Adds called methods to an Appendable to allow for testing.  
-  4. TestControllerImplementations- Holds the tests for the controller to check the connection.  
+  4. TestControllerImplementations- Holds the tests for the controller to check the connection.
+
+## Changes For Part 4
+  - Removed the mouseListener from the Controller and moved it to the view
+  - Modularized our controller and view
+  - Implemented a features interface
+  - Added the Provider's view and made it compliant with our controller and model
+
+#### Working vs. Non-working Features
+  - 
