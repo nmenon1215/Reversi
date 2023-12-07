@@ -170,7 +170,9 @@ once again, but if it is a User, it will declare its view as the main view.
   - Added the Provider's view and made it compliant with our controller and model
   - To place a piece, press 'm'
   - To skip a turn, press 'p'
-  - Skip is only supported when the player cannot make any other move (Design choice)  
+  - Skip is only supported when the player cannot make any other move (Design choice)
+  - We added a makeTitle to create titles for the windows
 
 #### Working vs. Non-working Features
-  - 
+  - All of the features and strategies are working
+  - The different strategies are easy, medium, and hard with the way they stack
