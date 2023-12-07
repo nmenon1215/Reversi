@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cs3500.reversi.model.HexagonalPosn;
-import cs3500.reversi.model.HexagonalReversiModel;
 import cs3500.reversi.model.ITile;
-import cs3500.reversi.model.MutableReversiModel;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
 

@@ -19,7 +19,6 @@ import cs3500.reversi.player.PlaceAtCorners;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.Strategy;
 import cs3500.reversi.player.User;
-import cs3500.reversi.view.gui.JFrameReversiView;
 import cs3500.reversi.view.gui.ReversiView;
 
 /**

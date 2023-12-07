@@ -2,7 +2,6 @@ package cs3500.reversi.player;
 
 
 import cs3500.reversi.controller.Controller;
-import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
 import cs3500.reversi.provider.model.PlayerEnum;
@@ -35,9 +34,21 @@ public interface Player extends cs3500.reversi.provider.model.Player {
    */
   String toString();
 
+  /**
+   * Connects this player with its controller allowing for callback.
+   * @param controller the controller that is associated with this player
+   */
   void setController(Controller controller);
 
+  /**
+   * Notifies the connected controller (if it exists) that it is their turn to make a move.
+   * @param model The model that the player is operating on.
+   */
   void notifyController(ROReversiModel model);
 
+  /**
+   * Returns the player enum associated with the player.
+   * @return the player enum associated with this player.
+   */
   PlayerEnum getPlayerEnum();
 }

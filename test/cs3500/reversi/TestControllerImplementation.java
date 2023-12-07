@@ -13,7 +13,6 @@ import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.HexagonalReversiModel;
 import cs3500.reversi.model.MockModel;
 import cs3500.reversi.model.MutableReversiModel;
-import cs3500.reversi.model.ProviderModel;
 import cs3500.reversi.model.ROReversiModel;
 import cs3500.reversi.player.AI;
 import cs3500.reversi.player.CaptureMaxPieces;
@@ -22,7 +21,6 @@ import cs3500.reversi.player.User;
 import cs3500.reversi.provider.view.gui.FrameView;
 import cs3500.reversi.view.gui.JFrameReversiView;
 import cs3500.reversi.view.gui.MockView;
-import cs3500.reversi.view.gui.ReversiView;
 
 /**
  * Implementation specific tests regarding how the controller interacts with each public method.

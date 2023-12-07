@@ -1,22 +1,11 @@
 package cs3500.reversi.view.gui;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.util.List;
-
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.event.MouseInputAdapter;
 
 import cs3500.reversi.model.ROReversiModel;
-import cs3500.reversi.provider.cell.HexagonCell;
 import cs3500.reversi.provider.controller.ViewFeatures;
 import cs3500.reversi.provider.view.gui.FrameView;
-import cs3500.reversi.provider.view.gui.Hexagon;
-import cs3500.reversi.provider.view.gui.ReversiPanel;
 
 /**
  * Represents the background frame.

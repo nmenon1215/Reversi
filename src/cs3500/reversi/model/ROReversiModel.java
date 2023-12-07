@@ -134,5 +134,11 @@ public interface ROReversiModel {
    */
   List<Posn> getCorners();
 
+  /**
+   * Counts the pieces that would be gained if the player places a piece at the given posn.
+   * @param player the player who would be placing the piece.
+   * @param posn the posn at which the piece would be placed.
+   * @return the amount of tiles flipped if the player was to make that move.
+   */
   int countPiecesGained(Player player, Posn posn);
 }

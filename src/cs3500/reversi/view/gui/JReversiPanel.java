@@ -16,9 +16,7 @@ import javax.swing.JFrame;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.ROReversiModel;
-import cs3500.reversi.provider.cell.HexagonCell;
 import cs3500.reversi.provider.controller.ViewFeatures;
-import cs3500.reversi.provider.view.gui.ReversiPanel;
 
 /**
  * A JReversiPanel will draw all the tiles on the board, allow users to click on them,

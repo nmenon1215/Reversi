@@ -17,5 +17,8 @@ public interface ReversiController {
    */
   void makeMove(String p);
 
+  /**
+   * Signals the controller to start the turn and make their window the primary window.
+   */
   void startTurn();
 }

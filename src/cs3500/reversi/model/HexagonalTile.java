@@ -31,7 +31,7 @@ public class HexagonalTile implements ITile {
     this.posn = p;
 
     PlayerEnum playerEnum = PlayerEnum.Empty;
-    if(this.player != null) {
+    if (this.player != null) {
       playerEnum = this.player.getPlayerEnum();
     }
     this.providerCell = new HexagonCell(playerEnum,

@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import cs3500.reversi.controller.Controller;
 import cs3500.reversi.model.HexagonalPosn;
-import cs3500.reversi.model.HexagonalReversiModel;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ProviderModel;

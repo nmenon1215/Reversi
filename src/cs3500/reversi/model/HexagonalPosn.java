@@ -58,6 +58,11 @@ public class HexagonalPosn implements Posn {
     this.s = s;
   }
 
+  /**
+   * Creates a hexagonal posn with given coord. Autofills the s coord.
+   * @param q top left to bottom right diagonal coord
+   * @param r row coord
+   */
   public HexagonalPosn(int q, int r) {
     this.q = q;
     this.r = r;

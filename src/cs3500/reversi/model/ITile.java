@@ -38,7 +38,15 @@ public interface ITile {
    */
   Posn getPosition();
 
+  /**
+   * Returns the providers equivalent version of ITile.
+   * @return the HexagonCell connected to the ITile
+   */
   HexagonCell getProviderHexagonCell();
 
+  /**
+   * Dereferences the Cell from its tile.
+   * Mainly used when making a new model as to not edit provider tiles.
+   */
   void duplicateProviderHexagonCell();
 }

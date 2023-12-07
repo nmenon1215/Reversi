@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.reversi.controller.Controller;
-import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.player.Player;
 
 /**
