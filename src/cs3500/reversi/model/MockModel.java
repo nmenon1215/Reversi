@@ -151,6 +151,11 @@ public class MockModel implements MutableReversiModel {
     return model.getCorners();
   }
 
+  @Override
+  public int countPiecesGained(Player player, Posn posn) {
+    return 0;
+  }
+
   /**
    * Gets the appendable for testing.
    * @return the Appendable

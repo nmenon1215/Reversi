@@ -133,4 +133,6 @@ public interface ROReversiModel {
    * @return the positions of the tiles in the corners of the board.
    */
   List<Posn> getCorners();
+
+  int countPiecesGained(Player player, Posn posn);
 }

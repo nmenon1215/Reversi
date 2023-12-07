@@ -289,6 +289,47 @@ public class HexagonalReversiModel implements MutableReversiModel {
     return corners;
   }
 
+  @Override
+  public int countPiecesGained(Player p, Posn posn) {
+    if (p == null) {
+      throw new IllegalArgumentException("The given player can't be null.");
+    }
+    if (posn == null) {
+      throw new IllegalArgumentException("The given position can't be null.");
+    }
+
+    if (!this.getTurn().equals(p)) {
+      throw new IllegalStateException("It is not this players turn.");
+    }
+
+    ITile placingTile = findTile(posn);
+    if (placingTile.getPlayer() != null) {
+      throw new IllegalStateException("This tile is already occupied.");
+    }
+
+    List<List<ITile>> surroundingLines = getSurroundingLines(placingTile);
+
+    int numFlipped = 0;
+    for (List<ITile> line : surroundingLines) {
+      if (isSandwich(line, p)) {
+        numFlipped += countFlips(line, p);
+      }
+    }
+
+    return numFlipped;
+  }
+
+  private int countFlips(List<ITile> line, Player p) {
+    int flipped = 0;
+    for (ITile tile : line) {
+      if (tile.getPlayer().equals(p)) {
+        break;
+      }
+      flipped++;
+    }
+    return flipped;
+  }
+
   private boolean isTileOnBoard(Posn posn) {
     if (posn == null) {
       return false;
