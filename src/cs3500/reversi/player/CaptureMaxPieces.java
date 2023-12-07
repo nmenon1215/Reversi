@@ -23,10 +23,6 @@ public class CaptureMaxPieces implements Strategy {
     //Populate the map with all the moves and their scores
     int maxScore = 0;
     for (int i = 0; i < moves.size(); i++) {
-//      MutableReversiModel mock = new HexagonalReversiModel(model);
-//      int moveScore = -model.getScore(p);
-//      mock.placePiece(p, moves.get(i));
-//      moveScore += mock.getScore(p);
       int moveScore = model.countPiecesGained(p, moves.get(i));
       if (moveScore > maxScore) {
         maxScore = moveScore;
