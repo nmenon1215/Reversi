@@ -35,4 +35,9 @@ public interface FrameView {
    * Sets the view to be visible.
    */
   void setVisible();
+
+  /**
+   * Sets the title to the given title.
+   */
+  void makeTitle(String title);
 }

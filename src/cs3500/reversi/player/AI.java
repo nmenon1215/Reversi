@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Objects;
 
 import cs3500.reversi.controller.Controller;
+import cs3500.reversi.model.HexagonalPosn;
+import cs3500.reversi.model.HexagonalReversiModel;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.Posn;
+import cs3500.reversi.model.ProviderModel;
 import cs3500.reversi.model.ROReversiModel;
 import cs3500.reversi.provider.model.PlayerEnum;
+import cs3500.reversi.provider.strategy.Coord;
 import cs3500.reversi.view.gui.ReversiView;
 
 /**
@@ -20,6 +24,7 @@ public class AI implements Player {
   private final char player;
   private List<Strategy> strats;
   private Controller controller;
+  private cs3500.reversi.provider.strategy.Strategy providerStrat;
 
   /**
    * Creates an AI with the given char as its display token.
@@ -39,9 +44,18 @@ public class AI implements Player {
     this.strats = strats;
   }
 
+  public AI(char player, cs3500.reversi.provider.strategy.Strategy providerStrat) {
+    this.player = player;
+    this.providerStrat = Objects.requireNonNull(providerStrat);
+  }
+
   @Override
   public Posn placePiece(ROReversiModel model, ReversiView view) {
     if (model.hasLegalMoves(this)) {
+      if (providerStrat != null) {
+        Coord coord = providerStrat.chooseMove(new ProviderModel(model), this);
+        return new HexagonalPosn(coord.getDiagonalPos(), coord.getRowPos());
+      }
       List<Posn> possibleMoves = new ArrayList<>();
       for (ITile tile : model.possibleMoves(this)) {
         possibleMoves.add(tile.getPosition());

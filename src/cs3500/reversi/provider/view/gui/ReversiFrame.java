@@ -67,4 +67,11 @@ public class ReversiFrame extends JFrame implements FrameView{
     this.setVisible(true);
   }
 
+  /**
+   * Sets the title to the given title.
+   */
+  @Override
+  public void makeTitle(String title) {
+    this.setTitle(title);
+  }
 }

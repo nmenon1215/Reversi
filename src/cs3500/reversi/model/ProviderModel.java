@@ -86,9 +86,9 @@ public class ProviderModel implements ReadOnlyReversiModel {
     int piecesGained;
     HexagonalReversiModel temp = new HexagonalReversiModel(rootModel);
     try {
-      piecesGained = -temp.getScore(rootModel.getTurn());
-      temp.placePiece(rootModel.getTurn(), new HexagonalPosn(diagonalPos, rowPos));
-      piecesGained += temp.getScore(rootModel.getTurn());
+      piecesGained = -temp.getScore(temp.getTurn());
+      temp.placePiece(temp.getTurn(), new HexagonalPosn(diagonalPos, rowPos));
+      piecesGained += temp.getScore(temp.getTurn());
     }
     catch (IllegalStateException e) {
       piecesGained = 0;

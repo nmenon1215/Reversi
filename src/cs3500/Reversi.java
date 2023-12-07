@@ -16,6 +16,10 @@ import cs3500.reversi.player.PlaceAtCorners;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.User;
 import cs3500.reversi.provider.model.ReadOnlyReversiModel;
+import cs3500.reversi.provider.strategy.implementation.AvoidCorners;
+import cs3500.reversi.provider.strategy.implementation.CaptureMostPieces;
+import cs3500.reversi.provider.strategy.implementation.GoForCorners;
+import cs3500.reversi.provider.strategy.implementation.TryTwo;
 import cs3500.reversi.provider.view.gui.FrameView;
 import cs3500.reversi.provider.view.gui.ReversiFrame;
 import cs3500.reversi.view.gui.JFrameReversiView;
@@ -37,8 +41,8 @@ public final class Reversi {
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
     ReadOnlyReversiModel providerModel = new ProviderModel(model);
-    FrameView viewPlayer1 =  new ReversiFrame(providerModel);// PROVIDER VIEW
-    FrameView viewPlayer2 = new JFrameReversiView(model); // OUR VIEW
+    FrameView viewPlayer1 =  new ReversiFrame(providerModel);// PROVIDER VIEW GOES FIRST
+    FrameView viewPlayer2 = new JFrameReversiView(model); // OUR VIEW SECOND
     ReversiController p1Controller = new Controller(model, viewPlayer1, p1);
     ReversiController p2Controller = new Controller(model, viewPlayer2, p2);
     p1Controller.start();
@@ -57,6 +61,16 @@ public final class Reversi {
     else if (input.equalsIgnoreCase("strategy3")) {
       return new AI(c, List.of(new PlaceAtCorners(),
               new AvoidCellsNextToCorners(), new CaptureMaxPieces()));
+    }
+    else if (input.equalsIgnoreCase("easy")) {
+      return new AI(c, new CaptureMostPieces());
+    }
+    else if (input.equalsIgnoreCase("medium")) {
+      return new AI(c, new TryTwo(new AvoidCorners(), new CaptureMostPieces()));
+    }
+    else if (input.equalsIgnoreCase("hard")) {
+      return new AI(c, new TryTwo(new GoForCorners(),
+              new TryTwo(new AvoidCorners(), new CaptureMostPieces())));
     }
     else {
       throw new IllegalArgumentException("This start command was unrecognized.");
