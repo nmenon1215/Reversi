@@ -30,4 +30,4 @@ Design/code limitations and suggestions
 	decouples their view from their model. It would have been a lot easier if, instead of having
 	hexagon cell implement a isClicked() method, you had Hexagon(in the view) implement it with a
 	field. Reason being it doesn't make sense for in game cell to be clicked, but it makes sense for
-	a view cell to be clicked. 
+	a view cell to be clicked.

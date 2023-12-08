@@ -12,7 +12,8 @@ tiles and multiple players with some changes to the existing code.
 
 TO RUN THE PROGRAM FROM JAR:  
 For two player game: java -jar Reversi.jar human human  
-For single player: replace the second human with either (strategy1, strategy2, strategy3) ex: java -jar Reversi.jar human strategy1  
+For single player against OUR AI: replace the second human with either (strategy1, strategy2, strategy3) ex: java -jar Reversi.jar human strategy1  
+For single player against PROVIDER AI: replace the second human with either (easy, medium, hard) ex: java-jar Reversi.jar human easy
 
 // sets up the players and the game  
 Player p1 = new User('X');  
