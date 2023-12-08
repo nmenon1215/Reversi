@@ -8,7 +8,7 @@ import cs3500.reversi.provider.model.ReadOnlyReversiModel;
 /**
  * a class that represents the frame of the window for a reversi game.
  */
-public class ReversiFrame extends JFrame implements FrameView{
+public class ReversiFrame extends JFrame implements FrameView {
   //the panel that goes inside the frame in a reversi game
   private final ReversiPanel panel;
 

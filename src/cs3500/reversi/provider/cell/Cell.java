@@ -1,7 +1,5 @@
 package cs3500.reversi.provider.cell;
 
-import java.util.Objects;
-
 import cs3500.reversi.provider.model.PlayerEnum;
 
 /**

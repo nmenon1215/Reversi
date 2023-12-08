@@ -174,8 +174,11 @@ public class JReversiPanel extends JPanel {
     this.featuresListener.add(Objects.requireNonNull(features));
   }
 
+  /**
+   * Deselects all tiles currently selected.
+   */
   public void deselectAll() {
-    if(highlightedButton != null) {
+    if (highlightedButton != null) {
       this.highlightedButton.setHighlight(false);
       this.highlightedButton = null;
     }

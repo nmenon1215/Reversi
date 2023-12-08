@@ -98,7 +98,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
     this.players = model.getPlayers();
 
     // make sure to duplicate cell link when making a duplicate model
-    for(ITile tile : board) {
+    for (ITile tile : board) {
       tile.duplicateProviderHexagonCell();
     }
   }

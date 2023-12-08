@@ -1,0 +1,14 @@
+Previous to this assignment, we wish we had made a 2-player game as a class invariant rather than
+accounting for the possibility of 2+ player games to make our features interface easier to use. For
+our view, we wish we implemented a keyListener properly and that clicking outside the cells worked
+correctly. In our controller, we wish we implemented the feature's interface correctly instead of
+just creating a couple of methods in the controller and model without a concrete interface. We
+coupled our controller to our view a decent amount and would have made it more modular if done
+differently. The primary thing we learned was how a features interface improves modularity. Next, we
+found out how to implement the keyListener in the view instead of the controller. Overall, we
+learned how to better support the MVC pattern and make each part of it only coupled to the other
+parts where absolutely needed. Our experience with our providers was very beneficial to our
+assignment. They were quick to respond, and we made a group chat where we could ask any questions we
+had. They were also very knowledgeable of their code and could answer specific questions about it.
+They were sure to update us with any additional changes they made to their code and to explain more
+about their interfaces when we asked.

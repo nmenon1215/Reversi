@@ -10,11 +10,21 @@ import cs3500.reversi.provider.model.Player;
 import cs3500.reversi.provider.model.PlayerEnum;
 import cs3500.reversi.provider.model.ReadOnlyReversiModel;
 
+/**
+ * Delegate Read Only version of reversi model which implements Provider's version
+ * of the model by delegating back to our Read Only model.
+ */
 public class ProviderModel implements ReadOnlyReversiModel {
 
   ROReversiModel rootModel;
   ArrayList<ArrayList<HexagonCell>> gameBoard;
 
+  /**
+   * Takes in our version of the model and delegates all functions back to our versions.
+   * Also establishes a set list of Cells which do not change since provider's view references
+   * the isClicked in the cell which must remain the same.
+   * @param rootModel our implementation of a model.
+   */
   public ProviderModel(ROReversiModel rootModel) {
     this.rootModel = Objects.requireNonNull(rootModel);
     gameBoard = new ArrayList<>();
@@ -83,7 +93,8 @@ public class ProviderModel implements ReadOnlyReversiModel {
 
   @Override
   public int countPiecesGained(int diagonalPos, int rowPos) {
-    return this.rootModel.countPiecesGained(this.rootModel.getTurn(), new HexagonalPosn(diagonalPos, rowPos));
+    return this.rootModel.countPiecesGained(this.rootModel.getTurn(),
+            new HexagonalPosn(diagonalPos, rowPos));
   }
 
   @Override

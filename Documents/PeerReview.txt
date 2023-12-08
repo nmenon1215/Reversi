@@ -1,0 +1,33 @@
+Design Critique and Implementation Critique
+	Their code was cleanly written and easy to read. When needed, they separated things into helper
+	methods and then effectively applied them. In the features interface, most of it made sense.
+	They had four features interfaces, we only implemented the ViewFeatures interface which was
+	simple due to their documentation. The design was very organized and modular. This made it so
+	that the view was very independent and made it easy to work with. One problem we encountered was
+	understanding how each feature interface worked with the other aspects of the code. This was
+	solved by asking the provider more about their implementation. In their implementation of a
+	view, there were a few times in which they had their methods take in specific classes instead
+	of generalizing and taking in type interface, and sometimes those classes had methods that were
+	not in the interface. For example setVisible() was not a method in the interface, but since the
+	controller took in their class instead of the interface, and their class implemented JFrame as
+	well, they could use setVisible() but we couldn't. Other than that, their code was convenient to
+	use and we only had to make minor changes in our code that were better designed instead of using
+	bad practice in our code to make theirs work.
+
+Documentation critique
+	They had plenty of documentation in the code. In the Interfaces we were given, it was easy to
+	see what they were trying to accomplish in each method. Their code wasn’t cluttered by
+	documentation and each comment/JavaDoc felt like it served an informative purpose. Slightly more
+	documentation in the Feature’s interface to describe the purpose would have with which specific
+	classes would have helped our understanding. Additionally, a control flow description in the
+	README would help the understanding of the code as well. Through the documentation, we couldn’t
+	easily find out the difference between PlayerFeatures and ActivePlayer and where or how they
+	were to be used.
+
+Design/code limitations and suggestions
+	Our providers had a method isClicked() that linked all the way back to their HexagonCell when
+	they could have brought it back to a Hexagon which is a part of their view. Making this change
+	decouples their view from their model. It would have been a lot easier if, instead of having
+	hexagon cell implement a isClicked() method, you had Hexagon(in the view) implement it with a
+	field. Reason being it doesn't make sense for in game cell to be clicked, but it makes sense for
+	a view cell to be clicked. 
