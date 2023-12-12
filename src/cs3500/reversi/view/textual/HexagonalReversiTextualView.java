@@ -5,13 +5,12 @@ import java.io.IOException;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.ROReversiModel;
-import cs3500.reversi.view.textual.TextualView;
 
 /**
  * This is a simple representation of the model. It is meant mainly for debug purposes.
  * This simply prints out any board given to it in ascii.
  */
-public class ReversiTextualView implements TextualView {
+public class HexagonalReversiTextualView implements TextualView {
 
   ROReversiModel model;
   Appendable out;
@@ -24,7 +23,7 @@ public class ReversiTextualView implements TextualView {
    * @param out   where the model is appended to for render.
    * @throws IllegalArgumentException if model or out is null.
    */
-  public ReversiTextualView(ROReversiModel model, Appendable out) {
+  public HexagonalReversiTextualView(ROReversiModel model, Appendable out) {
     if (model == null) {
       throw new IllegalArgumentException("Model can't be null.");
     }

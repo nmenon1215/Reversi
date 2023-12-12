@@ -13,7 +13,7 @@ import cs3500.reversi.model.MutableReversiModel;
 import cs3500.reversi.model.Posn;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.User;
-import cs3500.reversi.view.textual.ReversiTextualView;
+import cs3500.reversi.view.textual.HexagonalReversiTextualView;
 
 /**
  * Simple Examples of how the model is supposed to operate. Please look at TestModelImplementation
@@ -25,9 +25,9 @@ public class ReversiExamples {
   Player p2;
   Player pRigged;
   MutableReversiModel bigModel;
-  ReversiTextualView bigTv;
+  HexagonalReversiTextualView bigTv;
   MutableReversiModel smallModel;
-  ReversiTextualView smallTv;
+  HexagonalReversiTextualView smallTv;
 
   @Before
   public void init() {
@@ -35,9 +35,9 @@ public class ReversiExamples {
     p2 = new User('O');
     pRigged = new User('X');
     bigModel = new HexagonalReversiModel(new ArrayList(List.of(p1, p2)));
-    bigTv = new ReversiTextualView(bigModel, System.out);
+    bigTv = new HexagonalReversiTextualView(bigModel, System.out);
     smallModel = new HexagonalReversiModel(new ArrayList(List.of(p1, p2)), 3);
-    smallTv = new ReversiTextualView(smallModel, System.out);
+    smallTv = new HexagonalReversiTextualView(smallModel, System.out);
   }
 
   @Test

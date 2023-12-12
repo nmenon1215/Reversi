@@ -16,7 +16,7 @@ import cs3500.reversi.player.AI;
 import cs3500.reversi.player.CaptureMaxPieces;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.User;
-import cs3500.reversi.view.textual.ReversiTextualView;
+import cs3500.reversi.view.textual.HexagonalReversiTextualView;
 
 /**
  * Implementation specific tests regarding how the model interacts with each public method.
@@ -27,9 +27,9 @@ public class TestModelImplementation {
   Player pRigged;
   Player ai;
   MutableReversiModel bigModel;
-  ReversiTextualView bigTv;
+  HexagonalReversiTextualView bigTv;
   MutableReversiModel smallModel;
-  ReversiTextualView smallTv;
+  HexagonalReversiTextualView smallTv;
 
   @Before
   public void init() {
@@ -38,9 +38,9 @@ public class TestModelImplementation {
     pRigged = new User('X');
     ai = new AI('X', List.of(new CaptureMaxPieces()));
     bigModel = new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2)));
-    bigTv = new ReversiTextualView(bigModel, System.out);
+    bigTv = new HexagonalReversiTextualView(bigModel, System.out);
     smallModel = new HexagonalReversiModel(new ArrayList<>(List.of(p1, p2)), 3);
-    smallTv = new ReversiTextualView(smallModel, System.out);
+    smallTv = new HexagonalReversiTextualView(smallModel, System.out);
   }
 
   // TESTING placePiece(Player p, Posn posn)
