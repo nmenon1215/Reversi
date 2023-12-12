@@ -83,6 +83,14 @@ public class HexagonalTile implements ITile {
     this.providerCell = new HexagonCell(0, 0);
   }
 
+  /**
+   * Creates a copy of the current ITile.
+   */
+  @Override
+  public ITile copy() {
+    return new HexagonalTile(this);
+  }
+
   @Override
   public String toString() {
     if (this.player == null) {

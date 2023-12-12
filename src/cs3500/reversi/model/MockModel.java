@@ -121,7 +121,7 @@ public class MockModel implements MutableReversiModel {
   }
 
   @Override
-  public List<ITile> getBoard() {
+  public List<List<ITile>> getBoard() {
     System.out.println("Called getBoard");
     return model.getBoard();
   }

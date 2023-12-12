@@ -7,8 +7,8 @@ import cs3500.reversi.controller.Controller;
 import cs3500.reversi.player.Player;
 
 public abstract class ReversiModel implements MutableReversiModel {
-  private List<List<ITile>> board;
-  private final int boardSize;
+  protected List<List<ITile>> board;
+  protected final int boardSize;
   private final int numPlayers;
   private int skipsInRow;
   private List<Player> players;
@@ -158,7 +158,7 @@ public abstract class ReversiModel implements MutableReversiModel {
 
   @Override
   public ITile getTileAt(Posn p) {
-    return new HexagonalTile(findTile(p));
+    return findTile(p).copy();
   }
 
   @Override
@@ -177,6 +177,7 @@ public abstract class ReversiModel implements MutableReversiModel {
     if (this.skipsInRow >= this.numPlayers) {
       return true;
     }
+    //NOTE: Will never occur in hexagonal. Need to create better algo
     for (List<ITile> row : this.board) {
       for (ITile tile : row) {
         if (tile.getPlayer() == null) {
@@ -281,17 +282,7 @@ public abstract class ReversiModel implements MutableReversiModel {
   }
 
   @Override
-  public List<Posn> getCorners() {
-    List<Posn> corners = new ArrayList<>();
-    corners.add(new HexagonalPosn(0, this.boardSize, -this.boardSize));
-    corners.add(new HexagonalPosn(0, -this.boardSize, this.boardSize));
-    corners.add(new HexagonalPosn(this.boardSize, 0, -this.boardSize));
-    corners.add(new HexagonalPosn(-this.boardSize, 0, this.boardSize));
-    corners.add(new HexagonalPosn(this.boardSize, -this.boardSize, 0));
-    corners.add(new HexagonalPosn(-this.boardSize, this.boardSize, 0));
-
-    return corners;
-  }
+  public abstract List<Posn> getCorners();
 
   @Override
   public int countPiecesGained(Player p, Posn posn) {
@@ -334,22 +325,9 @@ public abstract class ReversiModel implements MutableReversiModel {
     return flipped;
   }
 
-  private boolean isTileOnBoard(Posn posn) {
-    if (posn == null) {
-      return false;
-    }
-    for (List<ITile> row : this.board) {
-      for (ITile tile : row) {
-        if (tile.getPosition().equals(posn)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   // Retrieves the tile at the given position. Does not make copy, so we can edit tile.
-  private ITile findTile(Posn p) {
+  // NOTE: Should become abstract and done better in square and hexagonal.
+  protected ITile findTile(Posn p) {
     if (p == null) {
       throw new IllegalArgumentException("The given position can't be null.");
     }
@@ -365,83 +343,8 @@ public abstract class ReversiModel implements MutableReversiModel {
 
   // returns list of 6 lines surrounding the given tile not including the tile
   // if the line is empty, it is removed.
-  private List<List<ITile>> getSurroundingLines(ITile placingTile) {
-    List<List<ITile>> surroundingLines = new ArrayList<>();
+  protected abstract List<List<ITile>> getSurroundingLines(ITile placingTile);
 
-    // PLEASE READ JAVADOC FOR findLine
-    surroundingLines.add(findLine(List.of(0, 1, 2), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(0, 2, 1), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(1, 2, 0), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(1, 0, 2), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(2, 0, 1), placingTile.getPosition().getCoords()));
-    surroundingLines.add(findLine(List.of(2, 1, 0), placingTile.getPosition().getCoords()));
-
-    // remove all empty lists
-    for (int i = 0; i < surroundingLines.size(); i++) {
-      if (surroundingLines.get(i).isEmpty()) {
-        surroundingLines.remove(i);
-        i--;
-      }
-    }
-    return surroundingLines;
-  }
-
-  /**
-   * Finds the line adjacent to a coordinate in some direction.
-   * Example 1:
-   * [0,1,2], [2,4,3]
-   * 2,4,3 is the coordinate of the original tile
-   * fixed = 2, add = 4, sub = 3
-   * then line will consist of (2,5,2), (2,6,1), etc.
-   * Example 2:
-   * [1,0,2], [2,4,3]
-   * fixed = 4, add = 2, sub = 3
-   * then line will consist of (3,4,2), (4,4,1), (5,4,0), etc.
-   * Why we did this:
-   * Ideally, we would just pass in 3 ints to the function and rotate them as fixed, add, sub
-   * Unfortunately, this leads to errors in findTile at the bottom of the while loop. Because
-   * we don't know if fixed is q, r, or s, so we can't generate a new Posn properly. To fix this,
-   * we passed in 2 lists. The first represents which values in the second list will be fixed, add,
-   * and sub. This allows us to easily create a new Posn since the q r and s values stay in the same
-   * place in the second list.
-   *
-   * @param indexList Represents which direction we are going in. The first value is the index of
-   *                  which point is fixed, the next is which point will be added, and the last is
-   *                  which point will be subtracted.
-   * @param coords    Represents the starting coordinate which we are finding lines from.
-   * @return The line(List of ITile) adjacent to a tile in a certain direction specified by
-   *         indexList
-   */
-  private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
-    // check inputs are valid
-    if (indexList == null || coords == null) {
-      throw new IllegalArgumentException("No null inputs");
-    }
-    if (indexList.size() != 3 || coords.size() != 3) {
-      throw new IllegalArgumentException("All coordinates must be defined by exactly 3 ints.");
-    }
-    int count = 0;
-    for (int i : indexList) {
-      if (i > 2 || i < 0) {
-        throw new IllegalArgumentException("Index list must only contain "
-                + "indexes from 0-2 inclusive");
-      }
-    }
-    findTile(new HexagonalPosn(coords)); // this throws exception if the coords are not valid
-
-    // create the line
-    List<Integer> newTile = new ArrayList<>(coords);
-    List<ITile> line = new ArrayList<>();
-    while (newTile.get(indexList.get(1)) < boardSize
-            && newTile.get(indexList.get(2)) > -boardSize) {
-      // add 1 to value at add index, sub 1 from value at sub index
-      newTile.set(indexList.get(1), newTile.get(indexList.get(1)) + 1);
-      newTile.set(indexList.get(2), newTile.get(indexList.get(2)) - 1);
-
-      line.add(findTile(new HexagonalPosn(newTile)));
-    }
-    return line;
-  }
 
   // ONLY call if there is a sandwich. Flips all tiles in the sandwich.
   private void flipTiles(List<ITile> line, Player p) {
@@ -474,41 +377,7 @@ public abstract class ReversiModel implements MutableReversiModel {
   }
 
   // Starts the game by initializing the board.
-  private void startGame(List<Player> players) {
-    Player p1 = players.get(0);
-    Player p2 = players.get(1);
-    for (int r = -boardSize; r <= boardSize; r++) {
-      int qStart;
-      int qEnd;
-      if (r < 0) {
-        qStart = -boardSize - r;
-        qEnd = boardSize;
-      } else {
-        qStart = -boardSize;
-        qEnd = boardSize - r;
-      }
-      List<ITile> row = new ArrayList<>();
-      for (int q = qStart; q <= qEnd; q++) {
-        int s = -q - r;
-        row.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
-      }
-      this.board.add(row);
-    }
-
-    // Starting sequence
-    /*
-     X O
-    O - X
-     X O
-     */
-    findTile(new HexagonalPosn(0, -1, 1)).flipTo(p1);
-    findTile(new HexagonalPosn(1, 0, -1)).flipTo(p1);
-    findTile(new HexagonalPosn(-1, 1, 0)).flipTo(p1);
-
-    findTile(new HexagonalPosn(0, 1, -1)).flipTo(p2);
-    findTile(new HexagonalPosn(-1, 0, 1)).flipTo(p2);
-    findTile(new HexagonalPosn(1, -1, 0)).flipTo(p2);
-  }
+  protected abstract void startGame(List<Player> players);
 
   // Moves the turn index to the next players turn
   private void nextTurn() {

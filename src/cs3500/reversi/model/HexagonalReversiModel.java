@@ -12,20 +12,13 @@ import cs3500.reversi.player.Player;
  * the pieces in which order. This is the job of the controller. This allows for multiple players
  * if we change the constructor.
  */
-public class HexagonalReversiModel implements MutableReversiModel {
-
-  private List<ITile> board;
-  private final int boardSize;
-  private final int numPlayers;
-  private int skipsInRow;
-  private List<Player> players;
-  private int turnIndex;
+public class HexagonalReversiModel extends ReversiModel {
 
   /**
    * Constructs the board of size 5 and initializes with the starting piece setup which is:
-   * X O
+   *  X O
    * O - X
-   * X O
+   *  X O
    * placed in the center of the board with X representing player 1, and O representing player 2.
    *
    * @param players A list that consists of the first and second players in the game. (Used for the
@@ -34,21 +27,7 @@ public class HexagonalReversiModel implements MutableReversiModel {
    *                                  or the list has less than 2 distinct players.
    */
   public HexagonalReversiModel(List<Player> players) {
-    if (players == null || players.stream().distinct().count() < 2) {
-      throw new IllegalArgumentException("Players list can't be null.");
-    }
-    for (Player p : players) {
-      if (p == null) {
-        throw new IllegalArgumentException("Individual players can't be null.");
-      }
-    }
-    this.boardSize = 5;
-    this.board = new ArrayList<>();
-    this.numPlayers = players.size();
-    this.skipsInRow = 0;
-    this.players = players;
-    this.turnIndex = 0;
-    startGame(players);
+    super(players);
   }
 
   /**
@@ -58,31 +37,14 @@ public class HexagonalReversiModel implements MutableReversiModel {
    * X O
    * placed in the center of the board with X representing player 1, and O representing player 2.
    *
-   * @param boardSize is the size of board defined by how many tiles away from the center the edge
-   *                  of the board is. Ex: board above is size 1. boardSize must be >= 2.
    * @param players   A list that consists of the first and second players in the game.
    *                  (Used for the initialization of the game.)
+   * @param boardSize is the size of board defined by how many tiles away from the center the edge
+   *                  of the board is. Ex: board above is size 1. boardSize must be >= 2.
    * @throws IllegalArgumentException if the board size is less than 2 or players are null.
    */
   public HexagonalReversiModel(List<Player> players, int boardSize) {
-    if (players == null || players.stream().distinct().count() < 2) {
-      throw new IllegalArgumentException("Players list can't be null.");
-    }
-    for (Player p : players) {
-      if (p == null) {
-        throw new IllegalArgumentException("Individual players can't be null.");
-      }
-    }
-    if (boardSize < 2) {
-      throw new IllegalArgumentException("Board size must be at least 2.");
-    }
-    this.boardSize = boardSize;
-    this.board = new ArrayList<>();
-    this.numPlayers = players.size();
-    this.skipsInRow = 0;
-    this.players = players;
-    this.turnIndex = 0;
-    startGame(players);
+    super(players, boardSize);
   }
 
   /**
@@ -91,272 +53,24 @@ public class HexagonalReversiModel implements MutableReversiModel {
    * @param model is a current working model
    */
   public HexagonalReversiModel(ROReversiModel model) {
-    this.board = model.getBoard();
-    this.boardSize = model.getBoardSize();
-    this.numPlayers = model.getPlayers().size();
-    this.skipsInRow = model.getSkipsInARow();
-    this.players = model.getPlayers();
-
-    // make sure to duplicate cell link when making a duplicate model
-    for (ITile tile : board) {
-      tile.duplicateProviderHexagonCell();
-    }
-  }
-
-  @Override
-  public void placePiece(Player p, Posn posn) {
-    if (p == null) {
-      throw new IllegalArgumentException("The given player can't be null.");
-    }
-    if (posn == null) {
-      throw new IllegalArgumentException("The given position can't be null.");
-    }
-
-    if (!this.getTurn().equals(p)) {
-      throw new IllegalStateException("It is not this players turn.");
-    }
-
-    ITile placingTile = findTile(posn);
-    if (placingTile.getPlayer() != null) {
-      throw new IllegalStateException("This tile is already occupied.");
-    }
-
-    List<List<ITile>> surroundingLines = getSurroundingLines(placingTile);
-
-    boolean pieceFlipped = false;
-    for (List<ITile> line : surroundingLines) {
-      if (isSandwich(line, p)) {
-        flipTiles(line, p);
-        pieceFlipped = true;
-      }
-    }
-
-    if (!pieceFlipped) {
-      throw new IllegalStateException("No tiles were flipped by this move.");
-    }
-
-    placingTile.flipTo(p);
-    this.skipsInRow = 0;
-    nextTurn();
-  }
-
-  @Override
-  public void skip(Player p) {
-    if (p == null) {
-      throw new IllegalArgumentException("The given player can't be null.");
-    }
-    if (this.hasLegalMoves(p)) {
-      throw new IllegalStateException("Player can only skip if they have no possible moves.");
-    }
-    if (!this.getTurn().equals(p)) {
-      throw new IllegalStateException("It is not this players turn.");
-    }
-
-    this.nextTurn();
-    this.skipsInRow++;
-  }
-
-  @Override
-  public void subscribe(Controller controller, Player p) {
-    p.setController(controller);
-  }
-
-  @Override
-  public ITile getTileAt(Posn p) {
-    return new HexagonalTile(findTile(p));
-  }
-
-  @Override
-  public List<ITile> getSurroundingTiles(Posn posn) {
-    List<List<ITile>> surroundingLines = this.getSurroundingLines(this.findTile(posn));
-    List<ITile> surroundingTiles = new ArrayList<>();
-
-    for (List<ITile> line : surroundingLines) {
-      surroundingTiles.add(new HexagonalTile(line.get(0)));
-    }
-    return surroundingTiles;
-  }
-
-  @Override
-  public boolean isGameOver() {
-    if (this.skipsInRow >= this.numPlayers) {
-      return true;
-    }
-    for (ITile tile : this.board) {
-      if (tile.getPlayer() == null) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  @Override
-  public List<ITile> possibleMoves(Player p) {
-    if (p == null) {
-      throw new IllegalArgumentException("The given player can't be null.");
-    }
-    List<ITile> possibleMoves = new ArrayList<>();
-    // for every tile in the board
-    for (ITile tile : board) {
-      List<List<ITile>> surroundingLines = new ArrayList<>();
-      if (tile.getPlayer() == null) {
-        surroundingLines = getSurroundingLines(tile);
-      }
-      for (List<ITile> line : surroundingLines) {
-        if (isSandwich(line, p)) {
-          possibleMoves.add(new HexagonalTile(tile));
-          break;
-        }
-      }
-    }
-    return possibleMoves;
-  }
-
-  @Override
-  public boolean isLegalMove(Player p, Posn posn) {
-    for (ITile tile : possibleMoves(p)) {
-      if (this.findTile(posn).equals(tile)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  @Override
-  public boolean hasLegalMoves(Player p) {
-    return !possibleMoves(p).isEmpty();
-  }
-
-  @Override
-  public int getScore(Player p) {
-    if (p == null) {
-      throw new IllegalArgumentException("The given Player can't be null.");
-    }
-    int score = 0;
-    for (ITile tile : board) {
-      if (p.equals(tile.getPlayer())) {
-        score++;
-      }
-    }
-    return score;
-  }
-
-  @Override
-  public int getBoardSize() {
-    return this.boardSize;
-  }
-
-  @Override
-  public Player getTurn() {
-    return this.players.get(this.turnIndex);
-  }
-
-  @Override
-  public List<ITile> getBoard() {
-    List<ITile> copyBoard = new ArrayList<>();
-    for (int i = 0; i < this.board.size(); i++) {
-      copyBoard.add(new HexagonalTile(this.board.get(i)));
-    }
-    return copyBoard;
-  }
-
-  @Override
-  public List<Player> getPlayers() {
-    return this.players;
-  }
-
-  @Override
-  public int getTurnIndex() {
-    return this.turnIndex;
-  }
-
-  @Override
-  public int getSkipsInARow() {
-    return this.skipsInRow;
+    super(model);
   }
 
   @Override
   public List<Posn> getCorners() {
     List<Posn> corners = new ArrayList<>();
-    corners.add(new HexagonalPosn(0, this.boardSize, -this.boardSize));
-    corners.add(new HexagonalPosn(0, -this.boardSize, this.boardSize));
-    corners.add(new HexagonalPosn(this.boardSize, 0, -this.boardSize));
-    corners.add(new HexagonalPosn(-this.boardSize, 0, this.boardSize));
-    corners.add(new HexagonalPosn(this.boardSize, -this.boardSize, 0));
-    corners.add(new HexagonalPosn(-this.boardSize, this.boardSize, 0));
+    corners.add(this.board.get(0).get(0).getPosition());
+    corners.add(this.board.get(0).get(this.boardSize).getPosition());
+    corners.add(this.board.get(this.boardSize).get(0).getPosition());
+    corners.add(this.board.get(this.boardSize).get(this.boardSize * 2).getPosition());
+    corners.add(this.board.get(this.boardSize * 2).get(0).getPosition());
+    corners.add(this.board.get(this.boardSize * 2).get(this.boardSize).getPosition());
 
     return corners;
   }
 
   @Override
-  public int countPiecesGained(Player p, Posn posn) {
-    if (p == null) {
-      throw new IllegalArgumentException("The given player can't be null.");
-    }
-    if (posn == null) {
-      throw new IllegalArgumentException("The given position can't be null.");
-    }
-
-    if (!this.getTurn().equals(p)) {
-      throw new IllegalStateException("It is not this players turn.");
-    }
-
-    ITile placingTile = findTile(posn);
-    if (placingTile.getPlayer() != null) {
-      throw new IllegalStateException("This tile is already occupied.");
-    }
-
-    List<List<ITile>> surroundingLines = getSurroundingLines(placingTile);
-
-    int numFlipped = 0;
-    for (List<ITile> line : surroundingLines) {
-      if (isSandwich(line, p)) {
-        numFlipped += countFlips(line, p);
-      }
-    }
-
-    return numFlipped;
-  }
-
-  private int countFlips(List<ITile> line, Player p) {
-    int flipped = 0;
-    for (ITile tile : line) {
-      if (tile.getPlayer().equals(p)) {
-        break;
-      }
-      flipped++;
-    }
-    return flipped;
-  }
-
-  private boolean isTileOnBoard(Posn posn) {
-    if (posn == null) {
-      return false;
-    }
-    for (ITile tile : this.board) {
-      if (tile.getPosition().equals(posn)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // Retrieves the tile at the given position. Does not make copy, so we can edit tile.
-  private ITile findTile(Posn p) {
-    if (p == null) {
-      throw new IllegalArgumentException("The given position can't be null.");
-    }
-    for (ITile tile : this.board) {
-      if (tile.getPosition().equals(p)) {
-        return tile;
-      }
-    }
-    throw new IllegalArgumentException("The given position is out of bounds for the board.");
-  }
-
-  // returns list of 6 lines surrounding the given tile not including the tile
-  // if the line is empty, it is removed.
-  private List<List<ITile>> getSurroundingLines(ITile placingTile) {
+  protected List<List<ITile>> getSurroundingLines(ITile placingTile) {
     List<List<ITile>> surroundingLines = new ArrayList<>();
 
     // PLEASE READ JAVADOC FOR findLine
@@ -375,6 +89,43 @@ public class HexagonalReversiModel implements MutableReversiModel {
       }
     }
     return surroundingLines;
+  }
+
+  @Override
+  protected void startGame(List<Player> players) {
+    Player p1 = players.get(0);
+    Player p2 = players.get(1);
+    for (int r = -boardSize; r <= boardSize; r++) {
+      int qStart;
+      int qEnd;
+      if (r < 0) {
+        qStart = -boardSize - r;
+        qEnd = boardSize;
+      } else {
+        qStart = -boardSize;
+        qEnd = boardSize - r;
+      }
+      List<ITile> row = new ArrayList<>();
+      for (int q = qStart; q <= qEnd; q++) {
+        int s = -q - r;
+        row.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
+      }
+      this.board.add(row);
+    }
+
+    // Starting sequence
+    /*
+     X O
+    O - X
+     X O
+     */
+    findTile(new HexagonalPosn(0, -1, 1)).flipTo(p1);
+    findTile(new HexagonalPosn(1, 0, -1)).flipTo(p1);
+    findTile(new HexagonalPosn(-1, 1, 0)).flipTo(p1);
+
+    findTile(new HexagonalPosn(0, 1, -1)).flipTo(p2);
+    findTile(new HexagonalPosn(-1, 0, 1)).flipTo(p2);
+    findTile(new HexagonalPosn(1, -1, 0)).flipTo(p2);
   }
 
   /**
@@ -401,8 +152,9 @@ public class HexagonalReversiModel implements MutableReversiModel {
    *                  which point will be subtracted.
    * @param coords    Represents the starting coordinate which we are finding lines from.
    * @return The line(List of ITile) adjacent to a tile in a certain direction specified by
-   *         indexList
+   * indexList
    */
+
   private List<ITile> findLine(List<Integer> indexList, List<Integer> coords) {
     // check inputs are valid
     if (indexList == null || coords == null) {
@@ -432,77 +184,5 @@ public class HexagonalReversiModel implements MutableReversiModel {
       line.add(findTile(new HexagonalPosn(newTile)));
     }
     return line;
-  }
-
-  // ONLY call if there is a sandwich. Flips all tiles in the sandwich.
-  private void flipTiles(List<ITile> line, Player p) {
-    for (ITile tile : line) {
-      if (tile.getPlayer().equals(p)) {
-        break;
-      }
-      tile.flipTo(p);
-    }
-  }
-
-  // Determines if a line without its starting piece is a sandwich.
-  private boolean isSandwich(List<ITile> line, Player p) {
-    if (p.equals(line.get(0).getPlayer())) {
-      // nothing was sandwiched :(
-      return false;
-    }
-    for (ITile tile : line) {
-      if (tile.getPlayer() == null) {
-        // there is a gap in the sandwich :(
-        return false;
-      }
-      if (p.equals(tile.getPlayer())) {
-        // we reached the end of a sandwich :)
-        return true;
-      }
-    }
-    // we reached the end, but no end piece :(
-    return false;
-  }
-
-  // Starts the game by initializing the board.
-  private void startGame(List<Player> players) {
-    Player p1 = players.get(0);
-    Player p2 = players.get(1);
-    for (int r = -boardSize; r <= boardSize; r++) {
-      int qStart;
-      int qEnd;
-      if (r < 0) {
-        qStart = -boardSize - r;
-        qEnd = boardSize;
-      } else {
-        qStart = -boardSize;
-        qEnd = boardSize - r;
-      }
-      for (int q = qStart; q <= qEnd; q++) {
-        int s = -q - r;
-        this.board.add(new HexagonalTile(new HexagonalPosn(q, r, s)));
-      }
-    }
-
-    // Starting sequence
-    /*
-     X O
-    O - X
-     X O
-     */
-    findTile(new HexagonalPosn(0, -1, 1)).flipTo(p1);
-    findTile(new HexagonalPosn(1, 0, -1)).flipTo(p1);
-    findTile(new HexagonalPosn(-1, 1, 0)).flipTo(p1);
-
-    findTile(new HexagonalPosn(0, 1, -1)).flipTo(p2);
-    findTile(new HexagonalPosn(-1, 0, 1)).flipTo(p2);
-    findTile(new HexagonalPosn(1, -1, 0)).flipTo(p2);
-  }
-
-  // Moves the turn index to the next players turn
-  private void nextTurn() {
-    this.turnIndex++;
-    this.turnIndex = this.turnIndex % this.players.size();
-    players.get(turnIndex).notifyController(this);
   }
 }

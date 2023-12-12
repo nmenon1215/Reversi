@@ -49,4 +49,9 @@ public interface ITile {
    * Mainly used when making a new model as to not edit provider tiles.
    */
   void duplicateProviderHexagonCell();
+
+  /**
+   * Creates a copy of the current ITile.
+   */
+  ITile copy();
 }
