@@ -38,7 +38,7 @@ public class HexagonalButton extends JButton {
   }
 
   /**
-   * Changes whether or not the button should be highlighted.
+   * Changes whether the button should be highlighted.
    */
   public void setHighlight(boolean highlighted) {
     this.highlighted = highlighted;
@@ -71,6 +71,7 @@ public class HexagonalButton extends JButton {
       g2d.setColor(this.buttonColor);
     }
     g2d.fillOval(width / 4, height / 4, width / 2, width / 2);
+
   }
 
   @Override

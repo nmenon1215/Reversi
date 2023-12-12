@@ -208,7 +208,7 @@ public class JReversiPanel extends JPanel {
           deselectAll();
         }
       }
-      if (key.equals('p') || key.equals('P')) {
+      else if (key.equals('p') || key.equals('P')) {
 
         for (ViewFeatures features : featuresListener) {
           features.playerPass();

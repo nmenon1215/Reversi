@@ -104,7 +104,7 @@ public interface ROReversiModel {
    *
    * @return the list of tiles making up the board.
    */
-  List<ITile> getBoard();
+  List<List<ITile>> getBoard();
 
   /**
    * Returns a list of the players playing the game.

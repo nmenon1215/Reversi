@@ -40,9 +40,9 @@ public final class Reversi {
 
     MutableReversiModel model = new HexagonalReversiModel(
             new ArrayList<>(Arrays.asList(p1, p2)), 5);
-    ReadOnlyReversiModel providerModel = new ProviderModel(model);
-    FrameView viewPlayer1 =  new ReversiFrame(providerModel);// PROVIDER VIEW GOES FIRST
-    FrameView viewPlayer2 = new JFrameReversiView(model); // OUR VIEW SECOND
+    //ReadOnlyReversiModel providerModel = new ProviderModel(model);
+    FrameView viewPlayer1 =  new JFrameReversiView(model);
+    FrameView viewPlayer2 = new JFrameReversiView(model);
     ReversiController p1Controller = new Controller(model, viewPlayer1, p1);
     ReversiController p2Controller = new Controller(model, viewPlayer2, p2);
     p1Controller.start();
