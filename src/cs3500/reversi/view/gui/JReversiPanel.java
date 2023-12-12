@@ -77,7 +77,7 @@ public class JReversiPanel extends JPanel {
       double x  = startingX(row);
       for (int col = 0; col < -Math.abs(row - size) + size * 2 + 1; col++) {
         List<Integer> coord = gridToAxialCoord(row, col);
-        HexagonalButton button = new HexagonalButton(coord);
+        HexagonalButton button = new HexagonalButton(coord, this.model, this.model.getTurn());
         createListener(button, coord.get(0), coord.get(1), coord.get(2));
         add(button);
         button.setBounds((int) x, (int) y, (int) pieceWidth, (int) pieceHeight);
@@ -208,12 +208,25 @@ public class JReversiPanel extends JPanel {
           deselectAll();
         }
       }
-      else if (key.equals('p') || key.equals('P')) {
+
+      if (key.equals('p') || key.equals('P')) {
 
         for (ViewFeatures features : featuresListener) {
           features.playerPass();
         }
         deselectAll();
+      }
+
+      if (key.equals('h') || key.equals('H')) {
+        toggleHintsForAll();
+      }
+    }
+  }
+
+  public void toggleHintsForAll() {
+    for (List<HexagonalButton> row : this.board) {
+      for (HexagonalButton button : row) {
+        button.toggleHints();
       }
     }
   }

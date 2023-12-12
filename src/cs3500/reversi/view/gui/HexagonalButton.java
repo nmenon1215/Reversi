@@ -11,6 +11,12 @@ import java.util.Objects;
 
 import javax.swing.JButton;
 
+import cs3500.reversi.model.HexagonalPosn;
+import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.player.Player;
+
+import static java.awt.Color.BLACK;
+
 /**
  * Creates a hexagonal button that will be added to a board to create the grid for the Reversi
  * game.
@@ -22,12 +28,15 @@ public class HexagonalButton extends JButton {
   private boolean highlighted = false;
   private Color buttonColor = Color.DARK_GRAY;
   private List<Integer> coords;
+  private ROReversiModel roModel;
+  private boolean hints;
 
   /**
    * Gives the hexagon the properties to make it filled and look like a hexagon.
    */
-  public HexagonalButton(List<Integer> coords) {
+  public HexagonalButton(List<Integer> coords, ROReversiModel roModel, Player player) {
     this.coords = Objects.requireNonNull(coords);
+    this.roModel = roModel;
     if (coords.get(0) + coords.get(1) + coords.get(2) != 0) {
       throw new IllegalArgumentException("Can't create button with illogical coordinates.");
     }
@@ -65,12 +74,20 @@ public class HexagonalButton extends JButton {
 
     // highlight the chip if it is gray
     if (highlighted && this.buttonColor.equals(Color.DARK_GRAY)) {
+      if (hints) {
+        int piecesGained = this.roModel.countPiecesGained(this.roModel.getTurn(),
+                new HexagonalPosn(this.coords));
+        g2d.setColor(BLACK);
+        g2d.drawString(Integer.toString(piecesGained), width / 2, height / 2);
+      }
       g2d.setColor(Color.GREEN);
     }
     else {
       g2d.setColor(this.buttonColor);
+      g2d.fillOval(width / 4, height / 4, width / 2, width / 2);
     }
-    g2d.fillOval(width / 4, height / 4, width / 2, width / 2);
+
+
 
   }
 
@@ -106,5 +123,9 @@ public class HexagonalButton extends JButton {
 
   public List<Integer> getCoords() {
     return coords;
+  }
+
+  public void toggleHints() {
+    hints = !hints;
   }
 }
