@@ -49,7 +49,7 @@ public class SquareReversiTextualView implements TextualView {
           ITile tileToDisplay = model.getTileAt(new SquarePosn(col, row));
           display += tileToDisplay.toString() + " ";
         } catch (IllegalArgumentException e) {
-          display += " ";
+          display += "uhoh";
         }
       }
       display += "\n";

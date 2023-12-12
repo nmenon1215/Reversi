@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SquarePosn implements Posn{
   private final int x;
@@ -28,5 +29,19 @@ public class SquarePosn implements Posn{
       }
     }
     return false;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof SquarePosn)) {
+      return false;
+    }
+    SquarePosn other = (SquarePosn) obj;
+    return this.hashCode() == other.hashCode();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(x, y);
   }
 }

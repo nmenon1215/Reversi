@@ -38,26 +38,14 @@ public class SquareReversiModel extends ReversiModel{
     List<Integer> rootPosition = placingTile.getPosition().getCoords();
     int x = rootPosition.get(0);
     int y = rootPosition.get(1);
-    //up
-    List<ITile> up = new ArrayList<>();
-    for (int i = y - 1; i >= 0 ; i--) {
-      up.add(this.findTile(new SquarePosn(x, i)));
+    for (int xChange =  -1; xChange <= 1; xChange++) {
+      for (int yChange = -1; yChange <= 1; yChange++) {
+        if(xChange == 0 && yChange == 0) {
+          yChange++;
+        }
+        surroundingLines.add(findLine(xChange, yChange, x, y));
+      }
     }
-    //left
-    List<ITile> left = new ArrayList<>();
-    for (int i = x - 1; i >= 0 ; i--) {
-      left.add(this.findTile(new SquarePosn(i, y)));
-    }
-    //down
-    List<ITile> down = new ArrayList<>();
-    for (int i = y + 1; i < this.boardSize; i++) {
-      down.add(this.findTile(new SquarePosn(x, i)));
-    }
-    //right
-    surroundingLines.add(this.board.get(y).subList(x+1, this.boardSize));
-    surroundingLines.add(up);
-    surroundingLines.add(left);
-    surroundingLines.add(down);
 
     //remove all empty lines
     for (int i = 0; i < surroundingLines.size(); i++) {
@@ -93,5 +81,17 @@ public class SquareReversiModel extends ReversiModel{
     this.board.get(center - 1).get(center).flipTo(p2);
     this.board.get(center).get(center - 1).flipTo(p2);
     this.board.get(center).get(center).flipTo(p1);
+  }
+
+  private List<ITile> findLine(int xChange, int yChange, int x, int y) {
+    x += xChange;
+    y += yChange;
+    List<ITile> line = new ArrayList<>();
+    while (x < this.boardSize && x > 0 && y < this.boardSize && y > 0) {
+      line.add(this.findTile(new SquarePosn(x, y)));
+      x += xChange;
+      y += yChange;
+    }
+    return line;
   }
 }
