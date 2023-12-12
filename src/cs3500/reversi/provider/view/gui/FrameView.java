@@ -1,6 +1,7 @@
 package cs3500.reversi.provider.view.gui;
 
 
+import cs3500.reversi.player.Player;
 import cs3500.reversi.provider.controller.ViewFeatures;
 
 /**
@@ -39,5 +40,5 @@ public interface FrameView {
   /**
    * Sets the title to the given title.
    */
-  void makeTitle(String title);
+  void makeTitle(Player p);
 }

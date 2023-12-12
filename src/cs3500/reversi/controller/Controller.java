@@ -30,12 +30,7 @@ public class Controller implements ReversiController, ViewFeatures {
 
     this.view.addFeatureListener(this);
     this.model.subscribe(this, this.p);
-    if (this.p.toString().equals("X")) {
-      this.view.makeTitle("BLACK");
-    }
-    else {
-      this.view.makeTitle("WHITE");
-    }
+    this.view.makeTitle(this.p);
     this.view.setVisible();
   }
 

@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.ROReversiModel;
+import cs3500.reversi.player.Player;
 import cs3500.reversi.provider.controller.ViewFeatures;
 
 /**
@@ -32,6 +33,7 @@ public class JReversiPanel extends JPanel {
   private HexagonalButton highlightedButton = null;
   private final JLabel clickedCoords;
   private final List<ViewFeatures> featuresListener;
+  private Player currentPlayer;
 
   /**
    * Constructs a ReversiPanel and populates the view with the current board state.
@@ -227,6 +229,15 @@ public class JReversiPanel extends JPanel {
     for (List<HexagonalButton> row : this.board) {
       for (HexagonalButton button : row) {
         button.toggleHints();
+      }
+    }
+  }
+
+  public void setPlayer(Player p) {
+    this.currentPlayer = p;
+    for (List<HexagonalButton> row : this.board) {
+      for (HexagonalButton button : row) {
+        button.setCurrentPlayer(p);
       }
     }
   }

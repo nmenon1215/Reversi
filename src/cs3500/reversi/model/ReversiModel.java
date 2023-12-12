@@ -294,7 +294,7 @@ public abstract class ReversiModel implements MutableReversiModel {
     }
 
     if (!this.getTurn().equals(p)) {
-      throw new IllegalStateException("It is not this players turn.");
+      //throw new IllegalStateException("It is not this players turn.");
     }
 
     ITile placingTile = findTile(posn);

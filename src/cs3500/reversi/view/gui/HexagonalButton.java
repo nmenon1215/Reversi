@@ -30,6 +30,7 @@ public class HexagonalButton extends JButton {
   private List<Integer> coords;
   private ROReversiModel roModel;
   private boolean hints;
+  private Player player;
 
   /**
    * Gives the hexagon the properties to make it filled and look like a hexagon.
@@ -37,6 +38,7 @@ public class HexagonalButton extends JButton {
   public HexagonalButton(List<Integer> coords, ROReversiModel roModel, Player player) {
     this.coords = Objects.requireNonNull(coords);
     this.roModel = roModel;
+    this.player = player;
     if (coords.get(0) + coords.get(1) + coords.get(2) != 0) {
       throw new IllegalArgumentException("Can't create button with illogical coordinates.");
     }
@@ -75,7 +77,7 @@ public class HexagonalButton extends JButton {
     // highlight the chip if it is gray
     if (highlighted && this.buttonColor.equals(Color.DARK_GRAY)) {
       if (hints) {
-        int piecesGained = this.roModel.countPiecesGained(this.roModel.getTurn(),
+        int piecesGained = this.roModel.countPiecesGained(this.player,
                 new HexagonalPosn(this.coords));
         g2d.setColor(BLACK);
         g2d.drawString(Integer.toString(piecesGained), width / 2, height / 2);
@@ -128,4 +130,9 @@ public class HexagonalButton extends JButton {
   public void toggleHints() {
     hints = !hints;
   }
+
+  public void setCurrentPlayer(Player player) {
+    this.player = player;
+  }
+
 }

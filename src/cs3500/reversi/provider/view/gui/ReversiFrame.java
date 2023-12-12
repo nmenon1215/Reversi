@@ -1,5 +1,6 @@
 package cs3500.reversi.provider.view.gui;
 
+import cs3500.reversi.player.Player;
 import cs3500.reversi.provider.controller.ViewFeatures;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -71,7 +72,14 @@ public class ReversiFrame extends JFrame implements FrameView {
    * Sets the title to the given title.
    */
   @Override
-  public void makeTitle(String title) {
-    this.setTitle(title);
+  public void makeTitle(Player p) {
+    if (p.toString().equals("X")) {
+      String title = "BLACK";
+      this.setTitle(title);
+    }
+    else {
+      String title = "WHITE";
+      this.setTitle(title);
+    }
   }
 }
