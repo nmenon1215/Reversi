@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JFrame;
 
-import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.ITile;
+import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.ROReversiModel;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.provider.controller.ViewFeatures;
@@ -23,15 +22,15 @@ import cs3500.reversi.provider.controller.ViewFeatures;
  * A JReversiPanel will draw all the tiles on the board, allow users to click on them,
  * and play the game.
  */
-public class JReversiPanel extends JPanel {
+public abstract class JReversiPanel extends JPanel {
 
-  private final double BOARDWIDTH = 450;
-  private final double BOARDHEIGHT = (int) Math.ceil(Math.sqrt(3) / 2 * BOARDWIDTH);
-  private final ROReversiModel model;
-  private List<List<HexagonalButton>> board;
-  private final int size;
-  private HexagonalButton highlightedButton = null;
-  private final JLabel clickedCoords;
+  protected final double BOARDWIDTH = 450;
+  protected final double BOARDHEIGHT = calculateBoardHeight();
+  protected final ROReversiModel model;
+  protected List<List<ReversiButton>> board;
+  protected final int size;
+  private ReversiButton highlightedButton = null;
+  //private final JLabel clickedCoords;
   private final List<ViewFeatures> featuresListener;
   private Player currentPlayer;
 
@@ -45,9 +44,10 @@ public class JReversiPanel extends JPanel {
     this.size = model.getBoardSize();
     frame.setSize(this.getPreferredSize());
     this.board = new ArrayList<>();
-    clickedCoords = new JLabel("Coords");
-    add(clickedCoords);
-    clickedCoords.setBounds(10, (int) BOARDHEIGHT - 20, 300, 20);
+    //COORDS in bottom of corner might interfere with view in square reversi
+//    clickedCoords = new JLabel("Coords");
+//    add(clickedCoords);
+//    clickedCoords.setBounds(10, (int) BOARDHEIGHT - 20, 300, 20);
     featuresListener = new ArrayList<>();
 
     this.populateBoard();
@@ -74,41 +74,37 @@ public class JReversiPanel extends JPanel {
     double pieceWidth = calculatePieceWidth(BOARDWIDTH);
     double pieceHeight = calculatePieceHeight(BOARDHEIGHT);
     double y = 0;
-    for (int row = 0; row < size * 2 + 1; row++) {
-      List<HexagonalButton> rowOfButtons = new ArrayList<>();
+    for (int row = 0; row < numRows(); row++) {
+      List<ReversiButton> rowOfButtons = new ArrayList<>();
       double x  = startingX(row);
-      for (int col = 0; col < -Math.abs(row - size) + size * 2 + 1; col++) {
-        List<Integer> coord = gridToAxialCoord(row, col);
-        HexagonalButton button = new HexagonalButton(coord, this.model, this.model.getTurn());
-        createListener(button, coord.get(0), coord.get(1), coord.get(2));
-        add(button);
-        button.setBounds((int) x, (int) y, (int) pieceWidth, (int) pieceHeight);
-        rowOfButtons.add(button);
+      System.out.println(numColsInRow(row));
+      for (int col = 0; col < numColsInRow(row); col++) {
+        rowOfButtons.add(createButton(row, col, x, y, pieceWidth, pieceHeight));
         x += pieceWidth;
       }
       this.board.add(rowOfButtons);
-      y += 3 * pieceHeight / 4; // assume positive down
+      y += yChange(pieceHeight);
     }
     updateBoard();
   }
 
-  private void createListener(HexagonalButton button, int q, int r, int s) {
+  protected void createListener(ReversiButton button) {
     button.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         // notify the controller of where this position is
         buttonClicked(button);
-        printCoords(q, r, s);
+        //printCoords(button.getPosn());
         requestFocusInWindow();
       }
     });
   }
 
-  void updateBoard() {
-    for (int row = 0; row < size * 2 + 1; row++) {
+  protected void updateBoard() {
+    for (int row = 0; row < this.board.size(); row++) {
       for (int col = 0; col < board.get(row).size(); col++) {
-        ITile tile = model.getTileAt(new HexagonalPosn(gridToAxialCoord(row, col)));
-        HexagonalButton button = board.get(row).get(col);
+        ITile tile = model.getTileAt(gridToAxialCoord(row, col));
+        ReversiButton button = board.get(row).get(col);
         if (tile.getPlayer() != null) {
           if (tile.getPlayer().toString().equals("X")) {
             button.flipBlack();
@@ -122,27 +118,15 @@ public class JReversiPanel extends JPanel {
   }
 
   // prints the logical coordinates of the clicked tile
-  private void printCoords(int q, int r, int s) {
-    String infoText = String.format("q= %d, r= %d, s= %d", q, r, s);
-    clickedCoords.setText(infoText);
-  }
-
-  private List<Integer> gridToAxialCoord(int row, int col) {
-    int qStart;
-    int r = row - size;
-    if (r < 0) {
-      qStart = -r - size;
-    }
-    else {
-      qStart = -size;
-    }
-    int q = qStart + col;
-    int s = - r - q;
-    return List.of(q, r, s);
+  private void printCoords(Posn posn) {
+    List<Integer> coords = posn.getCoords();
+    String infoText = String.format("q= %d, r= %d, s= %d",
+            coords.get(0), coords.get(1), coords.get(2));
+    //clickedCoords.setText(infoText);
   }
 
   // takes in the button that was clicked
-  private void buttonClicked(HexagonalButton button) {
+  private void buttonClicked(ReversiButton button) {
     if (highlightedButton != null) {
       highlightedButton.setHighlight(false);
     }
@@ -151,26 +135,21 @@ public class JReversiPanel extends JPanel {
     this.repaint();
   }
 
-  private double startingX(int r) {
-    r -= size;
-    if (r < 0) {
-      return -r * calculatePieceWidth(BOARDWIDTH) / 2;
-    } else {
-      return r * calculatePieceWidth(BOARDWIDTH) / 2;
-    }
-  }
+  protected abstract int numRows();
 
-  private double calculatePieceWidth(double boardWidth) {
-    return boardWidth / (size * 2 + 1);
-  }
+  protected abstract int numColsInRow(int row);
 
-  private double calculatePieceHeight(double boardHeight) {
-    return boardHeight * 2 / (size * 3 + 2);
-  }
+  protected abstract double startingX(int r);
 
-  public List<Integer> getHighlighted() {
-    return this.highlightedButton.getCoords();
-  }
+  protected abstract double yChange(double pieceHeight);
+
+  protected abstract double calculatePieceWidth(double boardWidth);
+
+  protected abstract double calculatePieceHeight(double boardHeight);
+
+  protected abstract double calculateBoardHeight();
+
+  protected abstract Posn gridToAxialCoord(int row, int col);
 
   public void addFeatureListener(ViewFeatures features) {
     this.featuresListener.add(Objects.requireNonNull(features));
@@ -187,6 +166,9 @@ public class JReversiPanel extends JPanel {
     updateBoard();
   }
 
+  protected abstract ReversiButton createButton(int row, int col, double x, double y,
+                                                double pieceWidth, double pieceHeight);
+
   private class KeyEventsListener extends KeyAdapter {
 
     /**
@@ -202,9 +184,8 @@ public class JReversiPanel extends JPanel {
       // resets the highlight but does and indicates a move to be made
       if (key.equals('m') || key.equals('\n') || key.equals('M') || key.equals(' ')) {
         if (highlightedButton != null) {
-          List<Integer> coords = highlightedButton.getCoords();
           for (ViewFeatures features : featuresListener) {
-            features.playerMove(new HexagonalPosn(coords));
+            features.playerMove(highlightedButton.getPosn());
           }
 
           deselectAll();
@@ -226,8 +207,8 @@ public class JReversiPanel extends JPanel {
   }
 
   public void toggleHintsForAll() {
-    for (List<HexagonalButton> row : this.board) {
-      for (HexagonalButton button : row) {
+    for (List<ReversiButton> row : this.board) {
+      for (ReversiButton button : row) {
         button.toggleHints();
       }
     }
@@ -235,8 +216,8 @@ public class JReversiPanel extends JPanel {
 
   public void setPlayer(Player p) {
     this.currentPlayer = p;
-    for (List<HexagonalButton> row : this.board) {
-      for (HexagonalButton button : row) {
+    for (List<ReversiButton> row : this.board) {
+      for (ReversiButton button : row) {
         button.setCurrentPlayer(p);
       }
     }

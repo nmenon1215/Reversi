@@ -11,22 +11,12 @@ import cs3500.reversi.provider.view.gui.FrameView;
 /**
  * Represents the background frame.
  */
-public class JFrameReversiView extends JFrame implements FrameView {
+public abstract class JFrameReversiView extends JFrame implements FrameView {
 
-  JReversiPanel panel;
-  
-  /**
-   * Create a background frame.
-   * @param model the model to follow.
-   */
+  protected JReversiPanel panel;
+
   public JFrameReversiView(ROReversiModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    panel = new JReversiPanel(this, model);
-    this.setContentPane(panel);
-    this.setLocationRelativeTo(null);
-    this.setLayout(null);
-    this.pack();
-    this.setFocusable(true);
   }
 
   @Override

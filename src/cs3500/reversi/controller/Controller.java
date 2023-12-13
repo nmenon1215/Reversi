@@ -35,39 +35,6 @@ public class Controller implements ReversiController, ViewFeatures {
     this.view.setVisible();
   }
 
-  //@Override
-  public void start() {
-    this.view.deselectAll();
-    this.view.refresh();
-  }
-
-  @Override
-  public void makeMove(String p) {
-    switch (p) {
-      case "p":
-        try {
-          //Posn move = this.p.placePiece(model, view);
-          //model.placePiece(this.p, move);
-          //view.update();
-        }
-        catch (IllegalArgumentException | IllegalStateException e) {
-          //view.displayException(e);
-        }
-        break;
-      case "s":
-        try {
-          this.model.skip(this.p);
-          //view.update();
-        }
-        catch (IllegalStateException e) {
-          //view.displayException(e);
-        }
-        break;
-      default:
-        // do nothing
-    }
-  }
-
   @Override
   public void startTurn() {
     this.view.deselectAll();
