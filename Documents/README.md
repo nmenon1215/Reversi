@@ -177,3 +177,12 @@ once again, but if it is a User, it will declare its view as the main view.
 #### Working vs. Non-working Features
   - All of the features and strategies are working
   - The different strategies are easy, medium, and hard with the way they stack
+
+## Changes for Extra Credit  
+  - All of the features were implemented
+  - Main changes were made in every model file for level 1
+  - Changes were made in every view file for level 2
+  - Changes were made in HexagonalButton, Jpanel, and JFrame for level 0
+  - Very minimal changes were made for levels 3 and 4
+  - The tests for these changes are in the squareReversiExamples file in tests
+  - The tests for the controller did not change, so they are still in testControllerImplementation
