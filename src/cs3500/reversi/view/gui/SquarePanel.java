@@ -59,6 +59,7 @@ public class SquarePanel extends JReversiPanel{
     createListener(button);
     add(button);
     button.setBounds((int) x, (int) y, (int) pieceWidth, (int) pieceHeight);
+    button.setBorderPainted(true);
     return button;
   }
 }
