@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.model.HexagonalTile;
 import cs3500.reversi.model.ITile;
 import cs3500.reversi.model.MutableReversiModel;
@@ -14,9 +15,12 @@ import cs3500.reversi.model.Posn;
 import cs3500.reversi.model.SquarePosn;
 import cs3500.reversi.model.SquareReversiModel;
 import cs3500.reversi.player.AI;
+import cs3500.reversi.player.AvoidCellsNextToCorners;
 import cs3500.reversi.player.CaptureMaxPieces;
+import cs3500.reversi.player.PlaceAtCorners;
 import cs3500.reversi.player.Player;
 import cs3500.reversi.player.User;
+import cs3500.reversi.view.gui.ReversiView;
 import cs3500.reversi.view.textual.SquareReversiTextualView;
 
 /**
@@ -30,7 +34,17 @@ public class SquareReversiExamples {
   SquareReversiTextualView bigTv;
   MutableReversiModel smallModel;
   SquareReversiTextualView smallTv;
+  MutableReversiModel medModel;
+  SquareReversiTextualView medTv;
   ITile tile;
+  Player aiMax;
+  Player aiNoCorners;
+  Player aiCorners;
+  Player aiMaxPriority;
+  Player aiNoCorPriority;
+  Player aiCornerPriority;
+  Player p1AiCorners;
+  ReversiView view;
 
   @Before
   public void init() {
@@ -40,7 +54,20 @@ public class SquareReversiExamples {
     bigTv = new SquareReversiTextualView(bigModel, System.out);
     smallModel = new SquareReversiModel(new ArrayList(List.of(p1, p2)), 4);
     smallTv = new SquareReversiTextualView(smallModel, System.out);
+    medModel = new SquareReversiModel(new ArrayList<>(List.of(p1, p2)), 6);
+    medTv = new SquareReversiTextualView(medModel, System.out);
     tile = new HexagonalTile(new SquarePosn(0, 0));
+
+    aiMax = new AI('O', new ArrayList<>(List.of(new CaptureMaxPieces())));
+    aiNoCorners = new AI('O', new ArrayList<>(List.of(new AvoidCellsNextToCorners())));
+    aiCorners = new AI('O', new ArrayList<>(List.of(new PlaceAtCorners())));
+    aiMaxPriority = new AI('O', new ArrayList<>(List.of(new CaptureMaxPieces(),
+            new PlaceAtCorners())));
+    aiNoCorPriority = new AI('O', new ArrayList<>(List.of(new AvoidCellsNextToCorners(),
+            new CaptureMaxPieces())));
+    aiCornerPriority = new AI('O', new ArrayList<>(List.of(new PlaceAtCorners(),
+            new CaptureMaxPieces())));
+    p1AiCorners = new AI('X', new ArrayList<>(List.of(new PlaceAtCorners())));
   }
 
   @Test
@@ -572,5 +599,95 @@ public class SquareReversiExamples {
   public void getCoorsReturnsCoordinatesInCorrectOrder() {
     Posn increasing = new SquarePosn(1, 2);
     Assert.assertEquals(List.of(1, 2), increasing.getCoords());
+  }
+
+  ///////////////////////////////
+  ///// Testing Strategies  /////
+  ///////////////////////////////
+
+  // TESTING CaptureMaxPieces Strategy
+  @Test
+  public void choosesMoveWithMoreTilesToBeFlipped() {
+    bigModel.placePiece(p1, new SquarePosn(4, 2));
+    bigModel.placePiece(aiMax, new SquarePosn(5, 4));
+    bigModel.placePiece(p1, new SquarePosn(6, 5));
+
+    Assert.assertEquals(new SquarePosn(4, 1), aiMax.placePiece(bigModel, view));
+  }
+
+  @Test
+  public void topLeftOptionChosenWhenMaxNumberTies() {
+    smallModel.placePiece(p1, new SquarePosn(2, 0));
+    smallModel.placePiece(aiMax, new SquarePosn(3, 0));
+    smallModel.placePiece(p1, new SquarePosn(3, 1));
+    Assert.assertEquals(new SquarePosn(1, 0), aiMax.placePiece(smallModel, view));
+  }
+
+  // TESTING AvoidCellsNextToCorners Strategy
+  @Test
+  public void aiChoosesMoveNotNextToCorner() {
+    medModel.placePiece(p1, new SquarePosn(1, 3));
+    medModel.placePiece(aiNoCorners, new SquarePosn(1, 2));
+    medModel.placePiece(p1, new SquarePosn(1, 1));
+    medModel.placePiece(aiNoCorners, new SquarePosn(0, 2));
+    medModel.placePiece(p1, new SquarePosn(4, 1));
+    Assert.assertNotEquals(new SquarePosn(1, 0), aiNoCorners.placePiece(medModel, view));
+    Assert.assertEquals(new SquarePosn(0, 0), aiNoCorners.placePiece(medModel, view));
+  }
+
+  // TESTING PlaceAtCorners
+  @Test
+  public void aiChoosesToPlaceAPieceInCorner() {
+    smallModel.placePiece(p1, new SquarePosn(2, 0));
+    Assert.assertEquals(new SquarePosn(3, 0), aiCornerPriority.placePiece(smallModel, view));
+  }
+
+  @Test
+  public void aiChoosesTopLeftCornerOptionInTie() {
+    smallModel.placePiece(p1AiCorners, new SquarePosn(2, 0));
+    smallModel.placePiece(aiCornerPriority, new SquarePosn(1, 0));
+    smallModel.placePiece(p1AiCorners, new SquarePosn(0, 2));
+    smallModel.placePiece(aiCornerPriority, new SquarePosn(1, 3));
+    Assert.assertEquals(new SquarePosn(0,0), p1AiCorners.placePiece(smallModel, view));
+    Assert.assertNotEquals(new SquarePosn(0,3), p1AiCorners.placePiece(smallModel, view));
+  }
+
+
+  // TESTING CaptureMaxPieces as Priority Strategy
+  @Test
+  public void capturesMaxNumberOfPiecesWhenPresentedWithCornerMove() {
+    medModel.placePiece(p1, new SquarePosn(1, 3));
+    medModel.placePiece(aiMaxPriority, new SquarePosn(1, 2));
+    medModel.placePiece(p1, new SquarePosn(1, 1));
+    medModel.placePiece(aiMaxPriority, new SquarePosn(0, 2));
+    medModel.placePiece(p1, new SquarePosn(2, 1));
+    medModel.placePiece(aiMaxPriority, new SquarePosn(3, 4));
+    medModel.placePiece(p1, new SquarePosn(4, 3));
+    medModel.placePiece(aiMaxPriority, new SquarePosn(4,2));
+    medModel.placePiece(p1, new SquarePosn(4, 1));
+    Assert.assertEquals(new SquarePosn(5, 2), aiMaxPriority.placePiece(medModel,view));
+    Assert.assertNotEquals(new SquarePosn(0, 0), aiMaxPriority.placePiece(medModel, view));
+  }
+
+  @Test
+  public void picksCornerIfTiedWithMaxPieces() {
+    smallModel.placePiece(p1, new SquarePosn(2, 0));
+    Assert.assertEquals(new SquarePosn(3, 0), aiCornerPriority.placePiece(smallModel, view));
+  }
+
+  // TESTING PlaceAtCorners as Priority Strategy
+  @Test
+  public void willPlaceInCornerEvenIfItWontCaptureMaxPieces() {
+    medModel.placePiece(p1, new SquarePosn(1, 3));
+    medModel.placePiece(aiCornerPriority, new SquarePosn(1, 2));
+    medModel.placePiece(p1, new SquarePosn(1, 1));
+    medModel.placePiece(aiCornerPriority, new SquarePosn(0, 2));
+    medModel.placePiece(p1, new SquarePosn(2, 1));
+    medModel.placePiece(aiCornerPriority, new SquarePosn(3, 4));
+    medModel.placePiece(p1, new SquarePosn(4, 3));
+    medModel.placePiece(aiCornerPriority, new SquarePosn(4, 2));
+    medModel.placePiece(p1, new SquarePosn(4, 1));
+    Assert.assertNotEquals(new SquarePosn(5, 2), aiCornerPriority.placePiece(medModel, view));
+    Assert.assertEquals(new SquarePosn(0, 0), aiCornerPriority.placePiece(medModel, view));
   }
 }
