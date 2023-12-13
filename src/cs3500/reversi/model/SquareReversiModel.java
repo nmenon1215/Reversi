@@ -87,7 +87,7 @@ public class SquareReversiModel extends ReversiModel{
     x += xChange;
     y += yChange;
     List<ITile> line = new ArrayList<>();
-    while (x < this.boardSize && x > 0 && y < this.boardSize && y > 0) {
+    while (x < this.boardSize && x >= 0 && y < this.boardSize && y >= 0) {
       line.add(this.findTile(new SquarePosn(x, y)));
       x += xChange;
       y += yChange;
