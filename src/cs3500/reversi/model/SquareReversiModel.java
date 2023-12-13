@@ -25,9 +25,9 @@ public class SquareReversiModel extends ReversiModel{
   public List<Posn> getCorners() {
     List<Posn> corners = new ArrayList<>();
     corners.add(this.board.get(0).get(0).getPosition());
-    corners.add(this.board.get(0).get(this.boardSize).getPosition());
-    corners.add(this.board.get(this.boardSize).get(0).getPosition());
-    corners.add(this.board.get(this.boardSize).get(this.boardSize).getPosition());
+    corners.add(this.board.get(0).get(this.boardSize - 1).getPosition());
+    corners.add(this.board.get(this.boardSize - 1).get(0).getPosition());
+    corners.add(this.board.get(this.boardSize - 1).get(this.boardSize - 1).getPosition());
 
     return corners;
   }
