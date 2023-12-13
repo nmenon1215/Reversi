@@ -77,7 +77,6 @@ public abstract class JReversiPanel extends JPanel {
     for (int row = 0; row < numRows(); row++) {
       List<ReversiButton> rowOfButtons = new ArrayList<>();
       double x  = startingX(row);
-      System.out.println(numColsInRow(row));
       for (int col = 0; col < numColsInRow(row); col++) {
         rowOfButtons.add(createButton(row, col, x, y, pieceWidth, pieceHeight));
         x += pieceWidth;
