@@ -1,5 +1,6 @@
 package cs3500.reversi.provider.view.gui;
 
+import cs3500.reversi.model.HexagonalPosn;
 import cs3500.reversi.provider.cell.HexagonCell;
 import cs3500.reversi.provider.controller.ViewFeatures;
 import java.awt.Color;
@@ -306,7 +307,7 @@ public class ReversiPanel extends JPanel implements PanelView {
           int rowPos = hex.getRowPos();
 
           for (ViewFeatures features : featuresListener) {
-            features.playerMove(diagonalPos, rowPos);
+            features.playerMove(new HexagonalPosn(diagonalPos, rowPos));
           }
 
           deselectAll();

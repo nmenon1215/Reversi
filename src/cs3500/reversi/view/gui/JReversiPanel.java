@@ -204,7 +204,7 @@ public class JReversiPanel extends JPanel {
         if (highlightedButton != null) {
           List<Integer> coords = highlightedButton.getCoords();
           for (ViewFeatures features : featuresListener) {
-            features.playerMove(coords.get(0), coords.get(1));
+            features.playerMove(new HexagonalPosn(coords));
           }
 
           deselectAll();

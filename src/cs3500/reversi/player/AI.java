@@ -91,12 +91,13 @@ public class AI implements Player {
 
   @Override
   public void notifyController(ROReversiModel model) {
-    if (model.hasLegalMoves(this)) {
-      Posn posn = this.placePiece(model, null);
-      this.controller.playerMove(posn.getCoords().get(0), posn.getCoords().get(1));
-    }
-    else {
-      this.controller.playerPass();
+    if(this.controller != null) {
+      if (model.hasLegalMoves(this)) {
+        Posn posn = this.placePiece(model, null);
+        this.controller.playerMove(posn);
+      } else {
+        this.controller.playerPass();
+      }
     }
   }
 
